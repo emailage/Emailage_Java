@@ -29,7 +29,7 @@ import com.emailage.javawrapper.model.ExtraInputParameter;
 public class EmailageClient {
 	/* Email Query Endpoint */
 	/* SANDBOX Environment */
-	private static final String RequestBaseUrlSand = "https://api.emailage.com/emailagevalidator/";
+	private static final String RequestBaseUrlSand = "https://sandbox.emailage.com/emailagevalidator/";
 
 	/* PRODUCTION Environment */
 	private static final String RequestBaseUrlProd = "https://api.emailage.com/emailagevalidator/";
@@ -52,6 +52,8 @@ public class EmailageClient {
 	 * Info.
 	 */
 	private static final String AuthToken = "INPUT--KEY";
+	
+	private static Enums.FraudFlag FraudType;
 
 	/**
 	 * This method is used to query an Email Address.
@@ -181,6 +183,8 @@ public class EmailageClient {
 				+ "&fraudcodeID=" + fraudCodeID
 				// Specify Fraud Type: Fraud or Good
 				+ "&flag=" + fraudType;
+		
+		FraudType = fraudType;
 
 		return PostQuery(environment, APIUrl.MarkAsFraud, query, resultFormat, hashAlgorithm, user_email);
 	}
@@ -203,7 +207,13 @@ public class EmailageClient {
 		else if (environment == Enums.Environment.Sandbox && endpoint == APIUrl.MarkAsFraud)
 			endpointurl = RequestBaseFraudUrlSand;
 
-		String oriUrl = endpointurl + "?format=" + resultFormat;
+		String oriUrl;
+		if ( endpoint == APIUrl.MarkAsFraud){
+			oriUrl = endpointurl + "?flag="+ FraudType.toString()+"&format=" + resultFormat;
+
+		} else {
+			oriUrl = endpointurl + "?format=" + resultFormat;
+		}
 
 		if (user_email != null && user_email.trim().length() > 0) {
 			oriUrl = oriUrl + "&user_email=" + user_email;
@@ -213,7 +223,7 @@ public class EmailageClient {
 		// capability of supporting get too.
 		String requestUrl = OAuth.getUrl("POST", hashAlgorithmString, oriUrl, AccountSID, AuthToken);
 
-		System.out.print("requestUrl: " + requestUrl);
+		System.out.println("requestUrl: " + requestUrl);
 
 		/* POST value */
 		byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
