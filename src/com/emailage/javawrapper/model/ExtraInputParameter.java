@@ -133,13 +133,13 @@ public class ExtraInputParameter {
 		phone = value;
 	}
 
-	private String transamount = new String();
+	private double transamount;
 
-	public String gettransamount() {
+	public double gettransamount() {
 		return transamount;
 	}
 
-	public void settransamount(String value) {
+	public void settransamount(double value) {
 		transamount = value;
 	}
 
@@ -163,13 +163,13 @@ public class ExtraInputParameter {
 		transorigin = value;
 	}
 
-	private String existingcustomer = new String();
+	private boolean existingcustomer;
 
-	public String getexistingcustomer() {
+	public boolean getexistingcustomer() {
 		return existingcustomer;
 	}
 
-	public void setexistingcustomer(String value) {
+	public void setexistingcustomer(boolean value) {
 		existingcustomer = value;
 	}
 
@@ -301,12 +301,12 @@ public class ExtraInputParameter {
 		return service_location;
 	}
 
-	private String time_to_service = new String();
+	private int time_to_service;
 	
-	public void settime_to_service(String value) {
+	public void settime_to_service(int value) {
 		time_to_service = value;
 	}	
-	public String gettime_to_service() {
+	public int gettime_to_service() {
 		return time_to_service;
 	}
 	
@@ -375,8 +375,9 @@ public class ExtraInputParameter {
 		ExtraInputParameter extra = new ExtraInputParameter();
 		extra.setacceptlang("yes");
 		extra.setbillcity("chandler");
-		extra.setisregression("true");
-		extra.settransamount("11111.11122");
+		extra.setexistingcustomer(false);
+		extra.settransamount(11111.11122);
+		extra.settime_to_service(1123);
 		System.out.println(extra.buildExtraInputParameterRequest());
 	}
 
