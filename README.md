@@ -9,6 +9,7 @@ The Emailage&#8482; API is organized around REST (Representational State Transfe
 ### Requirements
 
 * JVM 1.7 and above
+* [Apache Commons Validator](https://commons.apache.org/proper/commons-validator)
 
 ### Installation
 

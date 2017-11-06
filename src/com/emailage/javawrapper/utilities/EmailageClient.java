@@ -12,8 +12,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Enumeration;
-import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,7 +38,16 @@ public class EmailageClient {
 
 	/* PRODUCTION Environment */
 	private static final String RequestBaseFraudUrlProd = "https://api.emailage.com/emailageValidator/flag/";
+	
+	/* 
+	 * Defaults to validating params before querying API 
+	 * Note: Uses Apache Commons validator for validation of email and IP.  Must include this library for validation to work
+	 * Please see documentation here : https://commons.apache.org/proper/commons-validator/
+	 * You can disable this by setting to false
+	 */
+	private static final boolean validateEmailAndIpInClient = true;
 
+	
 	/*
 	 * ACCOUNT SID. You can find the Account SID in the Settings menu -> API Key
 	 * Info.
@@ -71,7 +78,14 @@ public class EmailageClient {
 	 * @return Result of the API call.
 	 */
 	public static String QueryEmail(String email, Enums.Format resultFormat, Enums.SignatureMethod hashAlgorithm,
-			String user_email, Enums.Environment environment) throws UnsupportedEncodingException, IOException {
+			String user_email, Enums.Environment environment) throws UnsupportedEncodingException, IOException, IllegalArgumentException {
+
+		try {
+			validateParams(email);
+		} catch (IllegalArgumentException e) {
+			throw e;
+		}
+		
 		String query = "query=" + java.net.URLEncoder.encode(email, "UTF-8");
 
 		return PostQuery(environment, APIUrl.Query, query, resultFormat, hashAlgorithm, user_email);
@@ -96,7 +110,14 @@ public class EmailageClient {
 	 */
 	public static String QueryEmailAndIP(String email, String IP, Enums.Format resultFormat,
 			Enums.SignatureMethod hashAlgorithm, String user_email, Enums.Environment environment)
-			throws UnsupportedEncodingException, IOException {
+			throws UnsupportedEncodingException, IOException, IllegalArgumentException {
+		
+		try {
+			validateParams(email, IP);
+		} catch (IllegalArgumentException e) {
+			throw e;
+		}
+
 		String query = "query=" + java.net.URLEncoder.encode(email + "+" + IP, "UTF-8");
 
 		return PostQuery(environment, APIUrl.Query, query, resultFormat, hashAlgorithm, user_email);
@@ -124,7 +145,13 @@ public class EmailageClient {
 	 */
 	public static String QueryEmailAndIPPlusExtraArgs(String email, String IP, ExtraInputParameter extraArgs,
 			Enums.Format resultFormat, Enums.SignatureMethod hashAlgorithm, String user_email, Enums.Environment environment)
-			throws UnsupportedEncodingException, IOException {
+			throws UnsupportedEncodingException, IOException, IllegalArgumentException {
+
+		try {
+			validateParams(email, IP);
+		} catch (IllegalArgumentException e) {
+			throw e;
+		}
 
 		String query = "query=" + java.net.URLEncoder.encode(email + "+" + IP, "UTF-8");
 
@@ -308,6 +335,25 @@ public class EmailageClient {
 		m.appendTail(buf);
 		return buf;
 	}
+	
+	private static boolean validateParams(String email) throws IllegalArgumentException {
+		if (validateEmailAndIpInClient && !Validation.validateEmail(email)) {
+			throw new IllegalArgumentException("Email supplied is not valid : " + email);
+		}
+		return true;
+	}
+
+	private static boolean validateParams(String email, String ipAddress) throws IllegalArgumentException {
+		if (validateEmailAndIpInClient) {
+			if (!Validation.validateEmail(email)) {
+				throw new IllegalArgumentException("Email supplied is not valid : " + email);
+			} else if (!Validation.validateIpAddress(ipAddress)) {
+				throw new IllegalArgumentException("Ip Address supplied is not a valid ipv4 or ipv6 address : " + email);
+			}
+		}
+		return true;
+	}
+
 
 	static enum APIUrl {
 		Query, MarkAsFraud;
