@@ -20,17 +20,27 @@ public class UnitTest {
 
 	@Test
 	public void testIpValidation() {
+		
+		//IPV4
 		assertTrue(Validation.validateIpAddress("123.123.123.123"));
 		assertTrue(Validation.validateIpAddress("255.123.123.123"));
-		assertFalse(Validation.validateIpAddress("256.123.123.123"));
-		assertFalse(Validation.validateIpAddress("256.123.123.0"));
 		assertTrue(Validation.validateIpAddress("0.0.0.0"));
 		assertTrue(Validation.validateIpAddress("1.0.0.255"));
+		
+		assertFalse(Validation.validateIpAddress("256.123.123.123"));
+		assertFalse(Validation.validateIpAddress("256.123.123.0"));
+		
+		//IPV6
 		assertTrue(Validation.validateIpAddress("2001:db8::1"));
 		assertTrue(Validation.validateIpAddress("2001:0db8::0001"));
 		assertTrue(Validation.validateIpAddress("2001:db8:0:0:0:0:2:1"));
 		assertTrue(Validation.validateIpAddress("::"));
 		assertTrue(Validation.validateIpAddress("0:0:0:0:0:0:0:0"));
+
+		assertFalse(Validation.validateIpAddress("0:0:0:0:0:0:0:z"));
+		assertFalse(Validation.validateIpAddress("jklsdf"));
+		assertFalse(Validation.validateIpAddress("g:0:0:0:0:0:0:0"));
+		assertFalse(Validation.validateIpAddress("0:0:0:0:ab:0:1"));
 	}
 
 	@Test
