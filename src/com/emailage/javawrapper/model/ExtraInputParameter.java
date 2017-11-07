@@ -23,6 +23,16 @@ public class ExtraInputParameter {
 		lastname = value;
 	}
 
+	private String billaddress = new String();
+
+	public String getbilladdress() {
+		return billaddress;
+	}
+
+	public void setbilladdress(String value) {
+		billaddress = value;
+	}
+
 	private String billcity = new String();
 
 	public String getbillcity() {
@@ -123,13 +133,13 @@ public class ExtraInputParameter {
 		phone = value;
 	}
 
-	private String transamount = new String();
+	private double transamount;
 
-	public String gettransamount() {
+	public double gettransamount() {
 		return transamount;
 	}
 
-	public void settransamount(String value) {
+	public void settransamount(double value) {
 		transamount = value;
 	}
 
@@ -153,13 +163,13 @@ public class ExtraInputParameter {
 		transorigin = value;
 	}
 
-	private String existingcustomer = new String();
+	private boolean existingcustomer;
 
-	public String getexistingcustomer() {
+	public boolean getexistingcustomer() {
 		return existingcustomer;
 	}
 
-	public void setexistingcustomer(String value) {
+	public void setexistingcustomer(boolean value) {
 		existingcustomer = value;
 	}
 
@@ -183,34 +193,14 @@ public class ExtraInputParameter {
 		acceptlang = value;
 	}
 
-	private String partnerId = new String();
+	private String customerid = new String();
 
-	public String getpartnerId() {
-		return partnerId;
+	public String getcustomerid() {
+		return customerid;
 	}
 
-	public void setpartnerId(String value) {
-		partnerId = value;
-	}
-
-	private String transidentifier = new String();
-
-	public String gettransidentifier() {
-		return transidentifier;
-	}
-
-	public void settransidentifier(String value) {
-		transidentifier = value;
-	}
-
-	private String customeridentifier = new String();
-
-	public String getcustomeridentifier() {
-		return customeridentifier;
-	}
-
-	public void setcustomeridentifier(String value) {
-		customeridentifier = value;
+	public void setcustomerid(String value) {
+		customerid = value;
 	}
 
 	private String urid = new String();
@@ -223,15 +213,7 @@ public class ExtraInputParameter {
 		urid = value;
 	}
 
-	private String isregression = new String();
 
-	public String getisregression() {
-		return isregression;
-	}
-
-	public void setisregression(String value) {
-		isregression = value;
-	}
 
 	private String deviceid = new String();
 
@@ -253,6 +235,16 @@ public class ExtraInputParameter {
 		devicesource = value;
 	}
 
+	private String response_language = new String();
+
+	public String getresponse_language() {
+		return response_language;
+	}
+
+	public void setresponse_language(String value) {
+		response_language = value;
+	}
+
 	private String user_email = new String();
 
 	public String getuser_email() {
@@ -263,6 +255,91 @@ public class ExtraInputParameter {
 		user_email = value;
 	}
 
+	private String secondary_email = new String();
+
+	public void setsecondary_email(String value) {
+		secondary_email = value;
+	}
+	public String getsecondary_email() {
+		return secondary_email;
+	}
+
+	private String service_category = new String();
+	
+	public void setservice_category(String value) {
+		service_category = value;
+	}
+	public String getservice_category() {
+		return service_category;
+	}
+
+	
+	private String service_date = new String();
+	
+	public void setservice_date(String value) {
+		service_date = value;
+	}
+	public String getservice_date() {
+		return service_date;
+	}
+
+	private String service_detail = new String();
+	
+	public void setservice_detail(String value) {
+		service_detail = value;
+	}
+	public String getservice_detail() {
+		return service_detail;
+	}
+	
+	private String service_location = new String();
+	
+	public void setservice_location(String value) {
+		service_location = value;
+	}
+	public String getservice_location() {
+		return service_location;
+	}
+
+	private int time_to_service;
+	
+	public void settime_to_service(int value) {
+		time_to_service = value;
+	}	
+	public int gettime_to_service() {
+		return time_to_service;
+	}
+	
+	private String delivery_type = new String();
+	
+	public void setdelivery_type(String value) {
+		delivery_type = value;
+	}	
+	public String getdelivery_type() {
+		return delivery_type;
+	}
+
+
+	private String custom1 = new String();
+	
+	public void setcustom1(String value) {
+		custom1 = value;
+	}	
+	public String getcustom1() {
+		return custom1;
+	}
+
+
+	private String custom2 = new String();
+	
+	public void setcustom2(String value) {
+		custom2 = value;
+	}	
+	public String getcustom2() {
+		return custom2;
+	}
+	
+	
 	public String buildExtraInputParameterRequest() throws Exception {
 		StringBuilder sb = new StringBuilder();
 		for (Field prop : ExtraInputParameter.class.getDeclaredFields()) {
@@ -298,8 +375,9 @@ public class ExtraInputParameter {
 		ExtraInputParameter extra = new ExtraInputParameter();
 		extra.setacceptlang("yes");
 		extra.setbillcity("chandler");
-		extra.setisregression("true");
-		extra.settransamount("11111.11122");
+		extra.setexistingcustomer(false);
+		extra.settransamount(11111.11122);
+		extra.settime_to_service(1123);
 		System.out.println(extra.buildExtraInputParameterRequest());
 	}
 
