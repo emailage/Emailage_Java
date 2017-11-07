@@ -30,7 +30,7 @@ public class ExtraInputParameter {
 	}
 
 	public void setbilladdress(String value) {
-		billaddress = billaddress;
+		billaddress = value;
 	}
 
 	private String billcity = new String();
