@@ -369,16 +369,4 @@ public class ExtraInputParameter {
 		return sb.toString();
 	}
 
-	public static void main(String[] args) throws Exception {
-		// test function for the utility class.
-
-		ExtraInputParameter extra = new ExtraInputParameter();
-		extra.setacceptlang("yes");
-		extra.setbillcity("chandler");
-		extra.setexistingcustomer(false);
-		extra.settransamount(11111.11122);
-		extra.settime_to_service(1123);
-		System.out.println(extra.buildExtraInputParameterRequest());
-	}
-
 }
