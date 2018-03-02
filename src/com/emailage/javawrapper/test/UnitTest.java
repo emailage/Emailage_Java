@@ -152,8 +152,14 @@ public class UnitTest {
 		input.setuseragent("iphone");
 		assertEquals(input.getuseragent(), "iphone");
 
+		input.setcardFirstSix("123456");
+		assertEquals(input.getcardFirstSix(), "123456");
+
+		input.sethashedCardNumber("hashedcardnumberhere");
+		assertEquals(input.gethashedCardNumber(), "hashedcardnumberhere");
+		
 		String request = input.buildExtraInputParameterRequest();
-		assertEquals(request, "&firstname=john&lastname=smith&billaddress=123 Main St&billcity=Scottsdale&billregion=AZ&billpostal=85255&billcountry=US&shipaddress=add 1&shipcity=houston&shipregion=az&shippostal=12345&shipcountry=us&phone=4805555555&transamount=23.200000&transcurrency=USD&transorigin=us&existingcustomer=true&useragent=iphone&acceptlang=en&customerid=2341242&urid=123124156&deviceid=12345&devicesource=iphone&response_language=en&user_email=abc123@gmail.com&secondary_email=junit@junit.com&service_category=cat1&service_date=2018-10-28T22:15:00+00:00&service_detail=aaa&service_location=bbb&delivery_type=sdf&custom1=custom1&custom2=cust2");
+		assertEquals(request, "&firstname=john&lastname=smith&billaddress=123 Main St&billcity=Scottsdale&billregion=AZ&billpostal=85255&billcountry=US&shipaddress=add 1&shipcity=houston&shipregion=az&shippostal=12345&shipcountry=us&phone=4805555555&transamount=23.200000&transcurrency=USD&transorigin=us&existingcustomer=true&useragent=iphone&acceptlang=en&customerid=2341242&urid=123124156&deviceid=12345&devicesource=iphone&response_language=en&user_email=abc123@gmail.com&secondary_email=junit@junit.com&service_category=cat1&service_date=2018-10-28T22:15:00+00:00&service_detail=aaa&service_location=bbb&delivery_type=sdf&custom1=custom1&custom2=cust2&cardFirstSix=123456&hashedCardNumber=hashedcardnumberhere");
 	}
 
 
