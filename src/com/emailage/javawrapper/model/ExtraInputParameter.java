@@ -339,6 +339,25 @@ public class ExtraInputParameter {
 		return custom2;
 	}
 	
+	private String cardFirstSix = new String();
+	
+	public void setcardFirstSix(String value) {
+		cardFirstSix = value;
+	}	
+	public String getcardFirstSix() {
+		return cardFirstSix;
+	}
+	
+	private String hashedCardNumber = new String();
+	
+	public void sethashedCardNumber(String value) {
+		hashedCardNumber = value;
+	}	
+	public String gethashedCardNumber() {
+		return hashedCardNumber;
+	}	
+	
+	
 	
 	public String buildExtraInputParameterRequest() throws Exception {
 		StringBuilder sb = new StringBuilder();
