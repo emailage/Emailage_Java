@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 
+import com.emailage.javawrapper.model.EmailageApiRequestException;
 import com.emailage.javawrapper.model.EmailageParameterException;
 import com.emailage.javawrapper.model.Enums;
 import com.emailage.javawrapper.model.ExtraInputParameter;
@@ -87,7 +88,7 @@ public class EmailageClient {
 	 */
 	public static String QueryEmail(String email, Enums.Format resultFormat, Enums.SignatureMethod hashAlgorithm,
 			String user_email, Enums.Environment environment)
-			throws IOException, IllegalArgumentException {
+			throws IOException, IllegalArgumentException, EmailageApiRequestException {
 
 		validateParams(email);
 		String query = "query=" + java.net.URLEncoder.encode(email, "UTF-8");
@@ -115,7 +116,7 @@ public class EmailageClient {
 	 */
 	public static String QueryEmailAndIP(String email, String IP, Enums.Format resultFormat,
 			Enums.SignatureMethod hashAlgorithm, String user_email, Enums.Environment environment)
-			throws IOException, IllegalArgumentException {
+			throws IOException, IllegalArgumentException, EmailageApiRequestException {
 
 		validateParams(email, IP);
 		String query = "query=" + java.net.URLEncoder.encode(email + "+" + IP, "UTF-8");
@@ -146,7 +147,7 @@ public class EmailageClient {
 	 */
 	public static String QueryEmailAndIPPlusExtraArgs(String email, String IP, ExtraInputParameter extraArgs,
 			Enums.Format resultFormat, Enums.SignatureMethod hashAlgorithm, String user_email, Enums.Environment environment)
-			throws IOException, EmailageParameterException {
+			throws IOException, EmailageParameterException, EmailageApiRequestException {
 
 		validateParams(email, IP);
 		String query = "query=" + java.net.URLEncoder.encode(email + "+" + IP, "UTF-8");
@@ -181,7 +182,7 @@ public class EmailageClient {
 	 */
 	public static String MarkEmailAsFraud(String email, Enums.FraudType fraudType, Enums.FraudCode fraudCode,
 										  Enums.Format resultFormat, Enums.SignatureMethod hashAlgorithm, String user_email,
-										  Enums.Environment environment) throws IOException {
+										  Enums.Environment environment) throws IOException, EmailageApiRequestException {
 
 		// Option #1 Email+IP
 		String query = "query=" + java.net.URLEncoder.encode(email, "UTF-8")
@@ -196,7 +197,7 @@ public class EmailageClient {
 
 	private static String PostQuery(Enums.Environment environment, APIUrl endpoint, String urlParameters,
 			Enums.Format format, Enums.SignatureMethod hashAlgorithm, String user_email, Enums.FraudType fraudType)
-			throws IOException {
+			throws IOException, EmailageApiRequestException {
 
 		String resultFormat = format.toString();
 
@@ -241,9 +242,6 @@ public class EmailageClient {
 
 		// create an object for return
 		StringBuilder answer = new StringBuilder();
-		DataOutputStream wr = null;
-		BufferedWriter writer = null;
-		BufferedReader input = null;
 
 		try {
 			double version = Double.parseDouble(System.getProperty("java.specification.version"));
@@ -269,34 +267,25 @@ public class EmailageClient {
 			conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
 			conn.setDoOutput(true);
 
-			wr = new DataOutputStream(conn.getOutputStream());
-			writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
 			String value = new String(postData, "UTF-8");
-			writer.write(value);
-			writer.close();
-			wr.close();
+			try(
+					DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"))
+			){
+				writer.write(value);
+			}
+
 
 			Charset charset = Charset.forName("UTF-8");
-			input = new BufferedReader(new InputStreamReader(conn.getInputStream(), charset));
-
-			String str;
-			while (null != (str = input.readLine())) {
-				answer.append(str);
+			try (BufferedReader input = new BufferedReader(new InputStreamReader(conn.getInputStream(), charset))){
+				String str;
+				while (null != (str = input.readLine())) {
+					answer.append(str);
+				}
 			}
-			input.close();
 
 		} catch (IOException | NoSuchAlgorithmException | KeyManagementException e1) {
-			e1.printStackTrace();
-		} finally {
-			if (writer != null) {
-				writer.close();
-			}
-			if (wr != null) {
-				wr.close();
-			}
-			if (input != null) {
-				input.close();
-			}
+			throw new EmailageApiRequestException("Could not complete API request",e1);
 		}
 
 		return removeUTFCharacters(answer.toString()).toString();
