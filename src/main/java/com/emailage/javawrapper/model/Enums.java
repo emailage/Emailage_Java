@@ -19,7 +19,7 @@ public class Enums {
 		}
 	}
 
-	public enum FraudFlag {
+	public enum FraudType {
 		Good, Fraud, Neutral;
 
 		@Override
