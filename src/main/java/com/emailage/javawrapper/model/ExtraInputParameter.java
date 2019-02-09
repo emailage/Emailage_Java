@@ -360,31 +360,35 @@ public class ExtraInputParameter {
 	
 	
 	public String buildExtraInputParameterRequest()
-			throws IllegalArgumentException, IllegalAccessException {
+			throws EmailageParameterException {
 		StringBuilder sb = new StringBuilder();
-		for (Field prop : ExtraInputParameter.class.getDeclaredFields()) {
-			if (prop.getType().getSimpleName().equals("String")) {
-				prop.setAccessible(true);
+		try {
+			for (Field prop : ExtraInputParameter.class.getDeclaredFields()) {
+				if (prop.getType().getSimpleName().equals("String")) {
+					prop.setAccessible(true);
 
-				String strValue = (String) prop.get(this);
-				if (!strValue.equals("")) {
-					sb.append(String.format("&%s=%s", prop.getName(), strValue));
+					String strValue = (String) prop.get(this);
+					if (!strValue.equals("")) {
+						sb.append(String.format("&%s=%s", prop.getName(), strValue));
+					}
+
+				}
+				// below two statements are not used for now unless we want to add
+				// the support
+				// of the types other string.
+				else if (prop.getType().toString().equals("boolean")) {
+					prop.setAccessible(true);
+					boolean value = (boolean) prop.get(this);
+					sb.append(String.format("&%s=%b", prop.getName(), value));
+				} else if (prop.getType().toString().equals("double")) {
+					prop.setAccessible(true);
+					double value = (double) prop.get(this);
+					sb.append(String.format("&%s=%f", prop.getName(), value));
 				}
 
 			}
-			// below two statements are not used for now unless we want to add
-			// the support
-			// of the types other string.
-			else if (prop.getType().toString().equals("boolean")) {
-				prop.setAccessible(true);
-				boolean value = (boolean) prop.get(this);
-				sb.append(String.format("&%s=%b", prop.getName(), value));
-			} else if (prop.getType().toString().equals("double")) {
-				prop.setAccessible(true);
-				double value = (double) prop.get(this);
-				sb.append(String.format("&%s=%f", prop.getName(), value));
-			}
-
+		} catch(Exception e){
+			throw new EmailageParameterException("Could not parse extra input parameters for the request",e);
 		}
 		return sb.toString();
 	}

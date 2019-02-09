@@ -6,18 +6,19 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 
+import com.emailage.javawrapper.model.EmailageParameterException;
 import com.emailage.javawrapper.model.Enums;
 import com.emailage.javawrapper.model.ExtraInputParameter;
 import com.emailage.javawrapper.utilities.OAuth;
@@ -31,17 +32,17 @@ public class EmailageClient {
 	/* SANDBOX Environment */
 	private static final String RequestBaseUrlSand = "https://sandbox.emailage.com/emailagevalidator/";
 
-	/* PRODUCTION Environment */
+	/** PRODUCTION Environment */
 	private static final String RequestBaseUrlProd = "https://api.emailage.com/emailagevalidator/";
 
 	/* Email Fraud Endpoint */
-	/* SANDBOX Environment */
+	/** SANDBOX Environment */
 	private static final String RequestBaseFraudUrlSand = "https://sandbox.emailage.com/emailageValidator/flag/";
 
-	/* PRODUCTION Environment */
+	/** PRODUCTION Environment */
 	private static final String RequestBaseFraudUrlProd = "https://api.emailage.com/emailageValidator/flag/";
 	
-	/* 
+	/**
 	 * Defaults to validating params before querying API 
 	 * Note: Uses Apache Commons validator for validation of email and IP.  Must include this library for validation to work
 	 * Please see documentation here : https://commons.apache.org/proper/commons-validator/
@@ -50,19 +51,22 @@ public class EmailageClient {
 	private static final boolean validateEmailAndIpInClient = true;
 
 	
-	/*
+	/**
 	 * ACCOUNT SID. You can find the Account SID in the Settings menu -> API Key
 	 * Info.
 	 */
 	private static final String AccountSID = "INPUT--SID";
 
-	/*
+	/**
 	 * AUTH TOKEN. You can find the AUTH TOKEN in the Settings menu -> API Key
 	 * Info.
 	 */
 	private static final String AuthToken = "INPUT--KEY";
-	
-	private static Enums.FraudFlag FraudType;
+
+	/** Use java.util.logging.  NOTE: this can be captured and redirected to other logging libraries using slf4j. */
+	private static Logger Log = Logger.getLogger(EmailageClient.class.getName());
+
+	public static URL Url;
 
 	/**
 	 * This method is used to query an Email Address.
@@ -82,11 +86,12 @@ public class EmailageClient {
 	 * @return Result of the API call.
 	 */
 	public static String QueryEmail(String email, Enums.Format resultFormat, Enums.SignatureMethod hashAlgorithm,
-			String user_email, Enums.Environment environment) throws IOException, IllegalArgumentException {
+			String user_email, Enums.Environment environment)
+			throws IOException, IllegalArgumentException {
 
 		validateParams(email);
 		String query = "query=" + java.net.URLEncoder.encode(email, "UTF-8");
-		return PostQuery(environment, APIUrl.Query, query, resultFormat, hashAlgorithm, user_email);
+		return PostQuery(environment, APIUrl.Query, query, resultFormat, hashAlgorithm, user_email, null);
 	}
 
 	/**
@@ -114,7 +119,7 @@ public class EmailageClient {
 
 		validateParams(email, IP);
 		String query = "query=" + java.net.URLEncoder.encode(email + "+" + IP, "UTF-8");
-		return PostQuery(environment, APIUrl.Query, query, resultFormat, hashAlgorithm, user_email);
+		return PostQuery(environment, APIUrl.Query, query, resultFormat, hashAlgorithm, user_email, null);
 	}
 
 	/**
@@ -141,18 +146,13 @@ public class EmailageClient {
 	 */
 	public static String QueryEmailAndIPPlusExtraArgs(String email, String IP, ExtraInputParameter extraArgs,
 			Enums.Format resultFormat, Enums.SignatureMethod hashAlgorithm, String user_email, Enums.Environment environment)
-			throws IOException, IllegalArgumentException {
+			throws IOException, EmailageParameterException {
 
 		validateParams(email, IP);
 		String query = "query=" + java.net.URLEncoder.encode(email + "+" + IP, "UTF-8");
+		query += extraArgs.buildExtraInputParameterRequest();
 
-		try {
-			query += extraArgs.buildExtraInputParameterRequest();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return PostQuery(environment, APIUrl.Query, query, resultFormat, hashAlgorithm, user_email);
+		return PostQuery(environment, APIUrl.Query, query, resultFormat, hashAlgorithm, user_email, null);
 	}
 
 	/**
@@ -163,7 +163,7 @@ public class EmailageClient {
 	 *            Email to be marked as either Fraud or Good
 	 * @param fraudType
 	 *            Value indicating the fraud type. Valid values: neutral, good
-	 *            and fraud, see {@link Enums.FraudFlag}.
+	 *            and fraud, see {@link Enums.FraudType}.
 	 * @param fraudCode
 	 *            Class of the fraud. Only required if you are marking an
 	 *            email as Fraud, see {@link Enums.FraudCode}.
@@ -179,9 +179,9 @@ public class EmailageClient {
 	 * 			  Environment where the call is to be executed.  Valid values: sandbox or production, see {@link Enums.Environment}.
 	 * @return Result of the API call.
 	 */
-	public static String MarkEmailAsFraud(String email, Enums.FraudFlag fraudType, Enums.FraudCode fraudCode,
-			Enums.Format resultFormat, Enums.SignatureMethod hashAlgorithm, String user_email,
-			Enums.Environment environment) throws IOException {
+	public static String MarkEmailAsFraud(String email, Enums.FraudType fraudType, Enums.FraudCode fraudCode,
+										  Enums.Format resultFormat, Enums.SignatureMethod hashAlgorithm, String user_email,
+										  Enums.Environment environment) throws IOException {
 
 		// Option #1 Email+IP
 		String query = "query=" + java.net.URLEncoder.encode(email, "UTF-8")
@@ -190,14 +190,13 @@ public class EmailageClient {
 				+ "&fraudcodeID=" + fraudCode.toInt()
 				// Specify Fraud Type: Fraud or Good
 				+ "&flag=" + fraudType;
-		
-		FraudType = fraudType;
 
-		return PostQuery(environment, APIUrl.MarkAsFraud, query, resultFormat, hashAlgorithm, user_email);
+		return PostQuery(environment, APIUrl.MarkAsFraud, query, resultFormat, hashAlgorithm, user_email, fraudType);
 	}
 
 	private static String PostQuery(Enums.Environment environment, APIUrl endpoint, String urlParameters,
-			Enums.Format format, Enums.SignatureMethod hashAlgorithm, String user_email) throws IOException {
+			Enums.Format format, Enums.SignatureMethod hashAlgorithm, String user_email, Enums.FraudType fraudType)
+			throws IOException {
 
 		String resultFormat = format.toString();
 
@@ -215,8 +214,8 @@ public class EmailageClient {
 			endpointurl = RequestBaseFraudUrlSand;
 
 		String oriUrl;
-		if ( endpoint == APIUrl.MarkAsFraud){
-			oriUrl = endpointurl + "?flag="+ FraudType.toString()+"&format=" + resultFormat;
+		if ( null != fraudType){
+			oriUrl = endpointurl + "?flag="+ fraudType.toString()+"&format=" + resultFormat;
 
 		} else {
 			oriUrl = endpointurl + "?format=" + resultFormat;
@@ -229,8 +228,7 @@ public class EmailageClient {
 		// Only support POST at the moment, but the oauth function has the
 		// capability of supporting get too.
 		String requestUrl = OAuth.getUrl("POST", hashAlgorithmString, oriUrl, AccountSID, AuthToken);
-
-		System.out.println("requestUrl: " + requestUrl);
+		Log.finer("requestUrl: " + requestUrl);
 
 		/* POST value */
 		byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
@@ -251,6 +249,7 @@ public class EmailageClient {
 			double version = Double.parseDouble(System.getProperty("java.specification.version"));
 			HttpsURLConnection conn;
 
+			// TODO: how to check for max TLS version instead of checking for java version
 			if (version == 1.7) {
 				context = SSLContext.getInstance("TLSv1.1");
 				context.init(null, null, null);
