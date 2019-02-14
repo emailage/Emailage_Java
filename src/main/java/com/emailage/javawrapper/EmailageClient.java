@@ -18,10 +18,8 @@ import java.util.regex.Pattern;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 
-import com.emailage.javawrapper.model.EmailageApiRequestException;
-import com.emailage.javawrapper.model.EmailageParameterException;
-import com.emailage.javawrapper.model.Enums;
-import com.emailage.javawrapper.model.ExtraInputParameter;
+import com.emailage.javawrapper.model.*;
+import com.emailage.javawrapper.utilities.AutoCloseableHttpsUrlConnection;
 import com.emailage.javawrapper.utilities.OAuth;
 import com.emailage.javawrapper.utilities.Validation;
 
@@ -51,19 +49,6 @@ public class EmailageClient {
 	 */
 	private static final boolean validateEmailAndIpInClient = true;
 
-	
-	/**
-	 * ACCOUNT SID. You can find the Account SID in the Settings menu -> API Key
-	 * Info.
-	 */
-	private static final String AccountSID = "INPUT--SID";
-
-	/**
-	 * AUTH TOKEN. You can find the AUTH TOKEN in the Settings menu -> API Key
-	 * Info.
-	 */
-	private static final String AuthToken = "INPUT--KEY";
-
 	/** Use java.util.logging.  NOTE: this can be captured and redirected to other logging libraries using slf4j. */
 	private static Logger Log = Logger.getLogger(EmailageClient.class.getName());
 
@@ -74,25 +59,19 @@ public class EmailageClient {
 	 * 
 	 * @param email
 	 *            Transaction Email Address
-	 * @param resultFormat
-	 *            Format of the API response call. Valid values: JSON or XML see {@link Enums.Format}.
-	 * @param hashAlgorithm
-	 *            Hash Algorithm. Valid values: "HMAC-SHA1", "HMAC-SHA256",
-	 *            "HMAC-SHA384","HMAC-SHA512" see {@link Enums.SignatureMethod}.
-	 * @param user_email
-	 *            OPTIONAL. If provided, this field will be used to impersonate
-	 *            the API call.
-	 * @param environment
-	 * 			  Environment where the call is to be executed.  Valid values: sandbox or production, see {@link Enums.Environment}.
+	 * @param parameters
+	 * 			  Security parameter information, see {@link ConfigurationParameters}
 	 * @return Result of the API call.
+	 * @throws IOException test
+	 * @throws IllegalArgumentException test
+	 * @throws EmailageApiRequestException test
 	 */
-	public static String QueryEmail(String email, Enums.Format resultFormat, Enums.SignatureMethod hashAlgorithm,
-			String user_email, Enums.Environment environment)
+	public static String QueryEmail(String email, ConfigurationParameters parameters)
 			throws IOException, IllegalArgumentException, EmailageApiRequestException {
 
 		validateParams(email);
 		String query = "query=" + java.net.URLEncoder.encode(email, "UTF-8");
-		return PostQuery(environment, APIUrl.Query, query, resultFormat, hashAlgorithm, user_email, null);
+		return PostQuery(APIUrl.Query, null, query, parameters);
 	}
 
 	/**
@@ -102,25 +81,19 @@ public class EmailageClient {
 	 *            Transaction Email Address
 	 * @param IP
 	 *            IP of the transaction.
-	 * @param resultFormat
-	 *            Format of the API response call. Valid values: JSON or XML see {@link Enums.Format}.
-	 * @param hashAlgorithm
-	 *            Hash Algorithm. Valid values: "HMAC-SHA1", "HMAC-SHA256",
-	 *            "HMAC-SHA384","HMAC-SHA512" see {@link Enums.SignatureMethod}.
-	 * @param user_email
-	 *            OPTIONAL. If provided, this field will be used to impersonate
-	 *            the API call.
-	 * @param environment
-	 * 			  Environment where the call is to be executed.  Valid values: sandbox or production, see {@link Enums.Environment}.
+	 * @param parameters
+	 * 			  Security parameter information, see {@link ConfigurationParameters}
 	 * @return Result of the API call.
+	 * @throws IOException test
+	 * @throws IllegalArgumentException test
+	 * @throws EmailageApiRequestException test
 	 */
-	public static String QueryEmailAndIP(String email, String IP, Enums.Format resultFormat,
-			Enums.SignatureMethod hashAlgorithm, String user_email, Enums.Environment environment)
+	public static String QueryEmailAndIP(String email, String IP, ConfigurationParameters parameters)
 			throws IOException, IllegalArgumentException, EmailageApiRequestException {
 
 		validateParams(email, IP);
 		String query = "query=" + java.net.URLEncoder.encode(email + "+" + IP, "UTF-8");
-		return PostQuery(environment, APIUrl.Query, query, resultFormat, hashAlgorithm, user_email, null);
+		return PostQuery(APIUrl.Query,null, query, parameters);
 	}
 
 	/**
@@ -133,27 +106,26 @@ public class EmailageClient {
 	 *            IP of the transaction.
 	 * @param extraArgs
 	 *            Hash table containing a list of extra arguments.
-	 * @param resultFormat
-	 *            Format of the API response call. Valid values: JSON or XML see {@link Enums.Format}.
-	 * @param hashAlgorithm
-	 *            Hash Algorithm. Valid values: "HMAC-SHA1", "HMAC-SHA256",
-	 *            "HMAC-SHA384","HMAC-SHA512" see {@link Enums.SignatureMethod}.
-	 * @param user_email
-	 *            OPTIONAL. If provided, this field will be used to impersonate
-	 *            the API call.
-	 * @param environment
-	 * 			  Environment where the call is to be executed.  Valid values: sandbox or production, see {@link Enums.Environment}.
+	 * @param parameters
+	 * 			  Security parameter information, see {@link ConfigurationParameters}
 	 * @return Result of the API call.
+	 * @throws IOException test
+	 * @throws IllegalArgumentException test
+	 * @throws EmailageApiRequestException test
 	 */
 	public static String QueryEmailAndIPPlusExtraArgs(String email, String IP, ExtraInputParameter extraArgs,
-			Enums.Format resultFormat, Enums.SignatureMethod hashAlgorithm, String user_email, Enums.Environment environment)
+			ConfigurationParameters parameters)
 			throws IOException, EmailageParameterException, EmailageApiRequestException {
 
 		validateParams(email, IP);
 		String query = "query=" + java.net.URLEncoder.encode(email + "+" + IP, "UTF-8");
 		query += extraArgs.buildExtraInputParameterRequest();
 
-		return PostQuery(environment, APIUrl.Query, query, resultFormat, hashAlgorithm, user_email, null);
+		return PostQuery(
+				APIUrl.Query,
+				null,
+				query,
+				parameters);
 	}
 
 	/**
@@ -168,21 +140,16 @@ public class EmailageClient {
 	 * @param fraudCode
 	 *            Class of the fraud. Only required if you are marking an
 	 *            email as Fraud, see {@link Enums.FraudCode}.
-	 * @param resultFormat
-	 *            Format of the API response call. Valid values: JSON or XML see {@link Enums.Format}.
-	 * @param hashAlgorithm
-	 *            Hash Algorithm. Valid values: "HMAC-SHA1", "HMAC-SHA256",
-	 *            "HMAC-SHA384","HMAC-SHA512" see {@link Enums.SignatureMethod}.
-	 * @param user_email
-	 *            OPTIONAL. If provided, this field will be used to impersonate
-	 *            the API call.
-	 * @param environment
-	 * 			  Environment where the call is to be executed.  Valid values: sandbox or production, see {@link Enums.Environment}.
+	 * @param parameters
+	 * 			  Security parameter information, see {@link ConfigurationParameters}
 	 * @return Result of the API call.
+	 * @throws IOException test
+	 * @throws IllegalArgumentException test
+	 * @throws EmailageApiRequestException test
 	 */
 	public static String MarkEmailAsFraud(String email, Enums.FraudType fraudType, Enums.FraudCode fraudCode,
-										  Enums.Format resultFormat, Enums.SignatureMethod hashAlgorithm, String user_email,
-										  Enums.Environment environment) throws IOException, EmailageApiRequestException {
+										  ConfigurationParameters parameters)
+			throws IOException, EmailageApiRequestException {
 
 		// Option #1 Email+IP
 		String query = "query=" + java.net.URLEncoder.encode(email, "UTF-8")
@@ -192,26 +159,26 @@ public class EmailageClient {
 				// Specify Fraud Type: Fraud or Good
 				+ "&flag=" + fraudType;
 
-		return PostQuery(environment, APIUrl.MarkAsFraud, query, resultFormat, hashAlgorithm, user_email, fraudType);
+		return PostQuery(APIUrl.MarkAsFraud, fraudType, query, parameters);
 	}
 
-	private static String PostQuery(Enums.Environment environment, APIUrl endpoint, String urlParameters,
-			Enums.Format format, Enums.SignatureMethod hashAlgorithm, String user_email, Enums.FraudType fraudType)
+	private static String PostQuery(APIUrl endpoint, Enums.FraudType fraudType, String urlParameters,
+			ConfigurationParameters parameters)
 			throws IOException, EmailageApiRequestException {
 
-		String resultFormat = format.toString();
+		String resultFormat = parameters.getResultFormat().toString();
 
-		String hashAlgorithmString = hashAlgorithm.toString();
+		String hashAlgorithmString = parameters.getHashAlgorithm().toString();
 
 		String endpointurl = null;
 
-		if (environment == Enums.Environment.Production && endpoint == APIUrl.Query)
+		if (parameters.getEnvironment() == Enums.Environment.Production && endpoint == APIUrl.Query)
 			endpointurl = RequestBaseUrlProd;
-		else if (environment == Enums.Environment.Sandbox && endpoint == APIUrl.Query)
+		else if (parameters.getEnvironment() == Enums.Environment.Sandbox && endpoint == APIUrl.Query)
 			endpointurl = RequestBaseUrlSand;
-		else if (environment == Enums.Environment.Production && endpoint == APIUrl.MarkAsFraud)
+		else if (parameters.getEnvironment() == Enums.Environment.Production && endpoint == APIUrl.MarkAsFraud)
 			endpointurl = RequestBaseFraudUrlProd;
-		else if (environment == Enums.Environment.Sandbox && endpoint == APIUrl.MarkAsFraud)
+		else if (parameters.getEnvironment() == Enums.Environment.Sandbox && endpoint == APIUrl.MarkAsFraud)
 			endpointurl = RequestBaseFraudUrlSand;
 
 		String oriUrl;
@@ -222,13 +189,13 @@ public class EmailageClient {
 			oriUrl = endpointurl + "?format=" + resultFormat;
 		}
 
-		if (user_email != null && user_email.trim().length() > 0) {
-			oriUrl = oriUrl + "&user_email=" + user_email;
+		if (parameters.getUserEmail() != null && parameters.getUserEmail().trim().length() > 0) {
+			oriUrl = oriUrl + "&user_email=" + parameters.getUserEmail();
 		}
 
 		// Only support POST at the moment, but the oauth function has the
 		// capability of supporting get too.
-		String requestUrl = OAuth.getUrl("POST", hashAlgorithmString, oriUrl, AccountSID, AuthToken);
+		String requestUrl = OAuth.getUrl("POST", hashAlgorithmString, oriUrl, parameters.getAccountSecret(), parameters.getAcccountToken());
 		Log.finer("requestUrl: " + requestUrl);
 
 		/* POST value */
@@ -237,54 +204,38 @@ public class EmailageClient {
 
 		URL url = new URL(requestUrl);
 
-		// Create an SSLContext
-		SSLContext context;
-
 		// create an object for return
 		StringBuilder answer = new StringBuilder();
 
+
 		try {
-			double version = Double.parseDouble(System.getProperty("java.specification.version"));
-			HttpsURLConnection conn;
 
-			// TODO: how to check for max TLS version instead of checking for java version
-			if (version == 1.7) {
-				context = SSLContext.getInstance("TLSv1.1");
-				context.init(null, null, null);
-				// Tell the URLConnection to use a SocketFactory from our
-				// SSLContext
-				conn = (HttpsURLConnection) url.openConnection();
-				conn.setSSLSocketFactory(context.getSocketFactory());
-			} else {
-				// if Java version is not 1.7( assuming 1.7 and above actually)
-				// use the system default.
-				conn = (HttpsURLConnection) url.openConnection();
-			}
+			HttpsURLConnection conn = getHttpsURLConnection(url);
+			try(AutoCloseable conc = new AutoCloseableHttpsUrlConnection(conn)) {
 
-			conn.setRequestProperty("Content-Language", "en-US");
-			conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-			conn.setRequestProperty("Accept-Charset", "UTF-8");
-			conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
-			conn.setDoOutput(true);
+				conn.setRequestProperty("Content-Language", "en-US");
+				conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+				conn.setRequestProperty("Accept-Charset", "UTF-8");
+				conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+				conn.setDoOutput(true);
 
-			String value = new String(postData, "UTF-8");
-			try(
+				try (
 					DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"))
-			){
-				writer.write(value);
-			}
+				) {
+					String value = new String(postData, "UTF-8");
+					writer.write(value);
+				}
 
-
-			Charset charset = Charset.forName("UTF-8");
-			try (BufferedReader input = new BufferedReader(new InputStreamReader(conn.getInputStream(), charset))){
-				String str;
-				while (null != (str = input.readLine())) {
-					answer.append(str);
+				Charset charset = Charset.forName("UTF-8");
+				try (BufferedReader input = new BufferedReader(new InputStreamReader(conn.getInputStream(), charset))) {
+					String str;
+					while (null != (str = input.readLine())) {
+						answer.append(str);
+					}
 				}
 			}
-
-		} catch (IOException | NoSuchAlgorithmException | KeyManagementException e1) {
+		} catch (Exception e1) {
 			throw new EmailageApiRequestException("Could not complete API request",e1);
 		}
 
@@ -302,6 +253,25 @@ public class EmailageClient {
 		}
 		m.appendTail(buf);
 		return buf;
+	}
+
+	protected static HttpsURLConnection getHttpsURLConnection(URL url) throws NoSuchAlgorithmException, KeyManagementException, IOException {
+		double version = Double.parseDouble(System.getProperty("java.specification.version"));
+		SSLContext context;
+		HttpsURLConnection conn;// TODO: MKD how to check for max TLS version instead of checking for java version
+		if (version == 1.7) {
+			context = SSLContext.getInstance("TLSv1.1");
+			context.init(null, null, null);
+			// Tell the URLConnection to use a SocketFactory from our
+			// SSLContext
+			conn = (HttpsURLConnection) url.openConnection();
+			conn.setSSLSocketFactory(context.getSocketFactory());
+		} else {
+			// if Java version is not 1.7( assuming 1.7 and above actually)
+			// use the system default.
+			conn = (HttpsURLConnection) url.openConnection();
+		}
+		return conn;
 	}
 	
 	private static boolean validateParams(String email) throws IllegalArgumentException {
