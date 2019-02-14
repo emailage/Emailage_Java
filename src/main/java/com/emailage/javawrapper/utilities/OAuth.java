@@ -14,7 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class OAuth {
     private static final Random _Random = new Random();
     private static final String _UnreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~";
-    public final static String HMACSHA1 = "HMAC-SHA1";
+    private final static String HMACSHA1 = "HMAC-SHA1";
     private final static String HMACSHA256 = "HMAC-SHA256";
     private final static String HMACSHA384 = "HMAC-SHA384";
     private final static String HMACSHA512 = "HMAC-SHA512";
@@ -76,7 +76,7 @@ public class OAuth {
         StringBuilder sb = new StringBuilder();
         
 		for (String key : query.keySet()) {
-			sb.append(((String) key).concat(query.get(key) == null ? "" : "="
+			sb.append(key.concat(query.get(key) == null ? "" : "="
 		           + query.get(key))).append("&");
 		}
 

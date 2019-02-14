@@ -7,8 +7,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import javax.crypto.Mac;
 
-import static org.junit.Assert.*;
-
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Mac.class)
 public class OAuthTest {
