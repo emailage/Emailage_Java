@@ -25,6 +25,18 @@
             <organization>Emailage</organization>
             <organizationUrl>https://www.emailage.com</organizationUrl>
         </developer>
+        <developer>
+            <name>Adam Wolf</name>
+            <email>adam.wolf@emailage.com</email>
+            <organization>Emailage</organization>
+            <organizationUrl>https://www.emailage.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Tony Costantino</name>
+            <email>tony.costantino@emailage.com</email>
+            <organization>Emailage</organization>
+            <organizationUrl>https://www.emailage.com</organizationUrl>
+        </developer>
     </developers>
 
     <scm>
