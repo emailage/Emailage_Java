@@ -47,6 +47,19 @@ Temporary Items
 .apdisk
 /bin/
 
-# Ignore Jetbrains files
+# Jetbrains files
 *.iml
 *.idea
+
+# build files
+/apidocs/
+/surefire-reports/
+/maven-status/
+/maven-archiver/
+/test-classes/
+
+# Javadoc files
+*.html
+
+# text files
+*.txt
