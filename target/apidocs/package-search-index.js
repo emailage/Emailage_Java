@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"com.emailage.javawrapper"},{"l":"com.emailage.javawrapper.example"},{"l":"com.emailage.javawrapper.model"},{"l":"com.emailage.javawrapper.utilities"}]
