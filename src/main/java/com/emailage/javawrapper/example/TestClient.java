@@ -1,10 +1,9 @@
 package com.emailage.javawrapper.example;
 
-import java.io.IOException;
-
 import com.emailage.javawrapper.model.Enums;
 import com.emailage.javawrapper.model.ExtraInputParameter;
 import com.emailage.javawrapper.EmailageClient;
+import com.emailage.javawrapper.model.ConfigurationParameters;
 
 public class TestClient {
 
@@ -25,29 +24,36 @@ public class TestClient {
 		String user_email = null;
 		Enums.Environment environment = Enums.Environment.Production;
 
+		String accountSecret = "replace-me";
+		String authToken = "replace-me";
+
+		ConfigurationParameters parameters = new ConfigurationParameters();
+		parameters.setUserEmail(user_email);
+		parameters.setAcccountToken(authToken);
+		parameters.setAccountSecret(accountSecret);
+		parameters.setEnvironment(environment);
+		parameters.setHashAlgorithm(signatureMethod);
+		parameters.setResultFormat(resultFormat);
+
 		// Email validation
 		try {
 			System.out.println("Querying Email");
 
-			String validResult = EmailageClient.QueryEmail("test@test.com", resultFormat, signatureMethod, user_email,
-					environment);
+			String validResult = EmailageClient.QueryEmail("test@test.com", parameters);
 
 			System.out.println(validResult);
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		// Email + IP validation
 		try {
 			System.out.println("Querying Email + IP");
-
-			String validResult = EmailageClient.QueryEmailAndIP("test@test.com", "147.12.12.13", resultFormat,
-					signatureMethod, user_email, environment);
-
+			String validResult = EmailageClient.QueryEmailAndIP("test@test.com", "147.12.12.13", parameters);
 			System.out.println(validResult);
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -62,12 +68,10 @@ public class TestClient {
 			extraArgs.setbillpostal("85225");
 			extraArgs.setbillcity("Chandler");
 
-			String validResult = EmailageClient.QueryEmailAndIPPlusExtraArgs("test@test.com", "147.12.12.13", extraArgs,
-					resultFormat, signatureMethod, user_email, environment);
-
+			String validResult = EmailageClient.QueryEmailAndIPPlusExtraArgs("test@test.com", "147.12.12.13", extraArgs, parameters);
 			System.out.println(validResult);
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -78,13 +82,10 @@ public class TestClient {
 		// Email + IP validation
 		try {
 			System.out.println("Marking an Email as Fraud");
-
-			String validResult = EmailageClient.MarkEmailAsFraud("test@test.com", Enums.FraudFlag.Fraud, Enums.FraudCode.CARD_NOT_PRESENT,
-					resultFormat, signatureMethod, user_email, environment);
-
+			String validResult = EmailageClient.MarkEmailAsFraud("test@test.com", Enums.FraudType.Fraud, Enums.FraudCode.CARD_NOT_PRESENT, parameters);
 			System.out.println(validResult);
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
