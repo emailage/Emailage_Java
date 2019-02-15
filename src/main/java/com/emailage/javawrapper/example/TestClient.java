@@ -1,9 +1,10 @@
 package com.emailage.javawrapper.example;
 
-import com.emailage.javawrapper.model.Enums;
-import com.emailage.javawrapper.model.ExtraInputParameter;
 import com.emailage.javawrapper.EmailageClient;
 import com.emailage.javawrapper.model.ConfigurationParameters;
+import com.emailage.javawrapper.model.Enums;
+import com.emailage.javawrapper.model.ExtraInputParameter;
+import com.emailage.javawrapper.model.response.EmailageResponse;
 
 public class TestClient {
 
@@ -39,7 +40,7 @@ public class TestClient {
 		try {
 			System.out.println("Querying Email");
 
-			String validResult = EmailageClient.QueryEmail("test@test.com", parameters);
+			EmailageResponse validResult = EmailageClient.QueryEmail("test@test.com", parameters);
 
 			System.out.println(validResult);
 
@@ -50,7 +51,7 @@ public class TestClient {
 		// Email + IP validation
 		try {
 			System.out.println("Querying Email + IP");
-			String validResult = EmailageClient.QueryEmailAndIP("test@test.com", "147.12.12.13", parameters);
+			EmailageResponse validResult = EmailageClient.QueryEmailAndIP("test@test.com", "147.12.12.13", parameters);
 			System.out.println(validResult);
 
 		} catch (Exception e) {
@@ -68,7 +69,7 @@ public class TestClient {
 			extraArgs.setbillpostal("85225");
 			extraArgs.setbillcity("Chandler");
 
-			String validResult = EmailageClient.QueryEmailAndIPPlusExtraArgs("test@test.com", "147.12.12.13", extraArgs, parameters);
+			EmailageResponse validResult = EmailageClient.QueryEmailAndIPPlusExtraArgs("test@test.com", "147.12.12.13", extraArgs, parameters);
 			System.out.println(validResult);
 
 		} catch (Exception e) {
@@ -82,7 +83,7 @@ public class TestClient {
 		// Email + IP validation
 		try {
 			System.out.println("Marking an Email as Fraud");
-			String validResult = EmailageClient.MarkEmailAsFraud("test@test.com", Enums.FraudType.Fraud, Enums.FraudCode.CARD_NOT_PRESENT, parameters);
+			EmailageResponse validResult = EmailageClient.MarkEmailAsFraud("test@test.com", Enums.FraudType.Fraud, Enums.FraudCode.CARD_NOT_PRESENT, parameters);
 			System.out.println(validResult);
 
 		} catch (Exception e) {
