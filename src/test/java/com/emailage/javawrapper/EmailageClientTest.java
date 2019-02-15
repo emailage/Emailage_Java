@@ -1,9 +1,10 @@
 package com.emailage.javawrapper;
 
-import com.emailage.javawrapper.model.EmailageApiRequestException;
+import com.emailage.javawrapper.model.ConfigurationParameters;
 import com.emailage.javawrapper.model.Enums;
 import com.emailage.javawrapper.model.ExtraInputParameter;
-import com.emailage.javawrapper.model.ConfigurationParameters;
+import com.emailage.javawrapper.model.exception.EmailageApiRequestException;
+import com.emailage.javawrapper.model.response.EmailageResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -18,8 +19,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
@@ -53,11 +54,41 @@ public class EmailageClientTest {
         parameters.setHashAlgorithm(Enums.SignatureMethod.HMAC_SHA256);
         parameters.setResultFormat(Enums.Format.Json);
 
-        String result = EmailageClient.QueryEmail("tmp@dne.com", parameters);
+        EmailageResponse result = EmailageClient.QueryEmail("tmp@dne.com", parameters);
 
         verify(mock).getOutputStream();
         verify(mock).getInputStream();
-        assertTrue(expectedResult.equals(result));
+        assertNotNull(result);
+    }
+
+    @Test()
+    public void queryEmailSimple100() throws Exception {
+
+        for(int i = 0; i < 100; i++) {
+
+            ByteArrayOutputStream oStream = new ByteArrayOutputStream();
+            oStream.write(rajeshResponse.getBytes());
+
+            ByteArrayInputStream iStream = new ByteArrayInputStream(rajeshResponse.getBytes());
+
+            HttpsURLConnection mock = mock(HttpsURLConnection.class);
+            when(mock.getOutputStream()).thenReturn(oStream);
+            when(mock.getInputStream()).thenReturn(iStream);
+
+            PowerMockito.spy(EmailageClient.class);
+            PowerMockito.doReturn(mock).when(EmailageClient.class,"getHttpsURLConnection", Mockito.any(URL.class));
+
+            ConfigurationParameters parameters = new ConfigurationParameters();
+            parameters.setUserEmail("me@dne.com");
+            parameters.setAcccountToken(authToken);
+            parameters.setAccountSecret(accountSecret);
+            parameters.setEnvironment(Enums.Environment.Sandbox);
+            parameters.setHashAlgorithm(Enums.SignatureMethod.HMAC_SHA256);
+            parameters.setResultFormat(Enums.Format.Json);
+
+
+            EmailageClient.QueryEmail("tmp@dne.com", parameters);
+        }
     }
 
     @Test(expected = EmailageApiRequestException.class)
@@ -82,11 +113,11 @@ public class EmailageClientTest {
         parameters.setHashAlgorithm(Enums.SignatureMethod.HMAC_SHA256);
         parameters.setResultFormat(Enums.Format.Json);
 
-        String result = EmailageClient.QueryEmail("tmp@dne.com", parameters);
+        EmailageResponse result = EmailageClient.QueryEmail("tmp@dne.com", parameters);
 
         verify(mock).getOutputStream();
         verify(mock).getInputStream();
-        assertTrue(expectedResult.equals(result));
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -112,11 +143,11 @@ public class EmailageClientTest {
         parameters.setHashAlgorithm(Enums.SignatureMethod.HMAC_SHA256);
         parameters.setResultFormat(Enums.Format.Json);
 
-        String result = EmailageClient.QueryEmailAndIP("tmp@dne.com","1.1.1.1",parameters);
+        EmailageResponse result = EmailageClient.QueryEmailAndIP("tmp@dne.com","1.1.1.1",parameters);
 
         verify(mock).getOutputStream();
         verify(mock).getInputStream();
-        assertTrue(expectedResult.equals(result));
+        assertNotNull(result);
     }
 
     @Test
@@ -145,11 +176,11 @@ public class EmailageClientTest {
         parameters.setHashAlgorithm(Enums.SignatureMethod.HMAC_SHA256);
         parameters.setResultFormat(Enums.Format.Json);
 
-        String result = EmailageClient.QueryEmailAndIPPlusExtraArgs("tmp@dne.com","1.1.1.1", extraInputParameter, parameters);
+        EmailageResponse result = EmailageClient.QueryEmailAndIPPlusExtraArgs("tmp@dne.com","1.1.1.1", extraInputParameter, parameters);
 
         verify(mock).getOutputStream();
         verify(mock).getInputStream();
-        assertTrue(expectedResult.equals(result));
+        assertNotNull(result);
     }
 
     @Test
@@ -178,11 +209,11 @@ public class EmailageClientTest {
         parameters.setHashAlgorithm(Enums.SignatureMethod.HMAC_SHA256);
         parameters.setResultFormat(Enums.Format.Json);
 
-        String result = EmailageClient.MarkEmailAsFraud("tmp@dne.com", Enums.FraudType.Fraud, Enums.FraudCode.IDENTITY_THEFT_ACCOUNT_TAKE_OVER, parameters);
+        EmailageResponse result = EmailageClient.MarkEmailAsFraud("tmp@dne.com", Enums.FraudType.Fraud, Enums.FraudCode.IDENTITY_THEFT_ACCOUNT_TAKE_OVER, parameters);
 
         verify(mock).getOutputStream();
         verify(mock).getInputStream();
-        assertTrue(expectedResult.equals(result));
+        assertNotNull(result);
 
     }
 
