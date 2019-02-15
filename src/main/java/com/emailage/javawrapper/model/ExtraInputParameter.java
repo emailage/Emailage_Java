@@ -1,5 +1,7 @@
 package com.emailage.javawrapper.model;
 
+import com.emailage.javawrapper.model.exception.EmailageParameterException;
+
 import java.lang.reflect.Field;
 
 public class ExtraInputParameter {
