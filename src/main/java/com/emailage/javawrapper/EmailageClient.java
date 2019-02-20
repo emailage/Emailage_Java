@@ -6,7 +6,6 @@ import com.emailage.javawrapper.model.ExtraInputParameter;
 import com.emailage.javawrapper.model.exception.EmailageApiRequestException;
 import com.emailage.javawrapper.model.exception.EmailageParameterException;
 import com.emailage.javawrapper.model.response.EmailageResponse;
-import com.emailage.javawrapper.model.response.ResponseQuery;
 import com.emailage.javawrapper.utilities.AutoCloseableHttpsUrlConnection;
 import com.emailage.javawrapper.utilities.OAuth;
 import com.emailage.javawrapper.utilities.Validation;
@@ -16,6 +15,7 @@ import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -47,19 +47,20 @@ public class EmailageClient {
 	/** Use java.util.logging.  NOTE: this can be captured and redirected to other logging libraries using slf4j. */
 	private static Logger Log = Logger.getLogger(EmailageClient.class.getName());
 
-	/** <p>Pattern is thread-safe, but matcher is not.</p>
+	/** <p>Regex Pattern is thread-safe, but regex matcher is not.</p>
 	 * <p>"Instances of this class are immutable and are safe for use by multiple concurrent threads. Instances of the Matcher class are not safe for such use.", see Oracle's docs <a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html">here</a>.</p>
 	 */
 	private static Pattern compiledPattern = Pattern.compile("\\\\u(\\p{XDigit}{4})");
 
 	/**
-	 * <p>ObjectMapper is fully thread-safe according to the Jackson docs <a href="http://static.javadoc.io/com.fasterxml.jackson.core/jackson-databind/2.9.8/com/fasterxml/jackson/databind/ObjectMapper.html">here.</a></p>
+	 * <p>Jackson ObjectMapper is fully thread-safe according to the Jackson docs <a href="http://static.javadoc.io/com.fasterxml.jackson.core/jackson-databind/2.9.8/com/fasterxml/jackson/databind/ObjectMapper.html">here.</a></p>
 	 */
 	private static ObjectMapper mapper;
 
-	/** Static block that executes before execution */
+	/** Static block that executes before everything else */
 	static
 	{
+		// Configure jackson-afterburner
 		mapper = new ObjectMapper();
 		mapper.registerModule(new AfterburnerModule());
 	}
@@ -72,12 +73,11 @@ public class EmailageClient {
 	 * @param parameters
 	 * 			  Security parameter information, see {@link ConfigurationParameters}
 	 * @return Result of the API call.
-	 * @throws IOException test
-	 * @throws IllegalArgumentException test
-	 * @throws EmailageApiRequestException test
+	 * @throws IOException If JSON deserialization fails, the target url is incorrect, or UTF-8 is not supported by the JVM.
+	 * @throws EmailageApiRequestException If there is an unexpected issue sending the data to the server or there an issue retrieving a response from the server.
 	 */
 	public static EmailageResponse QueryEmail(String email, ConfigurationParameters parameters)
-			throws IOException, IllegalArgumentException, EmailageApiRequestException {
+			throws IOException, EmailageApiRequestException {
 
 		validateParams(email, parameters.isValidateBeforeSending());
 		String query = "query=" + java.net.URLEncoder.encode(email, StandardCharsets.UTF_8.name());
@@ -94,12 +94,11 @@ public class EmailageClient {
 	 * @param parameters
 	 * 			  Security parameter information, see {@link ConfigurationParameters}
 	 * @return Result of the API call.
-	 * @throws IOException test
-	 * @throws IllegalArgumentException test
-	 * @throws EmailageApiRequestException test
+	 * @throws IOException If JSON deserialization fails, the target url is incorrect, or UTF-8 is not supported by the JVM.
+	 * @throws EmailageApiRequestException If there is an unexpected issue sending the data to the server or there an issue retrieving a response from the server.
 	 */
 	public static EmailageResponse QueryEmailAndIP(String email, String IP, ConfigurationParameters parameters)
-			throws IOException, IllegalArgumentException, EmailageApiRequestException {
+			throws IOException, EmailageApiRequestException {
 
 		validateParams(email, IP, parameters.isValidateBeforeSending());
 		String query = "query=" + java.net.URLEncoder.encode(email + "+" + IP, StandardCharsets.UTF_8.name());
@@ -119,12 +118,12 @@ public class EmailageClient {
 	 * @param parameters
 	 * 			  Security parameter information, see {@link ConfigurationParameters}
 	 * @return Result of the API call.
-	 * @throws IOException test
-	 * @throws IllegalArgumentException test
-	 * @throws EmailageApiRequestException test
+	 * @throws IOException If JSON deserialization fails, the target url is incorrect, or UTF-8 is not supported by the JVM.
+	 * @throws EmailageApiRequestException If there is an unexpected issue sending the data to the server or there an issue retrieving a response from the server.
+	 * @throws EmailageParameterException If there is a problem with the parsing of the extraInputParameters.
 	 */
 	public static EmailageResponse QueryEmailAndIPPlusExtraArgs(String email, String IP, ExtraInputParameter extraArgs,
-			ConfigurationParameters parameters)
+															 ConfigurationParameters parameters)
 			throws IOException, EmailageParameterException, EmailageApiRequestException {
 
 		validateParams(email, IP, parameters.isValidateBeforeSending());
@@ -153,13 +152,12 @@ public class EmailageClient {
 	 * @param parameters
 	 * 			  Security parameter information, see {@link ConfigurationParameters}
 	 * @return Result of the API call.
-	 * @throws IOException test
-	 * @throws IllegalArgumentException test
-	 * @throws EmailageApiRequestException test
+	 * @throws IOException If JSON deserialization fails, the target url is incorrect, or UTF-8 is not supported by the JVM.
+	 * @throws EmailageApiRequestException If there is an unexpected issue sending the data to the server or there an issue retrieving a response from the server.
 	 */
 	public static EmailageResponse MarkEmailAsFraud(String email, Enums.FraudType fraudType, Enums.FraudCode fraudCode,
-										  ConfigurationParameters parameters)
-			throws IOException, EmailageApiRequestException {
+												 ConfigurationParameters parameters)
+			throws EmailageApiRequestException, IOException {
 
 		// Option #1 Email+IP
 		String query = "query=" + java.net.URLEncoder.encode(email, StandardCharsets.UTF_8.name())
@@ -172,9 +170,45 @@ public class EmailageClient {
 		return deserialize(PostQuery(APIUrl.MarkAsFraud, fraudType, query, parameters));
 	}
 
+	/**
+	 * Remove UTF-8 characters that could impact
+	 * @param data String to be filtered
+	 * @return Filtered string
+	 */
+	public static String removeUTFCharacters(String data) {
+		Matcher m = compiledPattern.matcher(data);
+		StringBuffer buf = new StringBuffer(data.length());
+
+		while (m.find()) {
+			String ch = String.valueOf((char) Integer.parseInt(m.group(1), 16));
+			m.appendReplacement(buf, Matcher.quoteReplacement(ch));
+		}
+		m.appendTail(buf);
+		return buf.toString();
+	}
+
+	protected static HttpsURLConnection getHttpsURLConnection(URL url) throws NoSuchAlgorithmException, KeyManagementException, IOException {
+		double version = Double.parseDouble(System.getProperty("java.specification.version"));
+		SSLContext context;
+		HttpsURLConnection conn;
+		if (version == 1.7) {
+			context = SSLContext.getInstance("TLSv1.1");
+			context.init(null, null, null);
+			// Tell the URLConnection to use a SocketFactory from our
+			// SSLContext
+			conn = (HttpsURLConnection) url.openConnection();
+			conn.setSSLSocketFactory(context.getSocketFactory());
+		} else {
+			// if Java version is not 1.7( assuming 1.7 and above actually)
+			// use the system default.
+			conn = (HttpsURLConnection) url.openConnection();
+		}
+		return conn;
+	}
+
 	private static String PostQuery(APIUrl endpoint, Enums.FraudType fraudType, String urlParameters,
 			ConfigurationParameters parameters)
-			throws IOException, EmailageApiRequestException {
+			throws EmailageApiRequestException, MalformedURLException {
 
 		String resultFormat = parameters.getResultFormat().toString();
 
@@ -249,44 +283,13 @@ public class EmailageClient {
 			throw new EmailageApiRequestException("Could not complete API request",e1);
 		}
 
-		return removeUTFCharacters(answer.toString()).toString();
-	}
-
-	public static StringBuffer removeUTFCharacters(String data) {
-		Matcher m = compiledPattern.matcher(data);
-		StringBuffer buf = new StringBuffer(data.length());
-
-		while (m.find()) {
-			String ch = String.valueOf((char) Integer.parseInt(m.group(1), 16));
-			m.appendReplacement(buf, Matcher.quoteReplacement(ch));
-		}
-		m.appendTail(buf);
-		return buf;
-	}
-
-	protected static HttpsURLConnection getHttpsURLConnection(URL url) throws NoSuchAlgorithmException, KeyManagementException, IOException {
-		double version = Double.parseDouble(System.getProperty("java.specification.version"));
-		SSLContext context;
-		HttpsURLConnection conn;// TODO: MKD how to check for max TLS version instead of checking for java version
-		if (version == 1.7) {
-			context = SSLContext.getInstance("TLSv1.1");
-			context.init(null, null, null);
-			// Tell the URLConnection to use a SocketFactory from our
-			// SSLContext
-			conn = (HttpsURLConnection) url.openConnection();
-			conn.setSSLSocketFactory(context.getSocketFactory());
-		} else {
-			// if Java version is not 1.7( assuming 1.7 and above actually)
-			// use the system default.
-			conn = (HttpsURLConnection) url.openConnection();
-		}
-		return conn;
+		return removeUTFCharacters(answer.toString());
 	}
 
 	private static EmailageResponse deserialize(String response) throws IOException {
-		ResponseQuery query = mapper.readValue(response, ResponseQuery.class);
+		EmailageResponse query = mapper.readValue(response, EmailageResponse.class);
 		query.getQuery().setRaw(response);
-		return query.getQuery();
+		return query;
 	}
 	
 	private static boolean validateParams(String email, boolean isValidationActive) throws IllegalArgumentException {

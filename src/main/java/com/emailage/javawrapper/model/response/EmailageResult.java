@@ -6,7 +6,6 @@ import java.util.List;
 
 public class EmailageResult {
 
-    // TODO: Can jackson implicitly convert a string to a number? date?
     private String userDefinedRecordID;
     private String email;
     private String ipAddress;

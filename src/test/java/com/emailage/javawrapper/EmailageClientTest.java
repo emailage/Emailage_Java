@@ -220,7 +220,7 @@ public class EmailageClientTest {
     @Test
     public void removeUTFCharacters() {
         String data = "Bb test\t!";
-        StringBuffer result = EmailageClient.removeUTFCharacters(data);
+        String result = EmailageClient.removeUTFCharacters(data);
 
         assertNotNull(result);
     }

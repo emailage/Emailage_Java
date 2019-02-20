@@ -2,98 +2,24 @@ package com.emailage.javawrapper.model.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
-
 public class EmailageResponse {
-    private String email;
-    private String ipaddress;
-    private String queryType;
-    private int count;
-    private String created;
-    private String lang;
-    private long responseCount;
-    private String responseLanguage;
-    private List<EmailageResult> results;
-    private String raw;
+    private EmailageQuery query;
+    private EmailageStatus responseStatus;
 
-    public String getEmail() {
-        return email;
+    public EmailageQuery getQuery() {
+        return query;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setQuery(EmailageQuery query) {
+        this.query = query;
     }
 
-    public String getIpaddress() {
-        return ipaddress;
+    @JsonProperty("responseStatus")
+    public EmailageStatus getResponseStatus() {
+        return responseStatus;
     }
 
-    public void setIpaddress(String ipaddress) {
-        this.ipaddress = ipaddress;
-    }
-
-    public String getQueryType() {
-        return queryType;
-    }
-
-    public void setQueryType(String queryType) {
-        this.queryType = queryType;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public String getLang() {
-        return lang;
-    }
-
-    public long getResponseCount() {
-        return responseCount;
-    }
-
-    public String getResponse_language() {
-        return responseLanguage;
-    }
-
-    public List<EmailageResult> getResults() {
-        return results;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
-
-    public void setResponseCount(long responseCount) {
-        this.responseCount = responseCount;
-    }
-
-    @JsonProperty("response_language")
-    public void setResponse_language(String responseLanguage) {
-        this.responseLanguage = responseLanguage;
-    }
-
-    public void setResults(List<EmailageResult> results) {
-        this.results = results;
-    }
-
-    public String getRaw() {
-        return raw;
-    }
-
-    public void setRaw(String raw) {
-        this.raw = raw;
+    public void setResponseStatus(EmailageStatus responseStatus) {
+        this.responseStatus = responseStatus;
     }
 }
