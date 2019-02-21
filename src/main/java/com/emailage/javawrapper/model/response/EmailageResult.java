@@ -94,6 +94,34 @@ public class EmailageResult {
     private String shipCityPostalMatch;
     private String phoneStatus;
     private String shipForward;
+    private String nameMatch;
+    private String phoneOwner;
+    private String phoneOwnerType;
+    private String phoneCarrierType;
+    private String phoneCarrierNetworkCode;
+    private String phoneCarrierName;
+    private String phoneOwnerMatch;
+    private String overallDigitalIdentityScore;
+    private String emailToIpConfidence;
+    private String emailToPhoneConfidence;
+    private String emailToBillAddressConfidence;
+    private String emailToShipAddressConfidence;
+    private String emailToFullNameConfidence;
+    private String emailToLastNameConfidence;
+    private String ipToPhoneConfidence;
+    private String ipToBillAddressConfidence;
+    private String ipToShipAddressConfidence;
+    private String ipToFullNameConfidence;
+    private String ipToLastNameConfidence;
+    private String phoneToBillAddressConfidence;
+    private String phoneToShipAddressConfidence;
+    private String phoneToFullNameConfidence;
+    private String phoneToLastNameConfidence;
+    private String billAddressToFullNameConfidence;
+    private String billAddressToLastNameConfidence;
+    private String shipAddressToBillAddressConfidence;
+    private String shipAddressToFullNameConfidence;
+    private String shipAddressToLastNameConfidence;
 
     public String getUserDefinedRecordID() {
         return userDefinedRecordID;
@@ -869,5 +897,257 @@ public class EmailageResult {
     @JsonProperty("shipforward")
     public void setShipForward(String shipForward) {
         this.shipForward = shipForward;
+    }
+
+    public String getNameMatch() {
+        return nameMatch;
+    }
+
+    @JsonProperty("namematch")
+    public void setNameMatch(String nameMatch) {
+        this.nameMatch = nameMatch;
+    }
+
+    public String getPhoneOwner() {
+        return phoneOwner;
+    }
+
+    @JsonProperty("phoneowner")
+    public void setPhoneOwner(String phoneOwner) {
+        this.phoneOwner = phoneOwner;
+    }
+
+    public String getPhoneOwnerType() {
+        return phoneOwnerType;
+    }
+
+    @JsonProperty("phoneownertype")
+    public void setPhoneOwnerType(String phoneOwnerType) {
+        this.phoneOwnerType = phoneOwnerType;
+    }
+
+    public String getPhoneCarrierType() {
+        return phoneCarrierType;
+    }
+
+    @JsonProperty("phonecarriertype")
+    public void setPhoneCarrierType(String phoneCarrierType) {
+        this.phoneCarrierType = phoneCarrierType;
+    }
+
+    public String getPhoneCarrierNetworkCode() {
+        return phoneCarrierNetworkCode;
+    }
+
+    @JsonProperty("phonecarriernetworkcode")
+    public void setPhoneCarrierNetworkCode(String phoneCarrierNetworkCode) {
+        this.phoneCarrierNetworkCode = phoneCarrierNetworkCode;
+    }
+
+    public String getPhoneCarrierName() {
+        return phoneCarrierName;
+    }
+
+    @JsonProperty("phonecarriername")
+    public void setPhoneCarrierName(String phoneCarrierName) {
+        this.phoneCarrierName = phoneCarrierName;
+    }
+
+    public String getPhoneOwnerMatch() {
+        return phoneOwnerMatch;
+    }
+
+    @JsonProperty("phoneownermatch")
+    public void setPhoneOwnerMatch(String phoneOwnerMatch) {
+        this.phoneOwnerMatch = phoneOwnerMatch;
+    }
+
+    public String getOverallDigitalIdentityScore() {
+        return overallDigitalIdentityScore;
+    }
+
+    @JsonProperty("overallDigitalIdentityScore")
+    public void setOverallDigitalIdentityScore(String overallDigitalIdentityScore) {
+        this.overallDigitalIdentityScore = overallDigitalIdentityScore;
+    }
+
+    public String getEmailToIpConfidence() {
+        return emailToIpConfidence;
+    }
+
+    @JsonProperty("emailToIpConfidence")
+    public void setEmailToIpConfidence(String emailToIpConfidence) {
+        this.emailToIpConfidence = emailToIpConfidence;
+    }
+
+    public String getEmailToPhoneConfidence() {
+        return emailToPhoneConfidence;
+    }
+
+    @JsonProperty("emailToPhoneConfidence")
+    public void setEmailToPhoneConfidence(String emailToPhoneConfidence) {
+        this.emailToPhoneConfidence = emailToPhoneConfidence;
+    }
+
+    public String getEmailToBillAddressConfidence() {
+        return emailToBillAddressConfidence;
+    }
+
+    @JsonProperty("emailToBillAddressConfidence")
+    public void setEmailToBillAddressConfidence(String emailToBillAddressConfidence) {
+        this.emailToBillAddressConfidence = emailToBillAddressConfidence;
+    }
+
+    public String getEmailToShipAddressConfidence() {
+        return emailToShipAddressConfidence;
+    }
+
+    @JsonProperty("emailToShipAddressConfidence")
+    public void setEmailToShipAddressConfidence(String emailToShipAddressConfidence) {
+        this.emailToShipAddressConfidence = emailToShipAddressConfidence;
+    }
+
+    public String getEmailToFullNameConfidence() {
+        return emailToFullNameConfidence;
+    }
+
+    @JsonProperty("emailToFullNameConfidence")
+    public void setEmailToFullNameConfidence(String emailToFullNameConfidence) {
+        this.emailToFullNameConfidence = emailToFullNameConfidence;
+    }
+
+    public String getEmailToLastNameConfidence() {
+        return emailToLastNameConfidence;
+    }
+
+    @JsonProperty("emailToLastNameConfidence")
+    public void setEmailToLastNameConfidence(String emailToLastNameConfidence) {
+        this.emailToLastNameConfidence = emailToLastNameConfidence;
+    }
+
+    public String getIpToPhoneConfidence() {
+        return ipToPhoneConfidence;
+    }
+
+    @JsonProperty("ipToPhoneConfidence")
+    public void setIpToPhoneConfidence(String ipToPhoneConfidence) {
+        this.ipToPhoneConfidence = ipToPhoneConfidence;
+    }
+
+    public String getIpToBillAddressConfidence() {
+        return ipToBillAddressConfidence;
+    }
+
+    @JsonProperty("ipToBillAddressConfidence")
+    public void setIpToBillAddressConfidence(String ipToBillAddressConfidence) {
+        this.ipToBillAddressConfidence = ipToBillAddressConfidence;
+    }
+
+    public String getIpToShipAddressConfidence() {
+        return ipToShipAddressConfidence;
+    }
+
+    @JsonProperty("ipToShipAddressConfidence")
+    public void setIpToShipAddressConfidence(String ipToShipAddressConfidence) {
+        this.ipToShipAddressConfidence = ipToShipAddressConfidence;
+    }
+
+    public String getIpToFullNameConfidence() {
+        return ipToFullNameConfidence;
+    }
+
+    @JsonProperty("ipToFullNameConfidence")
+    public void setIpToFullNameConfidence(String ipToFullNameConfidence) {
+        this.ipToFullNameConfidence = ipToFullNameConfidence;
+    }
+
+    public String getIpTolastNameConfidence() {
+        return ipToLastNameConfidence;
+    }
+
+    @JsonProperty("ipToLastNameConfidence")
+    public void setIpTolastNameConfidence(String ipTolastNameConfidence) {
+        this.ipToLastNameConfidence = ipTolastNameConfidence;
+    }
+
+    public String getPhoneToBillAddressConfidence() {
+        return phoneToBillAddressConfidence;
+    }
+
+    @JsonProperty("phoneToBillAddressConfidence")
+    public void setPhoneToBillAddressConfidence(String phoneToBillAddressConfidence) {
+        this.phoneToBillAddressConfidence = phoneToBillAddressConfidence;
+    }
+
+    public String getPhoneToShipAddressConfidence() {
+        return phoneToShipAddressConfidence;
+    }
+
+    @JsonProperty("phoneToShipAddressConfidence")
+    public void setPhoneToShipAddressConfidence(String phoneToShipAddressConfidence) {
+        this.phoneToShipAddressConfidence = phoneToShipAddressConfidence;
+    }
+
+    public String getPhoneToFullNameConfidence() {
+        return phoneToFullNameConfidence;
+    }
+
+    @JsonProperty("phoneToFullNameConfidence")
+    public void setPhoneToFullNameConfidence(String phoneToFullNameConfidence) {
+        this.phoneToFullNameConfidence = phoneToFullNameConfidence;
+    }
+
+    public String getPhoneToLastNameConfidence() {
+        return phoneToLastNameConfidence;
+    }
+
+    @JsonProperty("phoneToLastNameConfidence")
+    public void setPhoneToLastNameConfidence(String phoneToLastNameConfidence) {
+        this.phoneToLastNameConfidence = phoneToLastNameConfidence;
+    }
+
+    public String getBillAddressToFullNameConfidence() {
+        return billAddressToFullNameConfidence;
+    }
+
+    @JsonProperty("billAddressToFullNameConfidence")
+    public void setBillAddressToFullNameConfidence(String billAddressToFullNameConfidence) {
+        this.billAddressToFullNameConfidence = billAddressToFullNameConfidence;
+    }
+
+    public String getBillAddressToLastNameConfidence() {
+        return billAddressToLastNameConfidence;
+    }
+
+    @JsonProperty("billAddressToLastNameConfidence")
+    public void setBillAddressToLastNameConfidence(String billAddressToLastNameConfidence) {
+        this.billAddressToLastNameConfidence = billAddressToLastNameConfidence;
+    }
+
+    public String getShipAddressToBillAddressConfidence() {
+        return shipAddressToBillAddressConfidence;
+    }
+
+    @JsonProperty("shipAddressToBillAddressConfidence")
+    public void setShipAddressToBillAddressConfidence(String shipAddressToBillAddressConfidence) {
+        this.shipAddressToBillAddressConfidence = shipAddressToBillAddressConfidence;
+    }
+
+    public String getShipAddressToFullNameConfidence() {
+        return shipAddressToFullNameConfidence;
+    }
+
+    @JsonProperty("shipAddressToFullNameConfidence")
+    public void setShipAddressToFullNameConfidence(String shipAddressToFullNameConfidence) {
+        this.shipAddressToFullNameConfidence = shipAddressToFullNameConfidence;
+    }
+
+    public String getShipAddressToLastNameConfidence() {
+        return shipAddressToLastNameConfidence;
+    }
+
+    @JsonProperty("shipAddressToLastNameConfidence")
+    public void setShipAddressToLastNameConfidence(String shipAddressToLastNameConfidence) {
+        this.shipAddressToLastNameConfidence = shipAddressToLastNameConfidence;
     }
 }
