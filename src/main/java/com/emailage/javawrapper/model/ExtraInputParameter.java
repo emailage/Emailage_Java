@@ -1,9 +1,11 @@
 package com.emailage.javawrapper.model;
 
+import com.emailage.javawrapper.model.exception.EmailageParameterException;
+
 import java.lang.reflect.Field;
 
 public class ExtraInputParameter {
-	private String firstname = new String();
+	private String firstname = "";
 
 	public String getfirstname() {
 		return firstname;
@@ -13,7 +15,7 @@ public class ExtraInputParameter {
 		firstname = value;
 	}
 
-	private String lastname = new String();
+	private String lastname = "";
 
 	public String getlastname() {
 		return lastname;
@@ -23,7 +25,7 @@ public class ExtraInputParameter {
 		lastname = value;
 	}
 
-	private String billaddress = new String();
+	private String billaddress = "";
 
 	public String getbilladdress() {
 		return billaddress;
@@ -33,7 +35,7 @@ public class ExtraInputParameter {
 		billaddress = value;
 	}
 
-	private String billcity = new String();
+	private String billcity = "";
 
 	public String getbillcity() {
 		return billcity;
@@ -43,7 +45,7 @@ public class ExtraInputParameter {
 		billcity = value;
 	}
 
-	private String billregion = new String();
+	private String billregion = "";
 
 	public String getbillregion() {
 		return billregion;
@@ -53,7 +55,7 @@ public class ExtraInputParameter {
 		billregion = value;
 	}
 
-	private String billpostal = new String();
+	private String billpostal = "";
 
 	public String getbillpostal() {
 		return billpostal;
@@ -63,7 +65,7 @@ public class ExtraInputParameter {
 		billpostal = value;
 	}
 
-	private String billcountry = new String();
+	private String billcountry = "";
 
 	public String getbillcountry() {
 		return billcountry;
@@ -73,7 +75,7 @@ public class ExtraInputParameter {
 		billcountry = value;
 	}
 
-	private String shipaddress = new String();
+	private String shipaddress = "";
 
 	public String getshipaddress() {
 		return shipaddress;
@@ -83,7 +85,7 @@ public class ExtraInputParameter {
 		shipaddress = value;
 	}
 
-	private String shipcity = new String();
+	private String shipcity = "";
 
 	public String getshipcity() {
 		return shipcity;
@@ -93,7 +95,7 @@ public class ExtraInputParameter {
 		shipcity = value;
 	}
 
-	private String shipregion = new String();
+	private String shipregion = "";
 
 	public String getshipregion() {
 		return shipregion;
@@ -103,7 +105,7 @@ public class ExtraInputParameter {
 		shipregion = value;
 	}
 
-	private String shippostal = new String();
+	private String shippostal = "";
 
 	public String getshippostal() {
 		return shippostal;
@@ -113,7 +115,7 @@ public class ExtraInputParameter {
 		shippostal = value;
 	}
 
-	private String shipcountry = new String();
+	private String shipcountry = "";
 
 	public String getshipcountry() {
 		return shipcountry;
@@ -123,7 +125,7 @@ public class ExtraInputParameter {
 		shipcountry = value;
 	}
 
-	private String phone = new String();
+	private String phone = "";
 
 	public String getphone() {
 		return phone;
@@ -143,7 +145,7 @@ public class ExtraInputParameter {
 		transamount = value;
 	}
 
-	private String transcurrency = new String();
+	private String transcurrency = "";
 
 	public String gettranscurrency() {
 		return transcurrency;
@@ -153,7 +155,7 @@ public class ExtraInputParameter {
 		transcurrency = value;
 	}
 
-	private String transorigin = new String();
+	private String transorigin = "";
 
 	public String gettransorigin() {
 		return transorigin;
@@ -173,7 +175,7 @@ public class ExtraInputParameter {
 		existingcustomer = value;
 	}
 
-	private String useragent = new String();
+	private String useragent = "";
 
 	public String getuseragent() {
 		return useragent;
@@ -183,7 +185,7 @@ public class ExtraInputParameter {
 		useragent = value;
 	}
 
-	private String acceptlang = new String();
+	private String acceptlang = "";
 
 	public String getacceptlang() {
 		return acceptlang;
@@ -193,7 +195,7 @@ public class ExtraInputParameter {
 		acceptlang = value;
 	}
 
-	private String customerid = new String();
+	private String customerid = "";
 
 	public String getcustomerid() {
 		return customerid;
@@ -203,7 +205,7 @@ public class ExtraInputParameter {
 		customerid = value;
 	}
 
-	private String urid = new String();
+	private String urid = "";
 
 	public String geturid() {
 		return urid;
@@ -215,7 +217,7 @@ public class ExtraInputParameter {
 
 
 
-	private String deviceid = new String();
+	private String deviceid = "";
 
 	public String getdeviceid() {
 		return deviceid;
@@ -225,7 +227,7 @@ public class ExtraInputParameter {
 		deviceid = value;
 	}
 
-	private String devicesource = new String();
+	private String devicesource = "";
 
 	public String getdevicesource() {
 		return devicesource;
@@ -235,7 +237,7 @@ public class ExtraInputParameter {
 		devicesource = value;
 	}
 
-	private String response_language = new String();
+	private String response_language = "";
 
 	public String getresponse_language() {
 		return response_language;
@@ -245,7 +247,7 @@ public class ExtraInputParameter {
 		response_language = value;
 	}
 
-	private String user_email = new String();
+	private String user_email = "";
 
 	public String getuser_email() {
 		return user_email;
@@ -255,7 +257,7 @@ public class ExtraInputParameter {
 		user_email = value;
 	}
 
-	private String secondary_email = new String();
+	private String secondary_email = "";
 
 	public void setsecondary_email(String value) {
 		secondary_email = value;
@@ -264,7 +266,7 @@ public class ExtraInputParameter {
 		return secondary_email;
 	}
 
-	private String service_category = new String();
+	private String service_category = "";
 	
 	public void setservice_category(String value) {
 		service_category = value;
@@ -274,7 +276,7 @@ public class ExtraInputParameter {
 	}
 
 	
-	private String service_date = new String();
+	private String service_date = "";
 	
 	public void setservice_date(String value) {
 		service_date = value;
@@ -283,7 +285,7 @@ public class ExtraInputParameter {
 		return service_date;
 	}
 
-	private String service_detail = new String();
+	private String service_detail = "";
 	
 	public void setservice_detail(String value) {
 		service_detail = value;
@@ -292,7 +294,7 @@ public class ExtraInputParameter {
 		return service_detail;
 	}
 	
-	private String service_location = new String();
+	private String service_location = "";
 	
 	public void setservice_location(String value) {
 		service_location = value;
@@ -310,7 +312,7 @@ public class ExtraInputParameter {
 		return time_to_service;
 	}
 	
-	private String delivery_type = new String();
+	private String delivery_type = "";
 	
 	public void setdelivery_type(String value) {
 		delivery_type = value;
@@ -320,7 +322,7 @@ public class ExtraInputParameter {
 	}
 
 
-	private String custom1 = new String();
+	private String custom1 = "";
 	
 	public void setcustom1(String value) {
 		custom1 = value;
@@ -330,7 +332,7 @@ public class ExtraInputParameter {
 	}
 
 
-	private String custom2 = new String();
+	private String custom2 = "";
 	
 	public void setcustom2(String value) {
 		custom2 = value;
@@ -339,7 +341,7 @@ public class ExtraInputParameter {
 		return custom2;
 	}
 	
-	private String cardFirstSix = new String();
+	private String cardFirstSix = "";
 	
 	public void setcardFirstSix(String value) {
 		cardFirstSix = value;
@@ -348,7 +350,7 @@ public class ExtraInputParameter {
 		return cardFirstSix;
 	}
 	
-	private String hashedCardNumber = new String();
+	private String hashedCardNumber = "";
 	
 	public void sethashedCardNumber(String value) {
 		hashedCardNumber = value;
@@ -359,31 +361,36 @@ public class ExtraInputParameter {
 	
 	
 	
-	public String buildExtraInputParameterRequest() throws Exception {
+	public String buildExtraInputParameterRequest()
+			throws EmailageParameterException {
 		StringBuilder sb = new StringBuilder();
-		for (Field prop : ExtraInputParameter.class.getDeclaredFields()) {
-			if (prop.getType().getSimpleName().equals("String")) {
-				prop.setAccessible(true);
+		try {
+			for (Field prop : ExtraInputParameter.class.getDeclaredFields()) {
+				if (prop.getType().getSimpleName().equals("String")) {
+					prop.setAccessible(true);
 
-				String strValue = (String) prop.get(this);
-				if (!strValue.equals("")) {
-					sb.append(String.format("&%s=%s", prop.getName(), strValue));
+					String strValue = (String) prop.get(this);
+					if (!strValue.equals("")) {
+						sb.append(String.format("&%s=%s", prop.getName(), strValue));
+					}
+
+				}
+				// below two statements are not used for now unless we want to add
+				// the support
+				// of the types other string.
+				else if (prop.getType().toString().equals("boolean")) {
+					prop.setAccessible(true);
+					boolean value = (boolean) prop.get(this);
+					sb.append(String.format("&%s=%b", prop.getName(), value));
+				} else if (prop.getType().toString().equals("double")) {
+					prop.setAccessible(true);
+					double value = (double) prop.get(this);
+					sb.append(String.format("&%s=%f", prop.getName(), value));
 				}
 
 			}
-			// below two statements are not used for now unless we want to add
-			// the support
-			// of the types other string.
-			else if (prop.getType().toString().equals("boolean")) {
-				prop.setAccessible(true);
-				boolean value = (boolean) prop.get(this);
-				sb.append(String.format("&%s=%b", prop.getName(), value));
-			} else if (prop.getType().toString().equals("double")) {
-				prop.setAccessible(true);
-				double value = (double) prop.get(this);
-				sb.append(String.format("&%s=%f", prop.getName(), value));
-			}
-
+		} catch(Exception e){
+			throw new EmailageParameterException("Could not parse extra input parameters for the request",e);
 		}
 		return sb.toString();
 	}
