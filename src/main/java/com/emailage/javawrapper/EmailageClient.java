@@ -35,16 +35,15 @@ public class EmailageClient {
 	private static final String RequestBaseUrlSand = "https://sandbox.emailage.com/emailagevalidator/";
 
 	/* PRODUCTION Environment */
-	//private static final String RequestBaseUrlProd = "https://api.emailage.com/emailagevalidator/";
-	private static final String RequestBaseUrlProd = "https://api.dev.eaorg.us/emailagevalidator/";
+	private static final String RequestBaseUrlProd = "https://api.emailage.com/emailagevalidator/";
+
 
 	/* Email Fraud Endpoint */
 	/* SANDBOX Environment */
 	private static final String RequestBaseFraudUrlSand = "https://sandbox.emailage.com/emailageValidator/flag/";
 
 	/* PRODUCTION Environment */
-	//private static final String RequestBaseFraudUrlProd = "https://api.emailage.com/emailageValidator/flag/";
-	private static final String RequestBaseFraudUrlProd = "https://api.dev.eaorg.us/emailageValidator/flag/";
+	private static final String RequestBaseFraudUrlProd = "https://api.emailage.com/emailageValidator/flag/";
 
 	/** Use java.util.logging.  NOTE: this can be captured and redirected to other logging libraries using slf4j. */
 	private static Logger Log = Logger.getLogger(EmailageClient.class.getName());
