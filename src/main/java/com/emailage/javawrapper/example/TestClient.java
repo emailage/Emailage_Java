@@ -27,8 +27,8 @@ public class TestClient {
 		String user_email = null;
 		Enums.Environment environment = Enums.Environment.Production;
 
-		String accountSecret = "E4D2778DD32D41248347E2EEC4448685";
-		String authToken = "D7AF5327CED848F3BAA5FAA3C69954E6";
+		String accountSecret = "replace-me";
+		String authToken = "replace-me";
 
 		ConfigurationParameters parameters = new ConfigurationParameters();
 		parameters.setUserEmail(user_email);
