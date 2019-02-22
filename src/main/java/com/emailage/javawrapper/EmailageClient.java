@@ -53,6 +53,8 @@ public class EmailageClient {
 	 */
 	private static Pattern compiledPattern = Pattern.compile("\\\\u(\\p{XDigit}{4})");
 
+	private static Pattern compiledUTF8Pattern = Pattern.compile("\ufeff");
+
 	/**
 	 * <p>Jackson ObjectMapper is fully thread-safe according to the Jackson docs <a href="http://static.javadoc.io/com.fasterxml.jackson.core/jackson-databind/2.9.8/com/fasterxml/jackson/databind/ObjectMapper.html">here.</a></p>
 	 */
@@ -288,7 +290,8 @@ public class EmailageClient {
 	}
 
 	private static EmailageResponse deserialize(String response) throws IOException {
-		EmailageResponse query = mapper.readValue(response.trim().replaceFirst("\ufeff",""), EmailageResponse.class);
+		Matcher matcher = compiledUTF8Pattern.matcher(response.trim());
+		EmailageResponse query = mapper.readValue(matcher.replaceFirst(""), EmailageResponse.class);
 		query.getQuery().setRaw(response);
 		return query;
 	}
