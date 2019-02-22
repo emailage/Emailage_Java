@@ -1,9 +1,10 @@
 package com.emailage.javawrapper.test;
-import static org.junit.Assert.*;
-import org.junit.Test;
 
 import com.emailage.javawrapper.model.ExtraInputParameter;
 import com.emailage.javawrapper.utilities.Validation;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class UnitTest {
 	@Test
@@ -127,7 +128,7 @@ public class UnitTest {
 		assertEquals(input.getshippostal(), "12345");
 
 		input.settransamount(23.20);
-		assertTrue(input.gettransamount() == 23.20);
+        assertEquals(23.20, input.gettransamount(), 0.0);
 		
 
 		input.setshipregion("az");

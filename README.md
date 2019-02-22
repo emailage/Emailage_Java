@@ -4,13 +4,15 @@
 
 The Emailage&#8482; API is organized around REST (Representational State Transfer). The API was built to help companies integrate with our highly efficient fraud risk and scoring system. By calling our API endpoints and simply passing us an email and/or IP Address, companies will be provided with real-time risk scoring assessments based around machine learning and proprietary algorithms that evolve with new fraud trends.
 
+[![Build Status](https://eateam.visualstudio.com/Emailage%20Code/_apis/build/status/Github/Emailage_Java%20(master)?branchName=feature/update_build)](https://eateam.visualstudio.com/Emailage%20Code/_build/latest?definitionId=634&branchName=feature/update_build)
+
 ## Getting Started
 
 ### Requirements
 
 * JVM 1.7 and above
-* [Apache Commons Validator](https://commons.apache.org/proper/commons-validator)
-	* If you set validateEmailAndIpInClient to false in EmailageClient.java, you can bypass this dependency
+* Maven 3+
+    * Maven is used to maintain all dependencies
 
 ### Installation
 
@@ -19,7 +21,19 @@ Emailage can be installed directly from the source code:
 ```
 $ git clone https://github.com/emailage/Emailage_Java.git
 ```
-You can directly import this project to eclispe.
+
+*Upcoming!*
+Soon, you will be able to include the library in your Maven project, by referencing it as a dependency.
+
+```
+<depencencies>
+    <dependency>
+        <groupId>com.emailage</groupId>
+        <artifactId>classic-api-client</artifactId>
+        <version>1.0</version>
+    </dependency>
+</dependencies>
+```
 
 ## Usage
 
@@ -31,49 +45,27 @@ com.emailage.javawrapper.test.TestClient.java
 
 ### Settings
 
-In the client class, you can first set up the result format, signatureMethod, user_email and environment for the query.
+Before using the API, you will need to populate the configuration parameters:
+
 ```Java
-/* Results can be in JSON or XML format */
-Enums.Format resultFormat = Enums.Format.Json;
-Enums.SignatureMethod signatureMethod = Enums.SignatureMethod.HMAC_SHA256;
-/*
- * OPTIONAL FIELD. Use this field if you want to associate the API call
- * to a specific Emailage user.
- */
-String user_email = null;
-Enums.Environment environment = Enums.Environment.Production;
-```
-
-In the com.emailage.javawrapper.utilities.EmailageClient.java you can update your AccountSID and AuthToken provided by Emailage.
-```Java
-
-/*
- * ACCOUNT SID. You can find the Account SID in the Settings menu -> API Key
- * Info.
- */
-private static final String AccountSID = "INPUT--SID";
-
-/*
- * AUTH TOKEN. You can find the AUTH TOKEN in the Settings menu -> API Key
- * Info.
- */
-private static final String AuthToken = "INPUT--KEY";
-
+ConfigurationParameters configuration = new ConfigurationParameters();
+parameters.setUserEmail(/*Email associated with the emailage user making the request*/);
+parameters.setAcccountToken(/*Emailage authentication token*/);
+parameters.setAccountSecret(/*Emailage account secret*/);
+parameters.setEnvironment(/*Environment for the Requetst Production/Sandbox*/);
+parameters.setHashAlgorithm(/*Signature Hashing algorithm*/);
+parameters.setResultFormat(/*Xml or JSON*/);
 ```
 
 ### Email Validation
 
 ```Java
-String validResult = EmailageClient.QueryEmail("test@test.com", resultFormat, signatureMethod, user_email,
-			environment);
-
+String validResult = EmailageClient.QueryEmail("test@test.com", configuration);
 ```
 ### Email and IP Validation
 
 ```Java
-String validResult = EmailageClient.QueryEmailAndIP("test@test.com", "147.12.12.13", resultFormat,
-					signatureMethod, user_email, environment);
-
+String validResult = EmailageClient.QueryEmailAndIP("test@test.com", "147.12.12.13", configuration);
 ```
 
 ### Email and IP Validation with extra input parameters
@@ -83,27 +75,13 @@ ExtraInputParameter extraArgs = new ExtraInputParameter();
 		extraArgs.setbillpostal("85225");
 		extraArgs.setbillcity("Chandler");
 String validResult = EmailageClient.QueryEmailAndIPPlusExtraArgs("test@test.com", "147.12.12.13", extraArgs,
-					resultFormat, signatureMethod, user_email, environment);
-
+					configuration);
 ```
 ### Mark email as fraud/good.
 
 ```Java
-int fraudCodeID = 1;
-/*
- * fraudcodeID parameter Reference: 
- *1 Card Not Present Fraud 
- *2 Customer Dispute (Chargeback) 
- *3 First PartyFraud 
- *4 First Payment Default 
- *5 Identify Theft (Fraud Application) 
- *6 Identify Theft (Account Take Over) 
- *7 SuspectedFraud (Not Confirmed) 
- *8 Synthetic ID 
- *9 Other
- */
-String validResult = EmailageClient.MarkEmailAsFraud("test@test.com", Enums.FraudFlag.Fraud, fraudCodeID,
-					resultFormat, signatureMethod, user_email, environment);
+String validResult = EmailageClient.MarkEmailAsFraud("test@test.com", Enums.FraudFlag.Fraud, Enums.FraudType.Good,
+					configuration);
 ```
 
 ## Frequent asked integration problems.

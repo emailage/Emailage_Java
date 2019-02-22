@@ -50,5 +50,22 @@ Temporary Items
 # ignore editor project files
 .classpath
 .project
+
+# Jetbrains files
 *.iml
-.idea/
+*.idea
+
+# build files
+/apidocs/
+/surefire-reports/
+/maven-status/
+/maven-archiver/
+/test-classes/
+/classes/
+/javadoc-build-options/
+
+# Javadoc files
+*.html
+
+# text files
+*.txt
