@@ -57,6 +57,7 @@ public class EmailageResult {
     private String ipRiskLevel;
     private String ipRiskReasonID;
     private String ipRiskReason;
+    private String ipRiskCountry;
     private String ipReputation;
     private String ipAnonymousDetected;
     private String ipProxyType;
@@ -93,6 +94,7 @@ public class EmailageResult {
     private String cityPostalMatch;
     private String shipCityPostalMatch;
     private String phoneStatus;
+    private String billCity;
     private String shipForward;
     private String nameMatch;
     private String phoneOwner;
@@ -642,7 +644,7 @@ public class EmailageResult {
         return ipCorporateProxy;
     }
 
-    @JsonProperty("ip_coporateProxy")
+    @JsonProperty("ip_corporateProxy")
     public void setIpCorporateProxy(String ipCorporateProxy) {
         this.ipCorporateProxy = ipCorporateProxy;
     }
@@ -1149,5 +1151,23 @@ public class EmailageResult {
     @JsonProperty("shipAddressToLastNameConfidence")
     public void setShipAddressToLastNameConfidence(String shipAddressToLastNameConfidence) {
         this.shipAddressToLastNameConfidence = shipAddressToLastNameConfidence;
+    }
+
+    public String getBillCity() {
+        return billCity;
+    }
+
+    @JsonProperty("billcity")
+    public void setBillCity(String billCity) {
+        this.billCity = billCity;
+    }
+
+    public String getIpRiskCountry() {
+        return ipRiskCountry;
+    }
+
+    @JsonProperty("ipriskcountry")
+    public void setIpRiskCountry(String ipRiskCountry) {
+        this.ipRiskCountry = ipRiskCountry;
     }
 }

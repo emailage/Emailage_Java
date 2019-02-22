@@ -5,6 +5,8 @@ import com.emailage.javawrapper.model.ConfigurationParameters;
 import com.emailage.javawrapper.model.Enums;
 import com.emailage.javawrapper.model.ExtraInputParameter;
 import com.emailage.javawrapper.model.response.EmailageResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 
 public class TestClient {
 
@@ -25,8 +27,8 @@ public class TestClient {
 		String user_email = null;
 		Enums.Environment environment = Enums.Environment.Production;
 
-		String accountSecret = "replace-me";
-		String authToken = "replace-me";
+		String accountSecret = "E4D2778DD32D41248347E2EEC4448685";
+		String authToken = "D7AF5327CED848F3BAA5FAA3C69954E6";
 
 		ConfigurationParameters parameters = new ConfigurationParameters();
 		parameters.setUserEmail(user_email);
@@ -36,13 +38,16 @@ public class TestClient {
 		parameters.setHashAlgorithm(signatureMethod);
 		parameters.setResultFormat(resultFormat);
 
+		// Configure jackson-afterburner
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new AfterburnerModule());
+
 		// Email validation
 		try {
 			System.out.println("Querying Email");
-
 			EmailageResponse validResult = EmailageClient.QueryEmail("test@test.com", parameters);
-
-			System.out.println(validResult);
+			String result = mapper.writeValueAsString(validResult);
+			System.out.println(result);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,7 +57,8 @@ public class TestClient {
 		try {
 			System.out.println("Querying Email + IP");
 			EmailageResponse validResult = EmailageClient.QueryEmailAndIP("test@test.com", "147.12.12.13", parameters);
-			System.out.println(validResult);
+			String result = mapper.writeValueAsString(validResult);
+			System.out.println(result);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,7 +76,8 @@ public class TestClient {
 			extraArgs.setbillcity("Chandler");
 
 			EmailageResponse validResult = EmailageClient.QueryEmailAndIPPlusExtraArgs("test@test.com", "147.12.12.13", extraArgs, parameters);
-			System.out.println(validResult);
+			String result = mapper.writeValueAsString(validResult);
+			System.out.println(result);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,7 +91,8 @@ public class TestClient {
 		try {
 			System.out.println("Marking an Email as Fraud");
 			EmailageResponse validResult = EmailageClient.MarkEmailAsFraud("test@test.com", Enums.FraudType.Fraud, Enums.FraudCode.CARD_NOT_PRESENT, parameters);
-			System.out.println(validResult);
+			String result = mapper.writeValueAsString(validResult);
+			System.out.println(result);
 
 		} catch (Exception e) {
 			e.printStackTrace();

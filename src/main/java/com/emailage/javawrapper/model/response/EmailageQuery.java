@@ -18,6 +18,12 @@ public class EmailageQuery {
     private String responseLanguage;
     private List<EmailageResult> results;
     private String raw;
+    private String flag;
+    private String billCity;
+    private String billpostal;
+    private String transAmount;
+    private String existingCustomer;
+    private String fraudCodeID;
 
     public String getEmail() {
         return email;
@@ -98,5 +104,58 @@ public class EmailageQuery {
 
     public void setRaw(String raw) {
         this.raw = raw;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public String getBillCity() {
+        return billCity;
+    }
+
+    @JsonProperty("billcity")
+    public void setBillCity(String billCity) {
+        this.billCity = billCity;
+    }
+
+    public String getBillpostal() {
+        return billpostal;
+    }
+
+    @JsonProperty("billpostal")
+    public void setBillpostal(String billpostal) {
+        this.billpostal = billpostal;
+    }
+
+    public String getTransAmount() {
+        return transAmount;
+    }
+
+    @JsonProperty("transamount")
+    public void setTransAmount(String transAmount) {
+        this.transAmount = transAmount;
+    }
+
+    public String getExistingCustomer() {
+        return existingCustomer;
+    }
+
+    @JsonProperty("existingcustomer")
+    public void setExistingCustomer(String existingCustomer) {
+        this.existingCustomer = existingCustomer;
+    }
+
+    public String getFraudCodeID() {
+        return fraudCodeID;
+    }
+
+    @JsonProperty("fraudcodeID")
+    public void setFraudCodeID(String fraudCodeID) {
+        this.fraudCodeID = fraudCodeID;
     }
 }
