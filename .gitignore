@@ -46,3 +46,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 /bin/
+
+# ignore editor project files
+.classpath
+.project
+*.iml
+.idea/
