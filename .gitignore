@@ -47,6 +47,10 @@ Temporary Items
 .apdisk
 /bin/
 
+# Eclipse files
+.classpath
+.project
+
 # Jetbrains files
 *.iml
 *.idea
