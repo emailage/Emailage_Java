@@ -30,6 +30,8 @@ public class EmailageResult {
     private String EARiskBand;
     private String sourceIndustry;
     private String fraudType;
+    private String billRiskCountry;
+    private String nameMatch;
     private String lastFlaggedOn;
     private String dob;
     private String gender;
@@ -45,6 +47,7 @@ public class EmailageResult {
     private String domainName;
     private String domainCompany;
     private String domainCountryName;
+    private String domainCountryMatch;
     private String domainCategory;
     private String domainCorporate;
     private String domainRiskLevel;
@@ -93,10 +96,15 @@ public class EmailageResult {
     private String custPhoneInBillingLoc;
     private String cityPostalMatch;
     private String shipCityPostalMatch;
+    private String deviceIdRiskLevel;
+    private String issuerBank;
+    private String issuerBrand;
+    private String issuerCountry;
+    private String cardCategory;
+    private String cardType;
     private String phoneStatus;
     private String billCity;
     private String shipForward;
-    private String nameMatch;
     private String phoneOwner;
     private String phoneOwnerType;
     private String phoneCarrierType;
@@ -1169,5 +1177,77 @@ public class EmailageResult {
     @JsonProperty("ipriskcountry")
     public void setIpRiskCountry(String ipRiskCountry) {
         this.ipRiskCountry = ipRiskCountry;
+    }
+
+    public String getDomainCountryMatch() {
+        return domainCountryMatch;
+    }
+
+    @JsonProperty("domaincountrymatch")
+    public void setDomainCountryMatch(String domainCountryMatch) {
+        this.domainCountryMatch = domainCountryMatch;
+    }
+
+    public String getBillRiskCountry() {
+        return billRiskCountry;
+    }
+
+    @JsonProperty("billriskcountry")
+    public void setBillRiskCountry(String billRiskCountry) {
+        this.billRiskCountry = billRiskCountry;
+    }
+
+    public String getDeviceIdRiskLevel() {
+        return deviceIdRiskLevel;
+    }
+
+    @JsonProperty("deviceIdRiskLevel")
+    public void setDeviceIdRiskLevel(String deviceIdRiskLevel) {
+        this.deviceIdRiskLevel = deviceIdRiskLevel;
+    }
+
+    public String getIssuerBank() {
+        return issuerBank;
+    }
+
+    @JsonProperty("issuerBank")
+    public void setIssuerBank(String issuerBank) {
+        this.issuerBank = issuerBank;
+    }
+
+    public String getIssuerBrand() {
+        return issuerBrand;
+    }
+
+    @JsonProperty("issuerBrand")
+    public void setIssuerBrand(String issuerBrand) {
+        this.issuerBrand = issuerBrand;
+    }
+
+    public String getIssuerCountry() {
+        return issuerCountry;
+    }
+
+    @JsonProperty("issuerCountry")
+    public void setIssuerCountry(String issuerCountry) {
+        this.issuerCountry = issuerCountry;
+    }
+
+    public String getCardCategory() {
+        return cardCategory;
+    }
+
+    @JsonProperty("cardCategory")
+    public void setCardCategory(String cardCategory) {
+        this.cardCategory = cardCategory;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    @JsonProperty("cardType")
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
     }
 }
