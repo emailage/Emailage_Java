@@ -30,7 +30,6 @@ import java.util.regex.Pattern;
  */
 public class EmailageClient {
 	/* Email Query Endpoint */
-
 	/* SANDBOX Environment */
 	private static final String RequestBaseUrlSand = "https://sandbox.emailage.com/emailagevalidator/";
 
