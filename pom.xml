@@ -1,4 +1,4 @@
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.emailage</groupId>
@@ -47,7 +47,7 @@
         <connection>scm:git:https://github.com/emailage/Emailage_Java.git</connection>
         <developerConnection>scm:git:https://git@github.com/emailage/Emailage_Java.git</developerConnection>
         <url>https://github.com/emailage/Emailage_Java/tree/master</url>
-    </scm>
+  </scm>
 
     <distributionManagement>
         <snapshotRepository>
@@ -176,6 +176,10 @@
                         <goals>
                             <goal>sign</goal>
                         </goals>
+                        <configuration>
+                            <keyname>28C37BD357582F61</keyname>
+                            <passphraseServerId>28C37BD357582F61</passphraseServerId>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
