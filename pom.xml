@@ -161,8 +161,8 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
-                    <useReleaseProfile>false</useReleaseProfile>
-                    <releaseProfiles>release</releaseProfiles>
+                    <useReleaseProfile>true</useReleaseProfile>
+                    <releaseProfiles>03E8F23549ABCCE1422885CB28C37BD357582F61</releaseProfiles>
                     <goals>deploy</goals>
                 </configuration>
             </plugin>
@@ -178,8 +178,8 @@
                             <goal>sign</goal>
                         </goals>
                         <configuration>
-                            <keyname>28C37BD357582F61</keyname>
-                            <passphraseServerId>28C37BD357582F61</passphraseServerId>
+                            <keyname>03E8F23549ABCCE1422885CB28C37BD357582F61</keyname>
+                            <passphraseServerId>03E8F23549ABCCE1422885CB28C37BD357582F61</passphraseServerId>
                         </configuration>
                     </execution>
                 </executions>
