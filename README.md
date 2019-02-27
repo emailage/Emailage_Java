@@ -21,18 +21,13 @@ Emailage can be installed directly from the source code:
 ```
 $ git clone https://github.com/emailage/Emailage_Java.git
 ```
-
-*Upcoming!*
-Soon, you will be able to include the library in your Maven project, by referencing it as a dependency.
-
-```
-<depencencies>
-    <dependency>
-        <groupId>com.emailage</groupId>
-        <artifactId>classic-api-client</artifactId>
-        <version>1.0</version>
-    </dependency>
-</dependencies>
+Or you can use the Maven dependency:
+```xml
+<dependency>
+  <groupId>com.emailage</groupId>
+  <artifactId>classic-api-client</artifactId>
+  <version>1.0.0</version>
+</dependency>
 ```
 
 ## Usage
