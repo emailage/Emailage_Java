@@ -4,7 +4,6 @@
 
 The Emailage&#8482; API is organized around REST (Representational State Transfer). The API was built to help companies integrate with our highly efficient fraud risk and scoring system. By calling our API endpoints and simply passing us an email and/or IP Address, companies will be provided with real-time risk scoring assessments based around machine learning and proprietary algorithms that evolve with new fraud trends.
 
-[![Build Status](https://eateam.visualstudio.com/Emailage%20Code/_apis/build/status/Github/Emailage_Java%20(master)?branchName=feature/update_build)](https://eateam.visualstudio.com/Emailage%20Code/_build/latest?definitionId=634&branchName=feature/update_build)
 
 ## Getting Started
 
@@ -26,7 +25,7 @@ Or you can use the Maven dependency:
 <dependency>
   <groupId>com.emailage</groupId>
   <artifactId>classic-api-client</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
