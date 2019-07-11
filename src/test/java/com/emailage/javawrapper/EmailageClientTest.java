@@ -216,6 +216,39 @@ public class EmailageClientTest {
         assertNotNull(result);
     }
 
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void queryEmailAndIPPlusExtraArgsEmptyIp() throws Exception {
+
+        ByteArrayOutputStream oStream = new ByteArrayOutputStream();
+        oStream.write(rajeshResponse.getBytes());
+
+        ByteArrayInputStream iStream = new ByteArrayInputStream(rajeshResponse.getBytes());
+
+        HttpsURLConnection mock = mock(HttpsURLConnection.class);
+        when(mock.getOutputStream()).thenReturn(oStream);
+        when(mock.getInputStream()).thenReturn(iStream);
+
+        PowerMockito.spy(EmailageClient.class);
+        PowerMockito.doReturn(mock).when(EmailageClient.class,"getHttpsURLConnection", Mockito.any(URL.class));
+
+        ExtraInputParameter extraInputParameter = new ExtraInputParameter();
+        extraInputParameter.setuser_email("me@dne.com");
+
+        ConfigurationParameters parameters = new ConfigurationParameters();
+        parameters.setUserEmail("me@dne.com");
+        parameters.setAcccountToken(authToken);
+        parameters.setAccountSecret(accountSecret);
+        parameters.setEnvironment(Enums.Environment.Sandbox);
+        parameters.setHashAlgorithm(Enums.SignatureMethod.HMAC_SHA256);
+        parameters.setResultFormat(Enums.Format.Json);
+
+        EmailageResponse result = EmailageClient.QueryEmailAndIPPlusExtraArgs("tmp@dne.com","", extraInputParameter, parameters);
+
+        verify(mock).getOutputStream();
+        verify(mock).getInputStream();
+        assertNotNull(result);
+    }
+
     @Test
     public void markEmailAsFraud() throws Exception {
 
