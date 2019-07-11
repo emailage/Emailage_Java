@@ -308,13 +308,21 @@ public class EmailageClient {
 		return true;
 	}
 
+    /**
+     * Validate parameters that are provided.  Either email OR IP address is required.
+     * @param email valid email address
+     * @param ipAddress valid ipv4 or ipv6 ip address
+     * @param isValidationActive whether or not to execute validation logic
+     * @return if email and/or ip address are valid.
+     * @throws IllegalArgumentException
+     */
 	private static boolean validateParams(String email, String ipAddress, boolean isValidationActive) throws IllegalArgumentException {
 		if (isValidationActive) {
 			if(email == null && ipAddress == null){
 				throw new IllegalArgumentException("Email or Ip Address must be supplied");
-			} else if (email == null || !Validation.validateEmail(email)) {
+			} else if (email != null && !Validation.validateEmail(email)) {
 				throw new IllegalArgumentException("Email supplied is not valid : " + email);
-			} else if (ipAddress == null || !Validation.validateIpAddress(ipAddress)) {
+			} else if (ipAddress != null && !Validation.validateIpAddress(ipAddress)) {
 				throw new IllegalArgumentException("Ip Address supplied is not a valid ipv4 or ipv6 address : " + email);
 			}
 		}
