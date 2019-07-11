@@ -103,8 +103,11 @@ public class EmailageClient {
 			throws IOException, EmailageApiRequestException {
 
 		validateParams(email, IP, parameters.isValidateBeforeSending());
-		String query = "query=" + java.net.URLEncoder.encode(email + "+" + IP, StandardCharsets.UTF_8.name());
-		return deserialize(PostQuery(APIUrl.Query,null, query, parameters));
+		String queryElement = constructQueryField(email, IP);
+
+		StringBuffer queryBuffer = new StringBuffer("query=");
+		queryBuffer.append(queryElement);
+		return deserialize(PostQuery(APIUrl.Query,null, queryBuffer.toString(), parameters));
 	}
 
 	/**
@@ -129,13 +132,16 @@ public class EmailageClient {
 			throws IOException, EmailageParameterException, EmailageApiRequestException {
 
 		validateParams(email, IP, parameters.isValidateBeforeSending());
-		String query = "query=" + java.net.URLEncoder.encode(email + "+" + IP, StandardCharsets.UTF_8.name());
-		query += extraArgs.buildExtraInputParameterRequest();
+		String queryElement = constructQueryField(email, IP);
+
+		StringBuffer queryBuffer = new StringBuffer("query=");
+		queryBuffer.append(queryElement);
+		queryBuffer.append(extraArgs.buildExtraInputParameterRequest());
 
 		return  deserialize(PostQuery(
 				APIUrl.Query,
 				null,
-				query,
+				queryBuffer.toString(),
 				parameters));
 	}
 
@@ -304,13 +310,23 @@ public class EmailageClient {
 
 	private static boolean validateParams(String email, String ipAddress, boolean isValidationActive) throws IllegalArgumentException {
 		if (isValidationActive) {
-			if (!Validation.validateEmail(email)) {
+			if(email == null && ipAddress == null){
+				throw new IllegalArgumentException("Email or Ip Address must be supplied");
+			} else if (email == null || !Validation.validateEmail(email)) {
 				throw new IllegalArgumentException("Email supplied is not valid : " + email);
-			} else if (!Validation.validateIpAddress(ipAddress)) {
+			} else if (ipAddress == null || !Validation.validateIpAddress(ipAddress)) {
 				throw new IllegalArgumentException("Ip Address supplied is not a valid ipv4 or ipv6 address : " + email);
 			}
 		}
 		return true;
+	}
+
+	private static String constructQueryField(String email, String IP) throws UnsupportedEncodingException {
+		StringBuffer queryElement = new StringBuffer();
+		if (email != null) queryElement.append(email);
+		if (email != null && IP != null) queryElement.append("+");
+		if (IP != null) queryElement.append(IP);
+		return java.net.URLEncoder.encode(queryElement.toString(),StandardCharsets.UTF_8.name());
 	}
 
 	private enum APIUrl {
