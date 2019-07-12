@@ -27,13 +27,13 @@ public class TestClient {
 		String user_email = null;
 		Enums.Environment environment = Enums.Environment.Production;
 
-		String accountSecret = "replace-me";
+		String accountSID = "replace-me";
 		String authToken = "replace-me";
 
 		ConfigurationParameters parameters = new ConfigurationParameters();
 		parameters.setUserEmail(user_email);
 		parameters.setAcccountToken(authToken);
-		parameters.setAccountSecret(accountSecret);
+		parameters.setAccountSecret(accountSID);
 		parameters.setEnvironment(environment);
 		parameters.setHashAlgorithm(signatureMethod);
 		parameters.setResultFormat(resultFormat);
