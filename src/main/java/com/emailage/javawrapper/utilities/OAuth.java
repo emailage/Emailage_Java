@@ -2,13 +2,15 @@ package com.emailage.javawrapper.utilities;
 
 import org.apache.commons.codec.binary.Base64;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Key;
-import java.util.*;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 
 public class OAuth {
@@ -23,7 +25,7 @@ public class OAuth {
             String method, 
             String hashAlgorithm,
             String url, 
-            String consumerKey, 
+            String consumerKey,
             String consumerSecret) 
     {
         if (method == null)
