@@ -60,7 +60,8 @@ public class EmailageClient {
 	 */
 	private static ObjectMapper mapper;
 
-	/** Static block that executes before everything else */
+	/** Static block that executes before everything else
+	 */
 	static
 	{
 		// Configure jackson-afterburner
@@ -176,7 +177,10 @@ public class EmailageClient {
 				// Specify Fraud Type: Fraud or Good
 				+ "&flag=" + fraudType;
 
-		return deserialize(PostQuery(APIUrl.MarkAsFraud, fraudType, query, parameters));
+		EmailageResponse response =  deserialize(PostQuery(APIUrl.MarkAsFraud, fraudType, query, parameters));
+		response.getQuery().setEmail(java.net.URLDecoder.decode(response.getQuery().getEmail(), StandardCharsets.UTF_8.name()));
+
+		return response;
 	}
 
 	/**
@@ -236,7 +240,7 @@ public class EmailageClient {
 
 		String oriUrl;
 		if ( null != fraudType){
-			oriUrl = endpointurl + "?flag="+ fraudType.toString()+"&format=" + resultFormat;
+			oriUrl = endpointurl + "?flag="+ fraudType.toString()+"&format=" + resultFormat + "&" + urlParameters;
 
 		} else {
 			oriUrl = endpointurl + "?format=" + resultFormat;
@@ -315,7 +319,7 @@ public class EmailageClient {
      * @param ipAddress valid ipv4 or ipv6 ip address
      * @param isValidationActive whether or not to execute validation logic
      * @return if email and/or ip address are valid.
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException thrown if email and/or ip address is not valid
      */
 	private static boolean validateParams(String email, String ipAddress, boolean isValidationActive) throws IllegalArgumentException {
 		if (isValidationActive) {
