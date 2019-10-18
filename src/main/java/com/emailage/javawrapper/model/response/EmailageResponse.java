@@ -3,7 +3,11 @@ package com.emailage.javawrapper.model.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EmailageResponse {
+
+    @JsonProperty("query")
     private EmailageQuery query;
+
+    @JsonProperty("responseStatus")
     private EmailageStatus responseStatus;
 
     public EmailageQuery getQuery() {
@@ -14,7 +18,6 @@ public class EmailageResponse {
         this.query = query;
     }
 
-    @JsonProperty("responseStatus")
     public EmailageStatus getResponseStatus() {
         return responseStatus;
     }

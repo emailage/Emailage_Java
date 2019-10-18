@@ -1,5 +1,6 @@
 package com.emailage.javawrapper.model.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -8,53 +9,146 @@ import java.util.List;
  * All API output items are documented on the Emailage Portal site <a href="https://app.emailage.com/docs/index.html#api-EmailageValidator-QueryResponseFields">here.</a>
  */
 public class EmailageQuery {
-    private String email;
-    private String ipaddress;
-    private String queryType;
-    private int count;
-    private String created;
-    private String lang;
-    private long responseCount;
-    private String responseLanguage;
-    private List<EmailageResult> results;
-    private String raw;
-    private String flag;
-    private String billCity;
-    private String billpostal;
-    private String transAmount;
-    private String existingCustomer;
-    private String fraudCodeID;
 
+    @JsonProperty("email")
+    private String email;
+
+    @JsonProperty("ipaddress")
+    private String ipAddress;
+
+    @JsonProperty("queryType")
+    private String queryType;
+
+    @JsonProperty("count")
+    private int count;
+
+    @JsonProperty("created")
+    private String created;
+
+    @JsonProperty("lang")
+    private String lang;
+
+    @JsonProperty("responseCount")
+    private long responseCount;
+
+    @JsonProperty("response_language")
+    private String responseLanguage;
+
+    @JsonProperty("results")
+    private List<EmailageResult> results;
+
+    @JsonProperty("raw")
+    private String raw;
+
+    @JsonProperty("flag")
+    private String flag;
+
+    @JsonProperty("billcity")
+    private String billCity;
+
+    @JsonProperty("billpostal")
+    private String billPostal;
+
+    @JsonProperty("transamount")
+    private String transAmount;
+
+    @JsonProperty("existingcustomer")
+    private String existingCustomer;
+
+    @JsonProperty("fraudcodeID")
+    private String fraudCodeId;
+
+    @JsonProperty("acceptlang")
     private String acceptLang;
+
+    @JsonProperty("billaddress")
     private String billAddress;
+
+    @JsonProperty("billregion")
     private String billRegion;
+
+    @JsonProperty("billcountry")
     private String billCountry;
+
+    @JsonProperty("deviceid")
     private String deviceId;
+
+    @JsonProperty("devicesource")
     private String deviceSource;
+
+    @JsonProperty("firstname")
     private String firstName;
+
+    @JsonProperty("lastname")
     private String lastName;
+
+    @JsonProperty("phone")
     private String phone;
+
+    @JsonProperty("shipaddress")
     private String shipAddress;
+
+    @JsonProperty("shipcity")
     private String shipCity;
-    private String shipcountry;
+
+    @JsonProperty("shipcountry")
+    private String shipCountry;
+
+    @JsonProperty("shippostal")
     private String shipPostal;
+
+    @JsonProperty("shipregion")
     private String shipRegion;
+
+    @JsonProperty("transcurrency")
     private String transCurrency;
+
+    @JsonProperty("transorigin")
     private String transOrigin;
+
+    @JsonProperty("urid")
     private String urid;
+
+    @JsonProperty("customerid")
     private String customerId;
+
+    @JsonProperty("cardFirstSix")
     private String cardFirstSix;
+
+    @JsonProperty("user_email")
     private String userEmail;
+
+    @JsonProperty("useragent")
     private String userAgent;
+
+    @JsonProperty("time_to_service")
     private String timeToService;
+
+    @JsonProperty("secondary_email")
     private String secondaryEmail;
+
+    @JsonProperty("service_date")
     private String serviceDate;
+
+    @JsonProperty("service_location")
     private String serviceLocation;
+
+    @JsonProperty("service_detail")
     private String serviceDetail;
+
+    @JsonProperty("service_category")
     private String serviceCategory;
+
+    @JsonProperty("service_type")
     private String serviceType;
+
+    @JsonProperty("hashedCardNumber")
     private String hashedCardNumber;
+
+    @JsonProperty("custom1")
     private String custom1;
+
+    @JsonProperty("custom2")
     private String custom2;
 
     public String getEmail() {
@@ -66,11 +160,11 @@ public class EmailageQuery {
     }
 
     public String getIpaddress() {
-        return ipaddress;
+        return ipAddress;
     }
 
     public void setIpaddress(String ipaddress) {
-        this.ipaddress = ipaddress;
+        this.ipAddress = ipaddress;
     }
 
     public String getQueryType() {
@@ -93,37 +187,36 @@ public class EmailageQuery {
         return created;
     }
 
-    public String getLang() {
-        return lang;
-    }
-
-    public long getResponseCount() {
-        return responseCount;
-    }
-
-    public String getResponse_language() {
-        return responseLanguage;
-    }
-
-    public List<EmailageResult> getResults() {
-        return results;
-    }
-
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getLang() {
+        return lang;
     }
 
     public void setLang(String lang) {
         this.lang = lang;
     }
 
+    public long getResponseCount() {
+        return responseCount;
+    }
+
     public void setResponseCount(long responseCount) {
         this.responseCount = responseCount;
     }
 
-    @JsonProperty("response_language")
-    public void setResponse_language(String responseLanguage) {
+    public String getResponseLanguage() {
+        return responseLanguage;
+    }
+
+    public void setResponseLanguage(String responseLanguage) {
         this.responseLanguage = responseLanguage;
+    }
+
+    public List<EmailageResult> getResults() {
+        return results;
     }
 
     public void setResults(List<EmailageResult> results) {
@@ -150,25 +243,22 @@ public class EmailageQuery {
         return billCity;
     }
 
-    @JsonProperty("billcity")
     public void setBillCity(String billCity) {
         this.billCity = billCity;
     }
 
-    public String getBillpostal() {
-        return billpostal;
+    public String getBillPostal() {
+        return billPostal;
     }
 
-    @JsonProperty("billpostal")
-    public void setBillpostal(String billpostal) {
-        this.billpostal = billpostal;
+    public void setBillPostal(String billPostal) {
+        this.billPostal = billPostal;
     }
 
     public String getTransAmount() {
         return transAmount;
     }
 
-    @JsonProperty("transamount")
     public void setTransAmount(String transAmount) {
         this.transAmount = transAmount;
     }
@@ -177,25 +267,22 @@ public class EmailageQuery {
         return existingCustomer;
     }
 
-    @JsonProperty("existingcustomer")
     public void setExistingCustomer(String existingCustomer) {
         this.existingCustomer = existingCustomer;
     }
 
-    public String getFraudCodeID() {
-        return fraudCodeID;
+    public String getFraudCodeId() {
+        return fraudCodeId;
     }
 
-    @JsonProperty("fraudcodeID")
-    public void setFraudCodeID(String fraudCodeID) {
-        this.fraudCodeID = fraudCodeID;
+    public void setFraudCodeId(String fraudCodeId) {
+        this.fraudCodeId = fraudCodeId;
     }
 
     public String getAcceptLang() {
         return acceptLang;
     }
 
-    @JsonProperty("acceptlang")
     public void setAcceptLang(String acceptLang) {
         this.acceptLang = acceptLang;
     }
@@ -204,7 +291,6 @@ public class EmailageQuery {
         return billAddress;
     }
 
-    @JsonProperty("billaddress")
     public void setBillAddress(String billAddress) {
         this.billAddress = billAddress;
     }
@@ -213,16 +299,22 @@ public class EmailageQuery {
         return billRegion;
     }
 
-    @JsonProperty("billregion")
     public void setBillRegion(String billRegion) {
         this.billRegion = billRegion;
+    }
+
+    public String getBillCountry() {
+        return billCountry;
+    }
+
+    public void setBillCountry(String billCountry) {
+        this.billCountry = billCountry;
     }
 
     public String getDeviceId() {
         return deviceId;
     }
 
-    @JsonProperty("deviceid")
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
     }
@@ -231,7 +323,6 @@ public class EmailageQuery {
         return deviceSource;
     }
 
-    @JsonProperty("devicesource")
     public void setDeviceSource(String deviceSource) {
         this.deviceSource = deviceSource;
     }
@@ -240,7 +331,6 @@ public class EmailageQuery {
         return firstName;
     }
 
-    @JsonProperty("firstname")
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -249,7 +339,6 @@ public class EmailageQuery {
         return lastName;
     }
 
-    @JsonProperty("lastname")
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -258,7 +347,6 @@ public class EmailageQuery {
         return phone;
     }
 
-    @JsonProperty("phone")
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -267,7 +355,6 @@ public class EmailageQuery {
         return shipAddress;
     }
 
-    @JsonProperty("shipaddress")
     public void setShipAddress(String shipAddress) {
         this.shipAddress = shipAddress;
     }
@@ -276,25 +363,22 @@ public class EmailageQuery {
         return shipCity;
     }
 
-    @JsonProperty("shipcity")
     public void setShipCity(String shipCity) {
         this.shipCity = shipCity;
     }
 
-    public String getShipcountry() {
-        return shipcountry;
+    public String getShipCountry() {
+        return shipCountry;
     }
 
-    @JsonProperty("shipcountry")
-    public void setShipcountry(String shipcountry) {
-        this.shipcountry = shipcountry;
+    public void setShipCountry(String shipCountry) {
+        this.shipCountry = shipCountry;
     }
 
     public String getShipPostal() {
         return shipPostal;
     }
 
-    @JsonProperty("shippostal")
     public void setShipPostal(String shipPostal) {
         this.shipPostal = shipPostal;
     }
@@ -303,7 +387,6 @@ public class EmailageQuery {
         return shipRegion;
     }
 
-    @JsonProperty("shipregion")
     public void setShipRegion(String shipRegion) {
         this.shipRegion = shipRegion;
     }
@@ -312,7 +395,6 @@ public class EmailageQuery {
         return transCurrency;
     }
 
-    @JsonProperty("transcurrency")
     public void setTransCurrency(String transCurrency) {
         this.transCurrency = transCurrency;
     }
@@ -321,7 +403,6 @@ public class EmailageQuery {
         return transOrigin;
     }
 
-    @JsonProperty("transorigin")
     public void setTransOrigin(String transOrigin) {
         this.transOrigin = transOrigin;
     }
@@ -330,7 +411,6 @@ public class EmailageQuery {
         return urid;
     }
 
-    @JsonProperty("urid")
     public void setUrid(String urid) {
         this.urid = urid;
     }
@@ -339,7 +419,6 @@ public class EmailageQuery {
         return customerId;
     }
 
-    @JsonProperty("customerid")
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
@@ -348,7 +427,6 @@ public class EmailageQuery {
         return cardFirstSix;
     }
 
-    @JsonProperty("cardFirstSix")
     public void setCardFirstSix(String cardFirstSix) {
         this.cardFirstSix = cardFirstSix;
     }
@@ -357,7 +435,6 @@ public class EmailageQuery {
         return userEmail;
     }
 
-    @JsonProperty("user_email")
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
@@ -366,7 +443,6 @@ public class EmailageQuery {
         return userAgent;
     }
 
-    @JsonProperty("useragent")
     public void setUserAgent(String userAgent) {
         this.userAgent = userAgent;
     }
@@ -375,7 +451,6 @@ public class EmailageQuery {
         return timeToService;
     }
 
-    @JsonProperty("time_to_service")
     public void setTimeToService(String timeToService) {
         this.timeToService = timeToService;
     }
@@ -384,7 +459,6 @@ public class EmailageQuery {
         return secondaryEmail;
     }
 
-    @JsonProperty("secondary_email")
     public void setSecondaryEmail(String secondaryEmail) {
         this.secondaryEmail = secondaryEmail;
     }
@@ -393,7 +467,6 @@ public class EmailageQuery {
         return serviceDate;
     }
 
-    @JsonProperty("service_date")
     public void setServiceDate(String serviceDate) {
         this.serviceDate = serviceDate;
     }
@@ -402,7 +475,6 @@ public class EmailageQuery {
         return serviceLocation;
     }
 
-    @JsonProperty("service_location")
     public void setServiceLocation(String serviceLocation) {
         this.serviceLocation = serviceLocation;
     }
@@ -411,7 +483,6 @@ public class EmailageQuery {
         return serviceDetail;
     }
 
-    @JsonProperty("service_detail")
     public void setServiceDetail(String serviceDetail) {
         this.serviceDetail = serviceDetail;
     }
@@ -420,7 +491,6 @@ public class EmailageQuery {
         return serviceCategory;
     }
 
-    @JsonProperty("service_category")
     public void setServiceCategory(String serviceCategory) {
         this.serviceCategory = serviceCategory;
     }
@@ -429,7 +499,6 @@ public class EmailageQuery {
         return serviceType;
     }
 
-    @JsonProperty("service_type")
     public void setServiceType(String serviceType) {
         this.serviceType = serviceType;
     }
@@ -438,7 +507,6 @@ public class EmailageQuery {
         return hashedCardNumber;
     }
 
-    @JsonProperty("hashedCardNumber")
     public void setHashedCardNumber(String hashedCardNumber) {
         this.hashedCardNumber = hashedCardNumber;
     }
@@ -447,7 +515,6 @@ public class EmailageQuery {
         return custom1;
     }
 
-    @JsonProperty("custom1")
     public void setCustom1(String custom1) {
         this.custom1 = custom1;
     }
@@ -456,17 +523,7 @@ public class EmailageQuery {
         return custom2;
     }
 
-    @JsonProperty("custom2")
     public void setCustom2(String custom2) {
         this.custom2 = custom2;
-    }
-
-    public String getBillCountry() {
-        return billCountry;
-    }
-
-    @JsonProperty("billcountry")
-    public void setBillCountry(String billCountry) {
-        this.billCountry = billCountry;
     }
 }

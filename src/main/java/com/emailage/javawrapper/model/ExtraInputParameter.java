@@ -1,398 +1,466 @@
 package com.emailage.javawrapper.model;
 
 import com.emailage.javawrapper.model.exception.EmailageParameterException;
+import com.emailage.javawrapper.utilities.ParameterRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
 
 public class ExtraInputParameter {
-	private String firstname = "";
+	@JsonProperty("firstname")
+	@ParameterRequest(name = "firstname")
+	private String firstName = StringUtils.EMPTY;
 
-	public String getfirstname() {
-		return firstname;
+	@JsonProperty("lastname")
+	@ParameterRequest(name = "lastname")
+	private String lastName = StringUtils.EMPTY;
+
+	@JsonProperty("billaddress")
+	@ParameterRequest(name = "billaddress")
+	private String billAddress = StringUtils.EMPTY;
+
+	@JsonProperty("billcity")
+	@ParameterRequest(name = "billcity")
+	private String billCity = StringUtils.EMPTY;
+
+	@JsonProperty("billregion")
+	@ParameterRequest(name = "billregion")
+	private String billRegion = StringUtils.EMPTY;
+
+	@JsonProperty("billpostal")
+	@ParameterRequest(name = "billpostal")
+	private String billPostal = StringUtils.EMPTY;
+
+	@JsonProperty("billcountry")
+	@ParameterRequest(name = "billcountry")
+	private String billCountry = StringUtils.EMPTY;
+
+	@JsonProperty("shipaddress")
+	@ParameterRequest(name = "shipaddress")
+	private String shipAddress = StringUtils.EMPTY;
+
+	@JsonProperty("shipcity")
+	@ParameterRequest(name = "shipcity")
+	private String shipCity = StringUtils.EMPTY;
+
+	@JsonProperty("shipregion")
+	@ParameterRequest(name = "shipregion")
+	private String shipRegion = StringUtils.EMPTY;
+
+	@JsonProperty("shippostal")
+	@ParameterRequest(name = "shippostal")
+	private String shipPostal = StringUtils.EMPTY;
+
+	@JsonProperty("shipcountry")
+	@ParameterRequest(name = "shipcountry")
+	private String shipCountry = StringUtils.EMPTY;
+
+	@JsonProperty("phone")
+	@ParameterRequest(name = "phone")
+	private String phone = StringUtils.EMPTY;
+
+	@JsonProperty("transamount")
+	@ParameterRequest(name = "transamount")
+	private double transAmount;
+
+	@JsonProperty("transcurrency")
+	@ParameterRequest(name = "transcurrency")
+	private String transCurrency = StringUtils.EMPTY;
+
+	@JsonProperty("transorigin")
+	@ParameterRequest(name = "transorigin")
+	private String transOrigin = StringUtils.EMPTY;
+
+	@JsonProperty("existingcustomer")
+	@ParameterRequest(name = "existingcustomer")
+	private boolean existingCustomer;
+
+	@JsonProperty("useragent")
+	@ParameterRequest(name = "useragent")
+	private String userAgent = StringUtils.EMPTY;
+
+	@JsonProperty("acceptlang")
+	@ParameterRequest(name = "acceptlang")
+	private String acceptLang = StringUtils.EMPTY;
+
+	@JsonProperty("customerid")
+	@ParameterRequest(name = "customerid")
+	private String customerId = StringUtils.EMPTY;
+
+	@JsonProperty("urid")
+	@ParameterRequest(name = "urid")
+	private String urid = StringUtils.EMPTY;
+
+	@JsonProperty("deviceid")
+	@ParameterRequest(name = "deviceid")
+	private String deviceId = StringUtils.EMPTY;
+
+	@JsonProperty("devicesource")
+	@ParameterRequest(name = "devicesource")
+	private String deviceSource = StringUtils.EMPTY;
+
+	@JsonProperty("response_language")
+	@ParameterRequest(name = "response_language")
+	private String responseLanguage = StringUtils.EMPTY;
+
+	@JsonProperty("user_email")
+	@ParameterRequest(name = "user_email")
+	private String userEmail = StringUtils.EMPTY;
+
+	@JsonProperty("secondary_email")
+	@ParameterRequest(name = "secondary_email")
+	private String secondaryEmail = StringUtils.EMPTY;
+
+	@JsonProperty("service_category")
+	@ParameterRequest(name = "service_category")
+	private String serviceCategory = StringUtils.EMPTY;
+
+	@JsonProperty("service_date")
+	@ParameterRequest(name = "service_date")
+	private String serviceDate = StringUtils.EMPTY;
+
+	@JsonProperty("service_detail")
+	@ParameterRequest(name = "service_detail")
+	private String serviceDetail = StringUtils.EMPTY;
+
+	@JsonProperty("service_location")
+	@ParameterRequest(name = "service_location")
+	private String serviceLocation = StringUtils.EMPTY;
+
+	@JsonProperty("time_to_service")
+	private int timeToService;
+
+	@JsonProperty("delivery_type")
+	@ParameterRequest(name = "delivery_type")
+	private String deliveryType = StringUtils.EMPTY;
+
+	@JsonProperty("custom1")
+	@ParameterRequest(name = "custom1")
+	private String custom1 = StringUtils.EMPTY;
+
+	@JsonProperty("custom2")
+	@ParameterRequest(name = "custom2")
+	private String custom2 = StringUtils.EMPTY;
+
+	@JsonProperty("cardFirstSix")
+	@ParameterRequest(name = "cardFirstSix")
+	private String cardFirstSix = StringUtils.EMPTY;
+
+	@JsonProperty("hashedCardNumber")
+	@ParameterRequest(name = "hashedCardNumber")
+	private String hashedCardNumber = StringUtils.EMPTY;
+
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setfirstname(String value) {
-		firstname = value;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	private String lastname = "";
-
-	public String getlastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setlastname(String value) {
-		lastname = value;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	private String billaddress = "";
-
-	public String getbilladdress() {
-		return billaddress;
+	public String getBillAddress() {
+		return billAddress;
 	}
 
-	public void setbilladdress(String value) {
-		billaddress = value;
+	public void setBillAddress(String billAddress) {
+		this.billAddress = billAddress;
 	}
 
-	private String billcity = "";
-
-	public String getbillcity() {
-		return billcity;
+	public String getBillCity() {
+		return billCity;
 	}
 
-	public void setbillcity(String value) {
-		billcity = value;
+	public void setBillCity(String billCity) {
+		this.billCity = billCity;
 	}
 
-	private String billregion = "";
-
-	public String getbillregion() {
-		return billregion;
+	public String getBillRegion() {
+		return billRegion;
 	}
 
-	public void setbillregion(String value) {
-		billregion = value;
+	public void setBillRegion(String billRegion) {
+		this.billRegion = billRegion;
 	}
 
-	private String billpostal = "";
-
-	public String getbillpostal() {
-		return billpostal;
+	public String getBillPostal() {
+		return billPostal;
 	}
 
-	public void setbillpostal(String value) {
-		billpostal = value;
+	public void setBillPostal(String billPostal) {
+		this.billPostal = billPostal;
 	}
 
-	private String billcountry = "";
-
-	public String getbillcountry() {
-		return billcountry;
+	public String getBillCountry() {
+		return billCountry;
 	}
 
-	public void setbillcountry(String value) {
-		billcountry = value;
+	public void setBillCountry(String billCountry) {
+		this.billCountry = billCountry;
 	}
 
-	private String shipaddress = "";
-
-	public String getshipaddress() {
-		return shipaddress;
+	public String getShipAddress() {
+		return shipAddress;
 	}
 
-	public void setshipaddress(String value) {
-		shipaddress = value;
+	public void setShipAddress(String shipAddress) {
+		this.shipAddress = shipAddress;
 	}
 
-	private String shipcity = "";
-
-	public String getshipcity() {
-		return shipcity;
+	public String getShipCity() {
+		return shipCity;
 	}
 
-	public void setshipcity(String value) {
-		shipcity = value;
+	public void setShipCity(String shipCity) {
+		this.shipCity = shipCity;
 	}
 
-	private String shipregion = "";
-
-	public String getshipregion() {
-		return shipregion;
+	public String getShipRegion() {
+		return shipRegion;
 	}
 
-	public void setshipregion(String value) {
-		shipregion = value;
+	public void setShipRegion(String shipRegion) {
+		this.shipRegion = shipRegion;
 	}
 
-	private String shippostal = "";
-
-	public String getshippostal() {
-		return shippostal;
+	public String getShipPostal() {
+		return shipPostal;
 	}
 
-	public void setshippostal(String value) {
-		shippostal = value;
+	public void setShipPostal(String shipPostal) {
+		this.shipPostal = shipPostal;
 	}
 
-	private String shipcountry = "";
-
-	public String getshipcountry() {
-		return shipcountry;
+	public String getShipCountry() {
+		return shipCountry;
 	}
 
-	public void setshipcountry(String value) {
-		shipcountry = value;
+	public void setShipCountry(String shipCountry) {
+		this.shipCountry = shipCountry;
 	}
 
-	private String phone = "";
-
-	public String getphone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setphone(String value) {
-		phone = value;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	private double transamount;
-
-	public double gettransamount() {
-		return transamount;
+	public double getTransAmount() {
+		return transAmount;
 	}
 
-	public void settransamount(double value) {
-		transamount = value;
+	public void setTransAmount(double transAmount) {
+		this.transAmount = transAmount;
 	}
 
-	private String transcurrency = "";
-
-	public String gettranscurrency() {
-		return transcurrency;
+	public String getTransCurrency() {
+		return transCurrency;
 	}
 
-	public void settranscurrency(String value) {
-		transcurrency = value;
+	public void setTransCurrency(String transCurrency) {
+		this.transCurrency = transCurrency;
 	}
 
-	private String transorigin = "";
-
-	public String gettransorigin() {
-		return transorigin;
+	public String getTransOrigin() {
+		return transOrigin;
 	}
 
-	public void settransorigin(String value) {
-		transorigin = value;
+	public void setTransOrigin(String transOrigin) {
+		this.transOrigin = transOrigin;
 	}
 
-	private boolean existingcustomer;
-
-	public boolean getexistingcustomer() {
-		return existingcustomer;
+	public boolean isExistingCustomer() {
+		return existingCustomer;
 	}
 
-	public void setexistingcustomer(boolean value) {
-		existingcustomer = value;
+	public void setExistingCustomer(boolean existingCustomer) {
+		this.existingCustomer = existingCustomer;
 	}
 
-	private String useragent = "";
-
-	public String getuseragent() {
-		return useragent;
+	public String getUserAgent() {
+		return userAgent;
 	}
 
-	public void setuseragent(String value) {
-		useragent = value;
+	public void setUserAgent(String userAgent) {
+		this.userAgent = userAgent;
 	}
 
-	private String acceptlang = "";
-
-	public String getacceptlang() {
-		return acceptlang;
+	public String getAcceptLang() {
+		return acceptLang;
 	}
 
-	public void setacceptlang(String value) {
-		acceptlang = value;
+	public void setAcceptLang(String acceptLang) {
+		this.acceptLang = acceptLang;
 	}
 
-	private String customerid = "";
-
-	public String getcustomerid() {
-		return customerid;
+	public String getCustomerId() {
+		return customerId;
 	}
 
-	public void setcustomerid(String value) {
-		customerid = value;
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 
-	private String urid = "";
-
-	public String geturid() {
+	public String getUrid() {
 		return urid;
 	}
 
-	public void seturid(String value) {
-		urid = value;
+	public void setUrid(String urid) {
+		this.urid = urid;
 	}
 
-
-
-	private String deviceid = "";
-
-	public String getdeviceid() {
-		return deviceid;
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setdeviceid(String value) {
-		deviceid = value;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
-	private String devicesource = "";
-
-	public String getdevicesource() {
-		return devicesource;
+	public String getDeviceSource() {
+		return deviceSource;
 	}
 
-	public void setdevicesource(String value) {
-		devicesource = value;
+	public void setDeviceSource(String deviceSource) {
+		this.deviceSource = deviceSource;
 	}
 
-	private String response_language = "";
-
-	public String getresponse_language() {
-		return response_language;
+	public String getResponseLanguage() {
+		return responseLanguage;
 	}
 
-	public void setresponse_language(String value) {
-		response_language = value;
+	public void setResponseLanguage(String responseLanguage) {
+		this.responseLanguage = responseLanguage;
 	}
 
-	private String user_email = "";
-
-	public String getuser_email() {
-		return user_email;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setuser_email(String value) {
-		user_email = value;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
-	private String secondary_email = "";
-
-	public void setsecondary_email(String value) {
-		secondary_email = value;
-	}
-	public String getsecondary_email() {
-		return secondary_email;
+	public String getSecondaryEmail() {
+		return secondaryEmail;
 	}
 
-	private String service_category = "";
-	
-	public void setservice_category(String value) {
-		service_category = value;
-	}
-	public String getservice_category() {
-		return service_category;
+	public void setSecondaryEmail(String secondaryEmail) {
+		this.secondaryEmail = secondaryEmail;
 	}
 
-	
-	private String service_date = "";
-	
-	public void setservice_date(String value) {
-		service_date = value;
-	}
-	public String getservice_date() {
-		return service_date;
+	public String getServiceCategory() {
+		return serviceCategory;
 	}
 
-	private String service_detail = "";
-	
-	public void setservice_detail(String value) {
-		service_detail = value;
-	}
-	public String getservice_detail() {
-		return service_detail;
-	}
-	
-	private String service_location = "";
-	
-	public void setservice_location(String value) {
-		service_location = value;
-	}
-	public String getservice_location() {
-		return service_location;
+	public void setServiceCategory(String serviceCategory) {
+		this.serviceCategory = serviceCategory;
 	}
 
-	private int time_to_service;
-	
-	public void settime_to_service(int value) {
-		time_to_service = value;
-	}	
-	public int gettime_to_service() {
-		return time_to_service;
-	}
-	
-	private String delivery_type = "";
-	
-	public void setdelivery_type(String value) {
-		delivery_type = value;
-	}	
-	public String getdelivery_type() {
-		return delivery_type;
+	public String getServiceDate() {
+		return serviceDate;
 	}
 
+	public void setServiceDate(String serviceDate) {
+		this.serviceDate = serviceDate;
+	}
 
-	private String custom1 = "";
-	
-	public void setcustom1(String value) {
-		custom1 = value;
-	}	
-	public String getcustom1() {
+	public String getServiceDetail() {
+		return serviceDetail;
+	}
+
+	public void setServiceDetail(String serviceDetail) {
+		this.serviceDetail = serviceDetail;
+	}
+
+	public String getServiceLocation() {
+		return serviceLocation;
+	}
+
+	public void setServiceLocation(String serviceLocation) {
+		this.serviceLocation = serviceLocation;
+	}
+
+	public int getTimeToService() {
+		return timeToService;
+	}
+
+	public void setTimeToService(int timeToService) {
+		this.timeToService = timeToService;
+	}
+
+	public String getDeliveryType() {
+		return deliveryType;
+	}
+
+	public void setDeliveryType(String deliveryType) {
+		this.deliveryType = deliveryType;
+	}
+
+	public String getCustom1() {
 		return custom1;
 	}
 
+	public void setCustom1(String custom1) {
+		this.custom1 = custom1;
+	}
 
-	private String custom2 = "";
-	
-	public void setcustom2(String value) {
-		custom2 = value;
-	}	
-	public String getcustom2() {
+	public String getCustom2() {
 		return custom2;
 	}
-	
-	private String cardFirstSix = "";
-	
-	public void setcardFirstSix(String value) {
-		cardFirstSix = value;
-	}	
-	public String getcardFirstSix() {
+
+	public void setCustom2(String custom2) {
+		this.custom2 = custom2;
+	}
+
+	public String getCardFirstSix() {
 		return cardFirstSix;
 	}
-	
-	private String hashedCardNumber = "";
-	
-	public void sethashedCardNumber(String value) {
-		hashedCardNumber = value;
-	}	
-	public String gethashedCardNumber() {
+
+	public void setCardFirstSix(String cardFirstSix) {
+		this.cardFirstSix = cardFirstSix;
+	}
+
+	public String getHashedCardNumber() {
 		return hashedCardNumber;
-	}	
-	
-	
-	
+	}
+
+	public void setHashedCardNumber(String hashedCardNumber) {
+		this.hashedCardNumber = hashedCardNumber;
+	}
+
+
+
 	public String buildExtraInputParameterRequest()
 			throws EmailageParameterException {
 		StringBuilder sb = new StringBuilder();
 		try {
-			for (Field prop : ExtraInputParameter.class.getDeclaredFields()) {
-				if (prop.getType().getSimpleName().equals("String")) {
-					prop.setAccessible(true);
-
-					String strValue = (String) prop.get(this);
-					if (!strValue.equals("")) {
-						sb.append(String.format("&%s=%s", prop.getName(), strValue));
-					}
-
+			Class clazz = this.getClass();
+			for (Field field : clazz.getDeclaredFields()) {
+				String name;
+				if (field.isAnnotationPresent(ParameterRequest.class)) {
+					ParameterRequest parameterRequest = field.getAnnotation(ParameterRequest.class);
+					name = parameterRequest.name();
+					if (name.equals("time_to_service"))
+						System.out.printf("");
+					sb.append(String.format("&%s=%s", name, field.get(this).toString()));
 				}
-				// below two statements are not used for now unless we want to add
-				// the support
-				// of the types other string.
-				else if (prop.getType().toString().equals("boolean")) {
-					prop.setAccessible(true);
-					boolean value = (boolean) prop.get(this);
-					sb.append(String.format("&%s=%b", prop.getName(), value));
-				} else if (prop.getType().toString().equals("double")) {
-					prop.setAccessible(true);
-					double value = (double) prop.get(this);
-					sb.append(String.format("&%s=%f", prop.getName(), value));
-				}
-
 			}
+			return sb.toString();
 		} catch(Exception e){
 			throw new EmailageParameterException("Could not parse extra input parameters for the request",e);
 		}
-		return sb.toString();
 	}
 
 }

@@ -6,49 +6,53 @@ public class Enums {
 	}
 
 	public enum Format {
-		Json, Xml;
+		Json("json"),
+		Xml("xml");
+
+		String name;
+
+		Format(String name) {
+			this.name = name;
+		}
 
 		@Override
 		public String toString() {
-
-			if (this == Json)
-				return "json";
-			else
-				return "xml";
-
+			return this.name;
 		}
 	}
 
 	public enum FraudType {
-		Good, Fraud, Neutral;
+		Good("good"),
+		Fraud("fraud"),
+		Neutral("neutral");
+
+		private String name;
+
+		FraudType(String name) {
+			this.name = name;
+		}
 
 		@Override
 		public String toString() {
-
-			if (this == Good)
-				return "good";
-			else if (this == Fraud)
-				return "fraud";
-			else
-				return "neutral";
-
+			return this.name;
 		}
 	}
 
 	public enum SignatureMethod {
-		HMAC_SHA1, HMAC_SHA256, HMAC_SHA384, HMAC_SHA512;
+		HMAC_SHA1("HMAC-SHA1"),
+		HMAC_SHA256("HMAC-SHA256"),
+		HMAC_SHA384("HMAC-SHA384"),
+		HMAC_SHA512("HMAC-SHA512");
+
+		private String name;
+
+		SignatureMethod(String name) {
+			this.name = name;
+		}
 
 		@Override
 		public String toString() {
-			if (Enums.SignatureMethod.HMAC_SHA1 == this) {
-				return "HMAC-SHA1";
-			} else if (Enums.SignatureMethod.HMAC_SHA256 == this) {
-				return "HMAC-SHA256";
-			} else if (Enums.SignatureMethod.HMAC_SHA384 == this) {
-				return "HMAC-SHA384";
-			} else {
-				return "HMAC-SHA512";
-			}
+			return this.name;
 		}
 	}
 
