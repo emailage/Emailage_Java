@@ -26,10 +26,11 @@ public class TestClient {
 		 * to a specific Emailage user.
 		 */
 		String user_email = null;
-		Enums.Environment environment = Enums.Environment.Production;
+		Enums.Environment environment = Enums.Environment.Sandbox;
 
-		String accountSecret = "replace-me";
-		String authToken = "replace-me";
+		String accountSecret = "E4D2778DD32D41248347E2EEC4448685";
+		String authToken = "EE3FC6E0851E4616B0F1438A97A3E5A3";
+
 
 		ConfigurationParameters parameters = new ConfigurationParameters();
 		parameters.setUserEmail(user_email);
