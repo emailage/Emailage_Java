@@ -5,14 +5,15 @@ import com.emailage.javawrapper.model.ConfigurationParameters;
 import com.emailage.javawrapper.model.Enums;
 import com.emailage.javawrapper.model.ExtraInputParameter;
 import com.emailage.javawrapper.model.response.EmailageResponse;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 
 public class TestClient {
 
 	/**
-	 * @param args
-	 *            the command line arguments
+	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
 
@@ -41,6 +42,8 @@ public class TestClient {
 		// Configure jackson-afterburner
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new AfterburnerModule());
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 
 		// Email validation
 		try {
@@ -72,17 +75,17 @@ public class TestClient {
 			System.out.println("Querying Email + IP + Extra Arguments");
 
 			ExtraInputParameter extraArgs = new ExtraInputParameter();
-			extraArgs.setbilladdress("123 Any St.");
-			extraArgs.setbillpostal("85225");
-			extraArgs.setbillcity("Chandler");
-			extraArgs.setbillregion("AZ");
-			extraArgs.setbillcountry("us");
-			extraArgs.setphone("4805551212");
-			extraArgs.settransamount(1234.56);
-			extraArgs.settranscurrency("USD");
-			extraArgs.setexistingcustomer(false);
-			extraArgs.setfirstname("Bob");
-			extraArgs.setlastname("Smith");
+			extraArgs.setBillAddress("123 Any St.");
+			extraArgs.setBillPostal("85225");
+			extraArgs.setBillCity("Chandler");
+			extraArgs.setBillRegion("AZ");
+			extraArgs.setBillCountry("us");
+			extraArgs.setPhone("4805551212");
+			extraArgs.setTransAmount(1234.56);
+			extraArgs.setTransCurrency("USD");
+			extraArgs.setExistingCustomer(false);
+			extraArgs.setFirstName("Bob");
+			extraArgs.setLastName("Smith");
 
 			EmailageResponse validResult = EmailageClient.QueryEmailAndIPPlusExtraArgs("test@test.com", "147.12.12.13", extraArgs, parameters);
 			String result = mapper.writeValueAsString(validResult);
@@ -106,7 +109,6 @@ public class TestClient {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }

@@ -21,16 +21,16 @@ public class UnitTest {
 
 	@Test
 	public void testIpValidation() {
-		
+
 		//IPV4
 		assertTrue(Validation.validateIpAddress("123.123.123.123"));
 		assertTrue(Validation.validateIpAddress("255.123.123.123"));
 		assertTrue(Validation.validateIpAddress("0.0.0.0"));
 		assertTrue(Validation.validateIpAddress("1.0.0.255"));
-		
+
 		assertFalse(Validation.validateIpAddress("256.123.123.123"));
 		assertFalse(Validation.validateIpAddress("256.123.123.0"));
-		
+
 		//IPV6
 		assertTrue(Validation.validateIpAddress("2001:db8::1"));
 		assertTrue(Validation.validateIpAddress("2001:0db8::0001"));
@@ -48,119 +48,117 @@ public class UnitTest {
 	public void testExtraInputParameters() throws Exception {
 		ExtraInputParameter input = new ExtraInputParameter();
 
-		
-		input.setacceptlang("en");
-		assertEquals(input.getacceptlang(), "en");
 
-		input.setbilladdress("123 Main St");
-		assertEquals(input.getbilladdress(), "123 Main St");
+		input.setAcceptLang("en");
+		assertEquals(input.getAcceptLang(), "en");
 
-		input.setbillcity("Scottsdale");
-		assertEquals(input.getbillcity(), "Scottsdale");
+		input.setBillAddress("123 Main St");
+		assertEquals(input.getBillAddress(), "123 Main St");
 
-		input.setbillcountry("US");
-		assertEquals(input.getbillcountry(), "US");
-		input.setbillpostal("85255");
-		assertEquals(input.getbillpostal(), "85255");
+		input.setBillCity("Scottsdale");
+		assertEquals(input.getBillCity(), "Scottsdale");
 
-		input.setbillregion("AZ");
-		assertEquals(input.getbillregion(), "AZ");
+		input.setBillCountry("US");
+		assertEquals(input.getBillCountry(), "US");
+		input.setBillPostal("85255");
+		assertEquals(input.getBillPostal(), "85255");
 
-		input.setcustom1("custom1");
-		assertEquals(input.getcustom1(), "custom1");
+		input.setBillRegion("AZ");
+		assertEquals(input.getBillRegion(), "AZ");
 
-		input.setcustom2("cust2");
-		assertEquals(input.getcustom2(), "cust2");
+		input.setCustom1("custom1");
+		assertEquals(input.getCustom1(), "custom1");
 
-		input.setcustomerid("2341242");
-		assertEquals(input.getcustomerid(), "2341242");
+		input.setCustom2("cust2");
+		assertEquals(input.getCustom2(), "cust2");
 
-		input.setdelivery_type("sdf");
-		assertEquals(input.getdelivery_type(), "sdf");
+		input.setCustomerId("2341242");
+		assertEquals(input.getCustomerId(), "2341242");
 
-		input.setdeviceid("12345");
-		assertEquals(input.getdeviceid(), "12345");
+		input.setDeliveryType("sdf");
+		assertEquals(input.getDeliveryType(), "sdf");
 
-		input.setdevicesource("iphone");
-		assertEquals(input.getdevicesource(), "iphone");
+		input.setDeviceId("12345");
+		assertEquals(input.getDeviceId(), "12345");
 
-		input.setexistingcustomer(true);
-		assertTrue(input.getexistingcustomer());
+		input.setDeviceSource("iphone");
+		assertEquals(input.getDeviceSource(), "iphone");
 
-		input.setfirstname("john");
-		assertEquals(input.getfirstname(), "john");
+		input.setExistingCustomer(true);
+		assertTrue(input.getExistingCustomer());
 
-		input.setlastname("smith");
-		assertEquals(input.getlastname(), "smith");
+		input.setFirstName("john");
+		assertEquals(input.getFirstName(), "john");
 
-		input.setphone("4805555555");
-		assertEquals(input.getphone(), "4805555555");
+		input.setLastName("smith");
+		assertEquals(input.getLastName(), "smith");
 
-		input.setresponse_language("en");
-		assertEquals(input.getresponse_language(), "en");
+		input.setPhone("4805555555");
+		assertEquals(input.getPhone(), "4805555555");
 
-		input.setsecondary_email("junit@junit.com");
-		assertEquals(input.getsecondary_email(), "junit@junit.com");
+		input.setResponseLanguage("en");
+		assertEquals(input.getResponseLanguage(), "en");
 
-		input.setservice_category("cat1");
-		assertEquals(input.getservice_category(), "cat1");		
-		
-		input.setservice_date("2018-10-28T22:15:00+00:00");
-		assertEquals(input.getservice_date(), "2018-10-28T22:15:00+00:00");
+		input.setSecondaryEmail("junit@junit.com");
+		assertEquals(input.getSecondaryEmail(), "junit@junit.com");
 
-		input.setservice_detail("aaa");
-		assertEquals(input.getservice_detail(), "aaa");
+		input.setServiceCategory("cat1");
+		assertEquals(input.getServiceCategory(), "cat1");
 
-		input.setservice_location("bbb");
-		assertEquals(input.getservice_location(), "bbb");
+		input.setServiceDate("2018-10-28T22:15:00+00:00");
+		assertEquals(input.getServiceDate(), "2018-10-28T22:15:00+00:00");
 
-		input.setshipaddress("add 1");
-		assertEquals(input.getshipaddress(), "add 1");
+		input.setServiceDetail("aaa");
+		assertEquals(input.getServiceDetail(), "aaa");
 
-		input.setshipcity("houston");
-		assertEquals(input.getshipcity(), "houston");
+		input.setServiceLocation("bbb");
+		assertEquals(input.getServiceLocation(), "bbb");
 
-		input.setshipcountry("us");
-		assertEquals(input.getshipcountry(), "us");
+		input.setShipAddress("add 1");
+		assertEquals(input.getShipAddress(), "add 1");
 
-		
-		input.setshippostal("12345");
-		assertEquals(input.getshippostal(), "12345");
+		input.setShipCity("houston");
+		assertEquals(input.getShipCity(), "houston");
 
-		input.settransamount(23.20);
-        assertEquals(23.20, input.gettransamount(), 0.0);
-		
-
-		input.setshipregion("az");
-		assertEquals(input.getshipregion(), "az");
-
-		input.settime_to_service(123);
-		assertEquals(input.gettime_to_service(), 123);
+		input.setShipCountry("us");
+		assertEquals(input.getShipCountry(), "us");
 
 
-		input.settranscurrency("USD");
-		assertEquals(input.gettranscurrency(), "USD");
+		input.setShipPostal("12345");
+		assertEquals(input.getShipPostal(), "12345");
 
-		input.settransorigin("us");
-		assertEquals(input.gettransorigin(), "us");
+		input.setTransAmount(23.20);
+		assertEquals(23.20, input.getTransAmount(), 0.0);
 
-		input.seturid("123124156");
-		assertEquals(input.geturid(), "123124156");
 
-		input.setuser_email("abc123@gmail.com");
-		assertEquals(input.getuser_email(), "abc123@gmail.com");
+		input.setShipRegion("az");
+		assertEquals(input.getShipRegion(), "az");
 
-		input.setuseragent("iphone");
-		assertEquals(input.getuseragent(), "iphone");
+		input.setTimeToService(123);
+		assertEquals(input.getTimeToService(), 123);
 
-		input.setcardFirstSix("123456");
-		assertEquals(input.getcardFirstSix(), "123456");
 
-		input.sethashedCardNumber("hashedcardnumberhere");
-		assertEquals(input.gethashedCardNumber(), "hashedcardnumberhere");
-		
-		String request = input.buildExtraInputParameterRequest();
-		assertEquals(request, "&firstname=john&lastname=smith&billaddress=123 Main St&billcity=Scottsdale&billregion=AZ&billpostal=85255&billcountry=US&shipaddress=add 1&shipcity=houston&shipregion=az&shippostal=12345&shipcountry=us&phone=4805555555&transamount=23.200000&transcurrency=USD&transorigin=us&existingcustomer=true&useragent=iphone&acceptlang=en&customerid=2341242&urid=123124156&deviceid=12345&devicesource=iphone&response_language=en&user_email=abc123@gmail.com&secondary_email=junit@junit.com&service_category=cat1&service_date=2018-10-28T22:15:00+00:00&service_detail=aaa&service_location=bbb&delivery_type=sdf&custom1=custom1&custom2=cust2&cardFirstSix=123456&hashedCardNumber=hashedcardnumberhere");
+		input.setTransCurrency("USD");
+		assertEquals(input.getTransCurrency(), "USD");
+
+		input.setTransOrigin("us");
+		assertEquals(input.getTransOrigin(), "us");
+
+		input.setUrId("123124156");
+		assertEquals(input.getUrId(), "123124156");
+
+		input.setUserEmail("abc123@gmail.com");
+		assertEquals(input.getUserEmail(), "abc123@gmail.com");
+
+		input.setUserAgent("iphone");
+		assertEquals(input.getUserAgent(), "iphone");
+
+		input.setCardFirstSix("123456");
+		assertEquals(input.getCardFirstSix(), "123456");
+
+		input.setHashedCardNumber("hashedcardnumberhere");
+		assertEquals(input.getHashedCardNumber(), "hashedcardnumberhere");
+
 	}
 
 
