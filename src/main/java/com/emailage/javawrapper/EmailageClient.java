@@ -88,7 +88,9 @@ public class EmailageClient {
 
 		validateParams(email, parameters.isValidateBeforeSending());
 		String query = "query=" + java.net.URLEncoder.encode(email, StandardCharsets.UTF_8.name());
-		return deserialize(PostQuery(APIUrl.Query, null, query, parameters));
+		String result = PostQuery(APIUrl.Query, null, query, parameters);
+		String decodedString =  java.net.URLDecoder.decode(result, StandardCharsets.UTF_8.name());
+		return deserialize(decodedString);
 	}
 
 	/**
@@ -112,7 +114,9 @@ public class EmailageClient {
 
 		StringBuffer queryBuffer = new StringBuffer("query=");
 		queryBuffer.append(queryElement);
-		return deserialize(PostQuery(APIUrl.Query,null, queryBuffer.toString(), parameters));
+		String result = PostQuery(APIUrl.Query,null, queryBuffer.toString(), parameters);
+		String decodedString =  java.net.URLDecoder.decode(result, StandardCharsets.UTF_8.name());
+		return deserialize(decodedString);
 	}
 
 	/**
@@ -140,10 +144,8 @@ public class EmailageClient {
 
 		StringBuffer queryBuffer = new StringBuffer("query=");
 		queryBuffer.append(queryElement);
-		String extraArgString = mapper.writeValueAsString(extraArgs);
-		extraArgString = extraArgString.replace("{","");
-		extraArgString = extraArgString.replace("}","");
-		queryBuffer.append(extraArgString);
+		queryBuffer.append(extraArgs.buildExtraInputParameterRequest());
+
 		return  deserialize(PostQuery(
 				APIUrl.Query,
 				null,
@@ -179,8 +181,9 @@ public class EmailageClient {
 				+ "&fraudcodeID=" + fraudCode.toInt()
 				// Specify Fraud Type: Fraud or Good
 				+ "&flag=" + fraudType;
-
-		EmailageResponse response =  deserialize(PostQuery(APIUrl.MarkAsFraud, fraudType, query, parameters));
+		String result = PostQuery(APIUrl.MarkAsFraud, fraudType, query, parameters);
+		String decodedString =  java.net.URLDecoder.decode(result, StandardCharsets.UTF_8.name());
+		EmailageResponse response =  deserialize(decodedString);
 		response.getQuery().setEmail(java.net.URLDecoder.decode(response.getQuery().getEmail(), StandardCharsets.UTF_8.name()));
 
 		return response;

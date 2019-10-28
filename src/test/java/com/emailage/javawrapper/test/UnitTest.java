@@ -49,22 +49,22 @@ public class UnitTest {
 		ExtraInputParameter input = new ExtraInputParameter();
 
 
-		input.setAcceptLang("en");
-		assertEquals(input.getAcceptLang(), "en");
+		input.setAcceptlang("en");
+		assertEquals(input.getAcceptlang(), "en");
 
-		input.setBillAddress("123 Main St");
-		assertEquals(input.getBillAddress(), "123 Main St");
+		input.setBilladdress("123 Main St");
+		assertEquals(input.getBilladdress(), "123 Main St");
 
-		input.setBillCity("Scottsdale");
-		assertEquals(input.getBillCity(), "Scottsdale");
+		input.setBillcity("Scottsdale");
+		assertEquals(input.getBillcity(), "Scottsdale");
 
-		input.setBillCountry("US");
-		assertEquals(input.getBillCountry(), "US");
-		input.setBillPostal("85255");
-		assertEquals(input.getBillPostal(), "85255");
+		input.setBillcountry("US");
+		assertEquals(input.getBillcountry(), "US");
+		input.setBillpostal("85255");
+		assertEquals(input.getBillpostal(), "85255");
 
-		input.setBillRegion("AZ");
-		assertEquals(input.getBillRegion(), "AZ");
+		input.setBillregion("AZ");
+		assertEquals(input.getBillregion(), "AZ");
 
 		input.setCustom1("custom1");
 		assertEquals(input.getCustom1(), "custom1");
@@ -72,92 +72,92 @@ public class UnitTest {
 		input.setCustom2("cust2");
 		assertEquals(input.getCustom2(), "cust2");
 
-		input.setCustomerId("2341242");
-		assertEquals(input.getCustomerId(), "2341242");
+		input.setCustomerid("2341242");
+		assertEquals(input.getCustomerid(), "2341242");
 
-		input.setDeliveryType("sdf");
-		assertEquals(input.getDeliveryType(), "sdf");
+		input.setDelivery_type("sdf");
+		assertEquals(input.getDelivery_type(), "sdf");
 
-		input.setDeviceId("12345");
-		assertEquals(input.getDeviceId(), "12345");
+		input.setDeviceid("12345");
+		assertEquals(input.getDeviceid(), "12345");
 
-		input.setDeviceSource("iphone");
-		assertEquals(input.getDeviceSource(), "iphone");
+		input.setDevicesource("iphone");
+		assertEquals(input.getDevicesource(), "iphone");
 
-		input.setExistingCustomer(true);
-		assertTrue(input.getExistingCustomer());
+		input.setExistingcustomer(true);
+		assertTrue(input.getExistingcustomer());
 
-		input.setFirstName("john");
-		assertEquals(input.getFirstName(), "john");
+		input.setFirstname("john");
+		assertEquals(input.getFirstname(), "john");
 
-		input.setLastName("smith");
-		assertEquals(input.getLastName(), "smith");
+		input.setLastname("smith");
+		assertEquals(input.getLastname(), "smith");
 
 		input.setPhone("4805555555");
 		assertEquals(input.getPhone(), "4805555555");
 
-		input.setResponseLanguage("en");
-		assertEquals(input.getResponseLanguage(), "en");
+		input.setResponse_language("en");
+		assertEquals(input.getResponse_language(), "en");
 
-		input.setSecondaryEmail("junit@junit.com");
-		assertEquals(input.getSecondaryEmail(), "junit@junit.com");
+		input.setSecondary_email("junit@junit.com");
+		assertEquals(input.getSecondary_email(), "junit@junit.com");
 
-		input.setServiceCategory("cat1");
-		assertEquals(input.getServiceCategory(), "cat1");
+		input.setService_category("cat1");
+		assertEquals(input.getService_category(), "cat1");
 
-		input.setServiceDate("2018-10-28T22:15:00+00:00");
-		assertEquals(input.getServiceDate(), "2018-10-28T22:15:00+00:00");
+		input.setService_date("2018-10-28T22:15:00+00:00");
+		assertEquals(input.getService_date(), "2018-10-28T22:15:00+00:00");
 
-		input.setServiceDetail("aaa");
-		assertEquals(input.getServiceDetail(), "aaa");
+		input.setService_detail("aaa");
+		assertEquals(input.getService_detail(), "aaa");
 
-		input.setServiceLocation("bbb");
-		assertEquals(input.getServiceLocation(), "bbb");
+		input.setService_location("bbb");
+		assertEquals(input.getService_location(), "bbb");
 
-		input.setShipAddress("add 1");
-		assertEquals(input.getShipAddress(), "add 1");
+		input.setShipaddress("add 1");
+		assertEquals(input.getShipaddress(), "add 1");
 
-		input.setShipCity("houston");
-		assertEquals(input.getShipCity(), "houston");
+		input.setShipcity("houston");
+		assertEquals(input.getShipcity(), "houston");
 
-		input.setShipCountry("us");
-		assertEquals(input.getShipCountry(), "us");
-
-
-		input.setShipPostal("12345");
-		assertEquals(input.getShipPostal(), "12345");
-
-		input.setTransAmount(23.20);
-		assertEquals(23.20, input.getTransAmount(), 0.0);
+		input.setShipcountry("us");
+		assertEquals(input.getShipcountry(), "us");
 
 
-		input.setShipRegion("az");
-		assertEquals(input.getShipRegion(), "az");
+		input.setShippostal("12345");
+		assertEquals(input.getShippostal(), "12345");
 
-		input.setTimeToService(123);
-		assertEquals(input.getTimeToService(), 123);
+		input.setTransamount(23.20);
+		assertEquals(23.20, input.getTransamount(), 0.0);
 
 
-		input.setTransCurrency("USD");
-		assertEquals(input.getTransCurrency(), "USD");
+		input.setShipregion("az");
+		assertEquals(input.getShipregion(), "az");
 
-		input.setTransOrigin("us");
-		assertEquals(input.getTransOrigin(), "us");
+		input.setTime_to_service(123);
+		assertEquals(input.getTime_to_service(), 123);
 
-		input.setUrId("123124156");
-		assertEquals(input.getUrId(), "123124156");
 
-		input.setUserEmail("abc123@gmail.com");
-		assertEquals(input.getUserEmail(), "abc123@gmail.com");
+		input.setTranscurrency("USD");
+		assertEquals(input.getTranscurrency(), "USD");
 
-		input.setUserAgent("iphone");
-		assertEquals(input.getUserAgent(), "iphone");
+		input.setTransorigin("us");
+		assertEquals(input.getTransorigin(), "us");
 
-		input.setCardFirstSix("123456");
-		assertEquals(input.getCardFirstSix(), "123456");
+		input.setUrid("123124156");
+		assertEquals(input.getUrid(), "123124156");
 
-		input.setHashedCardNumber("hashedcardnumberhere");
-		assertEquals(input.getHashedCardNumber(), "hashedcardnumberhere");
+		input.setUser_email("abc123@gmail.com");
+		assertEquals(input.getUser_email(), "abc123@gmail.com");
+
+		input.setUseragent("iphone");
+		assertEquals(input.getUseragent(), "iphone");
+
+		input.setCardfirstsix("123456");
+		assertEquals(input.getCardfirstsix(), "123456");
+
+		input.setHashedcardnumber("hashedcardnumberhere");
+		assertEquals(input.getHashedcardnumber(), "hashedcardnumberhere");
 
 	}
 

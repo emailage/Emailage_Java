@@ -75,17 +75,17 @@ public class TestClient {
 			System.out.println("Querying Email + IP + Extra Arguments");
 
 			ExtraInputParameter extraArgs = new ExtraInputParameter();
-			extraArgs.setBillAddress("123 Any St.");
-			extraArgs.setBillPostal("85225");
-			extraArgs.setBillCity("Chandler");
-			extraArgs.setBillRegion("AZ");
-			extraArgs.setBillCountry("us");
+			extraArgs.setBilladdress("123 Any St.");
+			extraArgs.setBillpostal("85225");
+			extraArgs.setBillcity("Chandler");
+			extraArgs.setBillregion("AZ");
+			extraArgs.setBillcountry("us");
 			extraArgs.setPhone("4805551212");
-			extraArgs.setTransAmount(1234.56);
-			extraArgs.setTransCurrency("USD");
-			extraArgs.setExistingCustomer(false);
-			extraArgs.setFirstName("Bob");
-			extraArgs.setLastName("Smith");
+			extraArgs.setTransamount(1234.56);
+			extraArgs.setTranscurrency("USD");
+			extraArgs.setExistingcustomer(false);
+			extraArgs.setFirstname("Bob");
+			extraArgs.setLastname("Smith");
 
 			EmailageResponse validResult = EmailageClient.QueryEmailAndIPPlusExtraArgs("test@test.com", "147.12.12.13", extraArgs, parameters);
 			String result = mapper.writeValueAsString(validResult);
