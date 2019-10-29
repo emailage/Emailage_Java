@@ -9,6 +9,8 @@ import com.emailage.javawrapper.model.response.EmailageResponse;
 import com.emailage.javawrapper.utilities.AutoCloseableHttpsUrlConnection;
 import com.emailage.javawrapper.utilities.OAuth;
 import com.emailage.javawrapper.utilities.Validation;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 
@@ -30,8 +32,10 @@ import java.util.regex.Pattern;
  */
 public class EmailageClient {
 	/* Email Query Endpoint */
+
 	/* SANDBOX Environment */
 	private static final String RequestBaseUrlSand = "https://sandbox.emailage.com/emailagevalidator/";
+
 
 	/* PRODUCTION Environment */
 	private static final String RequestBaseUrlProd = "https://api.emailage.com/emailagevalidator/";
@@ -42,7 +46,6 @@ public class EmailageClient {
 	private static final String RequestBaseFraudUrlSand = "https://sandbox.emailage.com/emailageValidator/flag/";
 
 	/* PRODUCTION Environment */
-	//private static final String RequestBaseFraudUrlProd = "https://api.emailage.com/emailageValidator/flag/";
 	private static final String RequestBaseFraudUrlProd = "https://api.emailage.com/emailageValidator/flag/";
 
 	/** Use java.util.logging.  NOTE: this can be captured and redirected to other logging libraries using slf4j. */
@@ -51,8 +54,6 @@ public class EmailageClient {
 	/** <p>Regex Pattern is thread-safe, but regex matcher is not.</p>
 	 * <p>"Instances of this class are immutable and are safe for use by multiple concurrent threads. Instances of the Matcher class are not safe for such use.", see Oracle's docs <a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html">here</a>.</p>
 	 */
-	private static Pattern compiledPattern = Pattern.compile("\\\\u(\\p{XDigit}{4})");
-
 	private static Pattern compiledUTF8Pattern = Pattern.compile("\ufeff");
 
 	/**
@@ -67,11 +68,13 @@ public class EmailageClient {
 		// Configure jackson-afterburner
 		mapper = new ObjectMapper();
 		mapper.registerModule(new AfterburnerModule());
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 	}
 
 	/**
 	 * This method is used to query an Email Address.
-	 * 
+	 *
 	 * @param email
 	 *            Transaction Email Address
 	 * @param parameters
@@ -85,12 +88,14 @@ public class EmailageClient {
 
 		validateParams(email, parameters.isValidateBeforeSending());
 		String query = "query=" + java.net.URLEncoder.encode(email, StandardCharsets.UTF_8.name());
-		return deserialize(PostQuery(APIUrl.Query, null, query, parameters));
+		String result = PostQuery(APIUrl.Query, null, query, parameters);
+		String decodedString =  java.net.URLDecoder.decode(result, StandardCharsets.UTF_8.name());
+		return deserialize(decodedString);
 	}
 
 	/**
 	 * This method is used to query an Email Address + IP.
-	 * 
+	 *
 	 * @param email
 	 *            Transaction Email Address
 	 * @param IP
@@ -109,13 +114,15 @@ public class EmailageClient {
 
 		StringBuffer queryBuffer = new StringBuffer("query=");
 		queryBuffer.append(queryElement);
-		return deserialize(PostQuery(APIUrl.Query,null, queryBuffer.toString(), parameters));
+		String result = PostQuery(APIUrl.Query,null, queryBuffer.toString(), parameters);
+		String decodedString =  java.net.URLDecoder.decode(result, StandardCharsets.UTF_8.name());
+		return deserialize(decodedString);
 	}
 
 	/**
 	 * This method is used to query an Email Address + IP passing extra
 	 * arguments, such as billing zip code, city, country and so on.
-	 * 
+	 *
 	 * @param email
 	 *            Transaction Email Address
 	 * @param IP
@@ -129,8 +136,7 @@ public class EmailageClient {
 	 * @throws EmailageApiRequestException If there is an unexpected issue sending the data to the server or there an issue retrieving a response from the server.
 	 * @throws EmailageParameterException If there is a problem with the parsing of the extraInputParameters.
 	 */
-	public static EmailageResponse QueryEmailAndIPPlusExtraArgs(String email, String IP, ExtraInputParameter extraArgs,
-															 ConfigurationParameters parameters)
+	public static EmailageResponse QueryEmailAndIPPlusExtraArgs(String email, String IP, ExtraInputParameter extraArgs, ConfigurationParameters parameters)
 			throws IOException, EmailageParameterException, EmailageApiRequestException {
 
 		validateParams(email, IP, parameters.isValidateBeforeSending());
@@ -150,7 +156,7 @@ public class EmailageClient {
 	/**
 	 * This method is used to report cases where a confirmed fraud or confirmed
 	 * good email is found at the customer site.
-	 * 
+	 *
 	 * @param email
 	 *            Email to be marked as either Fraud or Good
 	 * @param fraudType
@@ -165,39 +171,22 @@ public class EmailageClient {
 	 * @throws IOException If JSON deserialization fails, the target url is incorrect, or UTF-8 is not supported by the JVM.
 	 * @throws EmailageApiRequestException If there is an unexpected issue sending the data to the server or there an issue retrieving a response from the server.
 	 */
-	public static EmailageResponse MarkEmailAsFraud(String email, Enums.FraudType fraudType, Enums.FraudCode fraudCode,
-												 ConfigurationParameters parameters)
+	public static EmailageResponse MarkEmailAsFraud(String email, Enums.FraudType fraudType, Enums.FraudCode fraudCode, ConfigurationParameters parameters)
 			throws EmailageApiRequestException, IOException {
 
 		// Option #1 Email+IP
 		String query = "query=" + java.net.URLEncoder.encode(email, StandardCharsets.UTF_8.name())
-		// Specify Fraud Code ID.
-		// Only applicable if you are marking an email as Fraud.
+				// Specify Fraud Code ID.
+				// Only applicable if you are marking an email as Fraud.
 				+ "&fraudcodeID=" + fraudCode.toInt()
 				// Specify Fraud Type: Fraud or Good
 				+ "&flag=" + fraudType;
-
-		EmailageResponse response =  deserialize(PostQuery(APIUrl.MarkAsFraud, fraudType, query, parameters));
+		String result = PostQuery(APIUrl.MarkAsFraud, fraudType, query, parameters);
+		String decodedString =  java.net.URLDecoder.decode(result, StandardCharsets.UTF_8.name());
+		EmailageResponse response =  deserialize(decodedString);
 		response.getQuery().setEmail(java.net.URLDecoder.decode(response.getQuery().getEmail(), StandardCharsets.UTF_8.name()));
 
 		return response;
-	}
-
-	/**
-	 * Remove UTF-8 characters that could impact
-	 * @param data String to be filtered
-	 * @return Filtered string
-	 */
-	public static String removeUTFCharacters(String data) {
-		Matcher m = compiledPattern.matcher(data);
-		StringBuffer buf = new StringBuffer(data.length());
-
-		while (m.find()) {
-			String ch = String.valueOf((char) Integer.parseInt(m.group(1), 16));
-			m.appendReplacement(buf, Matcher.quoteReplacement(ch));
-		}
-		m.appendTail(buf);
-		return buf.toString();
 	}
 
 	protected static HttpsURLConnection getHttpsURLConnection(URL url) throws NoSuchAlgorithmException, KeyManagementException, IOException {
@@ -220,7 +209,7 @@ public class EmailageClient {
 	}
 
 	private static String PostQuery(APIUrl endpoint, Enums.FraudType fraudType, String urlParameters,
-			ConfigurationParameters parameters)
+									ConfigurationParameters parameters)
 			throws EmailageApiRequestException, MalformedURLException {
 
 		String resultFormat = parameters.getResultFormat().toString();
@@ -277,8 +266,8 @@ public class EmailageClient {
 				conn.setDoOutput(true);
 
 				try (
-					DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
-					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, StandardCharsets.UTF_8.name()))
+						DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+						BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, StandardCharsets.UTF_8.name()))
 				) {
 					String value = new String(postData, StandardCharsets.UTF_8.name());
 					writer.write(value);
@@ -296,7 +285,7 @@ public class EmailageClient {
 			throw new EmailageApiRequestException("Could not complete API request",e1);
 		}
 
-		return removeUTFCharacters(answer.toString());
+		return answer.toString();
 	}
 
 	private static EmailageResponse deserialize(String response) throws IOException {
@@ -305,7 +294,7 @@ public class EmailageClient {
 		query.getQuery().setRaw(response);
 		return query;
 	}
-	
+
 	private static boolean validateParams(String email, boolean isValidationActive) throws IllegalArgumentException {
 		if (isValidationActive && !Validation.validateEmail(email)) {
 			throw new IllegalArgumentException("Email supplied is not valid : " + email);
@@ -313,14 +302,14 @@ public class EmailageClient {
 		return true;
 	}
 
-    /**
-     * Validate parameters that are provided.  Either email OR IP address is required.
-     * @param email valid email address
-     * @param ipAddress valid ipv4 or ipv6 ip address
-     * @param isValidationActive whether or not to execute validation logic
-     * @return if email and/or ip address are valid.
-     * @throws IllegalArgumentException thrown if email and/or ip address is not valid
-     */
+	/**
+	 * Validate parameters that are provided.  Either email OR IP address is required.
+	 * @param email valid email address
+	 * @param ipAddress valid ipv4 or ipv6 ip address
+	 * @param isValidationActive whether or not to execute validation logic
+	 * @return if email and/or ip address are valid.
+	 * @throws IllegalArgumentException thrown if email and/or ip address is not valid
+	 */
 	private static boolean validateParams(String email, String ipAddress, boolean isValidationActive) throws IllegalArgumentException {
 		if (isValidationActive) {
 			if(email == null && ipAddress == null){

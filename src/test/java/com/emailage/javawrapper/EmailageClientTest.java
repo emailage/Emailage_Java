@@ -166,7 +166,7 @@ public class EmailageClientTest {
         PowerMockito.doReturn(mock).when(EmailageClient.class,"getHttpsURLConnection", Mockito.any(URL.class));
 
         ExtraInputParameter extraInputParameter = new ExtraInputParameter();
-        extraInputParameter.setuser_email("me@dne.com");
+        extraInputParameter.setUser_email("me@dne.com");
 
         ConfigurationParameters parameters = new ConfigurationParameters();
         parameters.setUserEmail("me@dne.com");
@@ -199,7 +199,7 @@ public class EmailageClientTest {
         PowerMockito.doReturn(mock).when(EmailageClient.class,"getHttpsURLConnection", Mockito.any(URL.class));
 
         ExtraInputParameter extraInputParameter = new ExtraInputParameter();
-        extraInputParameter.setuser_email("me@dne.com");
+        extraInputParameter.setUser_email("me@dne.com");
 
         ConfigurationParameters parameters = new ConfigurationParameters();
         parameters.setUserEmail("me@dne.com");
@@ -232,7 +232,7 @@ public class EmailageClientTest {
         PowerMockito.doReturn(mock).when(EmailageClient.class,"getHttpsURLConnection", Mockito.any(URL.class));
 
         ExtraInputParameter extraInputParameter = new ExtraInputParameter();
-        extraInputParameter.setuser_email("me@dne.com");
+        extraInputParameter.setUser_email("me@dne.com");
 
         ConfigurationParameters parameters = new ConfigurationParameters();
         parameters.setUserEmail("me@dne.com");
@@ -265,7 +265,7 @@ public class EmailageClientTest {
         PowerMockito.doReturn(mock).when(EmailageClient.class,"getHttpsURLConnection", Mockito.any(URL.class));
 
         ExtraInputParameter extraInputParameter = new ExtraInputParameter();
-        extraInputParameter.setuser_email("me@dne.com");
+        extraInputParameter.setUser_email("me@dne.com");
 
         ConfigurationParameters parameters = new ConfigurationParameters();
         parameters.setUserEmail("me@dne.com");
@@ -283,13 +283,6 @@ public class EmailageClientTest {
 
     }
 
-    @Test
-    public void removeUTFCharacters() {
-        String data = "Bb test\t!";
-        String result = EmailageClient.removeUTFCharacters(data);
-
-        assertNotNull(result);
-    }
 
     String rajeshResponse = "{\n" +
             "    \"query\": {\n" +

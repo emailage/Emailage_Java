@@ -65,12 +65,11 @@ public class EmailageQuery {
         this.email = email;
     }
 
-    public String ipAddress() {
+    public String getIpaddress() {
         return ipaddress;
     }
 
-    @JsonProperty("ipaddress")
-    public void setIpAddress(String ipaddress) {
+    public void setIpaddress(String ipaddress) {
         this.ipaddress = ipaddress;
     }
 
@@ -123,7 +122,7 @@ public class EmailageQuery {
     }
 
     @JsonProperty("response_language")
-    public void setResponseLanguage(String responseLanguage) {
+    public void setResponse_language(String responseLanguage) {
         this.responseLanguage = responseLanguage;
     }
 
@@ -188,7 +187,7 @@ public class EmailageQuery {
     }
 
     @JsonProperty("fraudcodeID")
-    public void setFraudCodeId(String fraudCodeID) {
+    public void setFraudCodeID(String fraudCodeID) {
         this.fraudCodeID = fraudCodeID;
     }
 
@@ -287,7 +286,7 @@ public class EmailageQuery {
     }
 
     @JsonProperty("shipcountry")
-    public void setShipCountry(String shipcountry) {
+    public void setShipcountry(String shipcountry) {
         this.shipcountry = shipcountry;
     }
 
