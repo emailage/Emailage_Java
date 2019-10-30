@@ -25,7 +25,7 @@ Or you can use the Maven dependency:
 <dependency>
   <groupId>com.emailage</groupId>
   <artifactId>classic-api-client</artifactId>
-  <version>1.0.2</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
@@ -66,8 +66,8 @@ String validResult = EmailageClient.QueryEmailAndIP("test@test.com", "147.12.12.
 
 ```Java
 ExtraInputParameter extraArgs = new ExtraInputParameter();
-		extraArgs.setbillpostal("85225");
-		extraArgs.setbillcity("Chandler");
+		extraArgs.setBillPostal("85225");
+		extraArgs.setBillCity("Chandler");
 String validResult = EmailageClient.QueryEmailAndIPPlusExtraArgs("test@test.com", "147.12.12.13", extraArgs,
 					configuration);
 ```
