@@ -132,8 +132,7 @@ public class EmailageResult {
     private String shipAddressToBillAddressConfidence;
     private String shipAddressToFullNameConfidence;
     private String shipAddressToLastNameConfidence;
-    //When standardized Billing Address is released.
-/*    private String standardizedBillingAddress;
+    private String standardizedBillingAddress;
 
     public String getStandardizedShippingAddress() {
         return standardizedShippingAddress;
@@ -152,7 +151,7 @@ public class EmailageResult {
     public void setStandardizedBillingAddress(String standardizedBillingAddress) {
         this.standardizedBillingAddress = standardizedBillingAddress;
     }
-*/
+
     public String getUserDefinedRecordID() {
         return userDefinedRecordID;
     }
