@@ -1,366 +1,378 @@
 package com.emailage.javawrapper.model;
 
 import com.emailage.javawrapper.model.exception.EmailageParameterException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.lang.reflect.Field;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ExtraInputParameter {
-	private String firstname = "";
 
-	public String getfirstname() {
+	private String firstname;
+	private String lastname;
+	private String billaddress;
+	private String billcity;
+	private String billregion;
+	private String billpostal;
+	private String billcountry;
+	private String shipaddress;
+	private String shipcity;
+	private String shipregion;
+	private String shippostal;
+	private String shipcountry;
+	private String phone;
+	private double transamount;
+	private String transcurrency;
+	private String transorigin;
+	private boolean existingcustomer;
+	private String useragent;
+	private String acceptlang;
+	private String customerid;
+	private String urid;
+	private String delivery_type;
+	private String deviceid;
+	private String devicesource;
+	private String response_language;
+	private String user_email;
+	private String secondary_email;
+	private String service_category;
+	private String service_date;
+	private String service_detail;
+	private String service_location;
+	private int time_to_service;
+	private String custom1;
+	private String custom2;
+	private String cardfirstsix;
+	private String hashedcardnumber;
+
+
+	public String getFirstName() {
 		return firstname;
 	}
 
-	public void setfirstname(String value) {
+	@JsonProperty("firstname")
+	public void setFirstName(String value) {
 		firstname = value;
 	}
 
-	private String lastname = "";
-
-	public String getlastname() {
+	public String getLastName() {
 		return lastname;
 	}
 
-	public void setlastname(String value) {
+	@JsonProperty("lastname")
+	public void setLastName(String value) {
 		lastname = value;
 	}
 
-	private String billaddress = "";
-
-	public String getbilladdress() {
+	public String getBillAddress() {
 		return billaddress;
 	}
 
-	public void setbilladdress(String value) {
+	@JsonProperty("billaddress")
+	public void setBillAddress(String value) {
 		billaddress = value;
 	}
 
-	private String billcity = "";
-
-	public String getbillcity() {
+	public String getBillCity() {
 		return billcity;
 	}
 
-	public void setbillcity(String value) {
+	@JsonProperty("billcity")
+	public void setBillCity(String value) {
 		billcity = value;
 	}
 
-	private String billregion = "";
-
-	public String getbillregion() {
+	public String getBillRegion() {
 		return billregion;
 	}
 
-	public void setbillregion(String value) {
+	@JsonProperty("billregion")
+	public void setBillRegion(String value) {
 		billregion = value;
 	}
 
-	private String billpostal = "";
-
-	public String getbillpostal() {
+	public String getBillPostal() {
 		return billpostal;
 	}
 
-	public void setbillpostal(String value) {
+	@JsonProperty("billpostal")
+	public void setBillPostal(String value) {
 		billpostal = value;
 	}
 
-	private String billcountry = "";
-
-	public String getbillcountry() {
+	public String getBillCountry() {
 		return billcountry;
 	}
 
-	public void setbillcountry(String value) {
+	@JsonProperty("billcountry")
+	public void setBillCountry(String value) {
 		billcountry = value;
 	}
 
-	private String shipaddress = "";
-
-	public String getshipaddress() {
+	public String getShipAddress() {
 		return shipaddress;
 	}
 
-	public void setshipaddress(String value) {
+	@JsonProperty("shipaddress")
+	public void setShipAddress(String value) {
 		shipaddress = value;
 	}
 
-	private String shipcity = "";
-
-	public String getshipcity() {
+	public String getShipCity() {
 		return shipcity;
 	}
 
-	public void setshipcity(String value) {
+	@JsonProperty("shipcity")
+	public void setShipCity(String value) {
 		shipcity = value;
 	}
 
-	private String shipregion = "";
-
-	public String getshipregion() {
+	public String getShipRegion() {
 		return shipregion;
 	}
 
-	public void setshipregion(String value) {
+	@JsonProperty("shipregion")
+	public void setShipRegion(String value) {
 		shipregion = value;
 	}
 
-	private String shippostal = "";
-
-	public String getshippostal() {
+	public String getShipPostal() {
 		return shippostal;
 	}
 
-	public void setshippostal(String value) {
+	@JsonProperty("shippostal")
+	public void setShipPostal(String value) {
 		shippostal = value;
 	}
 
-	private String shipcountry = "";
 
-	public String getshipcountry() {
+	public String getShipCountry() {
 		return shipcountry;
 	}
 
-	public void setshipcountry(String value) {
+	@JsonProperty("shipcountry")
+	public void setShipCountry(String value) {
 		shipcountry = value;
 	}
 
-	private String phone = "";
-
-	public String getphone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setphone(String value) {
+	@JsonProperty("phone")
+	public void setPhone(String value) {
 		phone = value;
 	}
 
-	private double transamount;
-
-	public double gettransamount() {
+	public double getTransAmount() {
 		return transamount;
 	}
 
-	public void settransamount(double value) {
+	@JsonProperty("transamount")
+	public void setTransAmount(double value) {
 		transamount = value;
 	}
 
-	private String transcurrency = "";
-
-	public String gettranscurrency() {
+	public String getTransCurrency() {
 		return transcurrency;
 	}
 
-	public void settranscurrency(String value) {
+	@JsonProperty("transcurrency")
+	public void setTransCurrency(String value) {
 		transcurrency = value;
 	}
 
-	private String transorigin = "";
-
-	public String gettransorigin() {
+	public String getTransOrigin() {
 		return transorigin;
 	}
 
-	public void settransorigin(String value) {
+	@JsonProperty("transorigin")
+	public void setTransOrigin(String value) {
 		transorigin = value;
 	}
 
-	private boolean existingcustomer;
-
-	public boolean getexistingcustomer() {
+	public boolean getExistingCustomer() {
 		return existingcustomer;
 	}
 
-	public void setexistingcustomer(boolean value) {
+	@JsonProperty("existingcustomer")
+	public void setExistingCustomer(boolean value) {
 		existingcustomer = value;
 	}
 
-	private String useragent = "";
-
-	public String getuseragent() {
+	public String getUserAgent() {
 		return useragent;
 	}
 
-	public void setuseragent(String value) {
+	@JsonProperty("useragent")
+	public void setUserAgent(String value) {
 		useragent = value;
 	}
 
-	private String acceptlang = "";
-
-	public String getacceptlang() {
+	public String getAcceptLang() {
 		return acceptlang;
 	}
 
-	public void setacceptlang(String value) {
+	@JsonProperty("acceptlang")
+	public void setAcceptLang(String value) {
 		acceptlang = value;
 	}
 
-	private String customerid = "";
-
-	public String getcustomerid() {
+	public String getCustomerId() {
 		return customerid;
 	}
 
-	public void setcustomerid(String value) {
+	@JsonProperty("customerid")
+	public void setCustomerId(String value) {
 		customerid = value;
 	}
 
-	private String urid = "";
-
-	public String geturid() {
+	public String getUrid() {
 		return urid;
 	}
 
-	public void seturid(String value) {
+	@JsonProperty("urid")
+	public void setUrid(String value) {
 		urid = value;
 	}
 
-
-
-	private String deviceid = "";
-
-	public String getdeviceid() {
+	public String getDeviceId() {
 		return deviceid;
 	}
 
-	public void setdeviceid(String value) {
+	@JsonProperty("deviceid")
+	public void setDeviceId(String value) {
 		deviceid = value;
 	}
 
-	private String devicesource = "";
-
-	public String getdevicesource() {
+	public String getDeviceSource() {
 		return devicesource;
 	}
 
-	public void setdevicesource(String value) {
+	@JsonProperty("devicesource")
+	public void setDeviceSource(String value) {
 		devicesource = value;
 	}
 
-	private String response_language = "";
-
-	public String getresponse_language() {
+	public String getResponseLanguage() {
 		return response_language;
 	}
 
-	public void setresponse_language(String value) {
+	@JsonProperty("response_language")
+	public void setResponseLanguage(String value) {
 		response_language = value;
 	}
 
-	private String user_email = "";
-
-	public String getuser_email() {
+	public String getUserEmail() {
 		return user_email;
 	}
 
-	public void setuser_email(String value) {
+	@JsonProperty("user_email")
+	public void setUserEmail(String value) {
 		user_email = value;
 	}
 
-	private String secondary_email = "";
-
-	public void setsecondary_email(String value) {
-		secondary_email = value;
-	}
-	public String getsecondary_email() {
+	public String getSecondaryEmail() {
 		return secondary_email;
 	}
 
-	private String service_category = "";
-	
-	public void setservice_category(String value) {
-		service_category = value;
+	@JsonProperty("secondary_email")
+	public void setSecondaryEmail(String value) {
+		secondary_email = value;
 	}
-	public String getservice_category() {
+
+	public String getServiceCategory() {
 		return service_category;
 	}
 
-	
-	private String service_date = "";
-	
-	public void setservice_date(String value) {
-		service_date = value;
+	@JsonProperty("service_category")
+	public void setServiceCategory(String value) {
+		service_category = value;
 	}
-	public String getservice_date() {
+
+	public String getServiceDate() {
 		return service_date;
 	}
 
-	private String service_detail = "";
-	
-	public void setservice_detail(String value) {
-		service_detail = value;
+	@JsonProperty("service_date")
+	public void setServiceDate(String value) {
+		service_date = value;
 	}
-	public String getservice_detail() {
+
+
+	public String getServiceDetail() {
 		return service_detail;
 	}
-	
-	private String service_location = "";
-	
-	public void setservice_location(String value) {
-		service_location = value;
+
+	@JsonProperty("service_detail")
+	public void setServiceDetail(String value) {
+		service_detail = value;
 	}
-	public String getservice_location() {
+
+	public String getServiceLocation() {
 		return service_location;
 	}
 
-	private int time_to_service;
-	
-	public void settime_to_service(int value) {
-		time_to_service = value;
-	}	
-	public int gettime_to_service() {
+	@JsonProperty("service_location")
+	public void setServiceLocation(String value) {
+		service_location = value;
+	}
+
+	public int getTimeToService() {
 		return time_to_service;
 	}
-	
-	private String delivery_type = "";
-	
-	public void setdelivery_type(String value) {
-		delivery_type = value;
-	}	
-	public String getdelivery_type() {
+
+	@JsonProperty("time_to_service")
+	public void setTimeToService(int value) {
+		time_to_service = value;
+	}
+
+	public String getDeliveryType() {
 		return delivery_type;
 	}
 
+	@JsonProperty("delivery_type")
+	public void setDeliveryType(String value) {
+		delivery_type = value;
+	}
 
-	private String custom1 = "";
-	
-	public void setcustom1(String value) {
-		custom1 = value;
-	}	
-	public String getcustom1() {
+	public String getCustom1() {
 		return custom1;
 	}
 
+	@JsonProperty("custom1")
+	public void setCustom1(String value) {
+		custom1 = value;
+	}
 
-	private String custom2 = "";
-	
-	public void setcustom2(String value) {
-		custom2 = value;
-	}	
-	public String getcustom2() {
+	public String getCustom2() {
 		return custom2;
 	}
-	
-	private String cardFirstSix = "";
-	
-	public void setcardFirstSix(String value) {
-		cardFirstSix = value;
-	}	
-	public String getcardFirstSix() {
-		return cardFirstSix;
+
+	@JsonProperty("custom2")
+	public void setCustom2(String value) {
+		custom2 = value;
 	}
-	
-	private String hashedCardNumber = "";
-	
-	public void sethashedCardNumber(String value) {
-		hashedCardNumber = value;
-	}	
-	public String gethashedCardNumber() {
-		return hashedCardNumber;
-	}	
-	
-	
-	
+
+	public String getCardFirstSix() {
+		return cardfirstsix;
+	}
+
+	@JsonProperty("cardfirstsix")
+	public void setCardFirstSix(String value) {
+		cardfirstsix = value;
+	}
+
+	public String getHashedCardNumber() {
+		return hashedcardnumber;
+	}
+
+	@JsonProperty("hashedcardnumber")
+	public void setHashedCardNumber(String value) {
+		hashedcardnumber = value;
+	}
+
 	public String buildExtraInputParameterRequest()
 			throws EmailageParameterException {
 		StringBuilder sb = new StringBuilder();
@@ -370,7 +382,7 @@ public class ExtraInputParameter {
 					prop.setAccessible(true);
 
 					String strValue = (String) prop.get(this);
-					if (!strValue.equals("")) {
+					if (strValue!=null && !strValue.equals("")) {
 						sb.append(String.format("&%s=%s", prop.getName(), strValue));
 					}
 
@@ -387,7 +399,6 @@ public class ExtraInputParameter {
 					double value = (double) prop.get(this);
 					sb.append(String.format("&%s=%f", prop.getName(), value));
 				}
-
 			}
 		} catch(Exception e){
 			throw new EmailageParameterException("Could not parse extra input parameters for the request",e);

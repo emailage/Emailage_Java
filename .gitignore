@@ -63,7 +63,7 @@ Temporary Items
 /test-classes/
 /classes/
 /javadoc-build-options/
-target/
+/target/
 
 # Javadoc files
 *.html

@@ -1,6 +1,6 @@
 [logo]: https://www.emailage.com/wp-content/uploads/2018/01/logo-dark.svg "Emailage Logo"
 
-![alt text][logo](https://www.emailage.com)
+![Emailage](https://emailage.com/wp-content/uploads/2019/07/EmailageLogo143.png?raw=true)
 
 The Emailage&#8482; API is organized around REST (Representational State Transfer). The API was built to help companies integrate with our highly efficient fraud risk and scoring system. By calling our API endpoints and simply passing us an email and/or IP Address, companies will be provided with real-time risk scoring assessments based around machine learning and proprietary algorithms that evolve with new fraud trends.
 
@@ -25,7 +25,7 @@ Or you can use the Maven dependency:
 <dependency>
   <groupId>com.emailage</groupId>
   <artifactId>classic-api-client</artifactId>
-  <version>1.0.4</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
@@ -66,8 +66,8 @@ String validResult = EmailageClient.QueryEmailAndIP("test@test.com", "147.12.12.
 
 ```Java
 ExtraInputParameter extraArgs = new ExtraInputParameter();
-		extraArgs.setbillpostal("85225");
-		extraArgs.setbillcity("Chandler");
+		extraArgs.setBillPostal("85225");
+		extraArgs.setBillCity("Chandler");
 String validResult = EmailageClient.QueryEmailAndIPPlusExtraArgs("test@test.com", "147.12.12.13", extraArgs,
 					configuration);
 ```

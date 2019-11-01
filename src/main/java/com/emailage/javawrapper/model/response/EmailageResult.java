@@ -132,6 +132,25 @@ public class EmailageResult {
     private String shipAddressToBillAddressConfidence;
     private String shipAddressToFullNameConfidence;
     private String shipAddressToLastNameConfidence;
+    private String standardizedBillingAddress;
+
+    public String getStandardizedShippingAddress() {
+        return standardizedShippingAddress;
+    }
+
+    public void setStandardizedShippingAddress(String standardizedShippingAddress) {
+        this.standardizedShippingAddress = standardizedShippingAddress;
+    }
+
+    private String standardizedShippingAddress;
+
+    public String getStandardizedBillingAddress() {
+        return standardizedBillingAddress;
+    }
+
+    public void setStandardizedBillingAddress(String standardizedBillingAddress) {
+        this.standardizedBillingAddress = standardizedBillingAddress;
+    }
 
     public String getUserDefinedRecordID() {
         return userDefinedRecordID;
