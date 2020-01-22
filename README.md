@@ -81,6 +81,6 @@ String validResult = EmailageClient.MarkEmailAsFraud("test@test.com", Enums.Frau
 ## Frequent asked integration problems.
 
 1. Using the wrong AccountSID/AUTHToken for different environments. Sandbox and Production have different AccountSID and AUTHToken.
-2. Using a wrong JVM version. JVM 1.7 and above is required for the client.
+2. Using a wrong JVM version. JVM 1.8 and above is required for the client.
 
 
