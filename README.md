@@ -9,7 +9,7 @@ The Emailage&#8482; API is organized around REST (Representational State Transfe
 
 ### Requirements
 
-* JVM 1.7 and above
+* JVM 1.8 and above
 * Maven 3+
     * Maven is used to maintain all dependencies
 
