@@ -9,7 +9,7 @@ The Emailage&#8482; API is organized around REST (Representational State Transfe
 
 ### Requirements
 
-* JVM 1.7 and above
+* JVM 1.8 and above
 * Maven 3+
     * Maven is used to maintain all dependencies
 
@@ -25,7 +25,7 @@ Or you can use the Maven dependency:
 <dependency>
   <groupId>com.emailage</groupId>
   <artifactId>classic-api-client</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
 </dependency>
 ```
 
@@ -81,6 +81,6 @@ String validResult = EmailageClient.MarkEmailAsFraud("test@test.com", Enums.Frau
 ## Frequent asked integration problems.
 
 1. Using the wrong AccountSID/AUTHToken for different environments. Sandbox and Production have different AccountSID and AUTHToken.
-2. Using a wrong JVM version. JVM 1.7 and above is required for the client.
+2. Using a wrong JVM version. JVM 1.8 and above is required for the client.
 
 
