@@ -133,6 +133,7 @@ public class EmailageResult {
     private String shipAddressToFullNameConfidence;
     private String shipAddressToLastNameConfidence;
     private String standardizedBillingAddress;
+    private String disDescription;
 
     public String getStandardizedShippingAddress() {
         return standardizedShippingAddress;
@@ -1268,5 +1269,14 @@ public class EmailageResult {
     @JsonProperty("cardType")
     public void setCardType(String cardType) {
         this.cardType = cardType;
+    }
+
+    public String getDisDescription() {
+        return disDescription;
+    }
+
+    @JsonProperty("disDescription")
+    public void setDisDescription(String disDescription) {
+        this.disDescription = disDescription;
     }
 }
