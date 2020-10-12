@@ -56,6 +56,12 @@ public class EmailageQuery {
     private String hashedCardNumber;
     private String custom1;
     private String custom2;
+    private String custom3;
+    private String custom4;
+    private String custom5;
+    private String custom6;
+    private String custom7;
+    private String trackingId;
 
     public String getEmail() {
         return email;
@@ -468,5 +474,56 @@ public class EmailageQuery {
     @JsonProperty("billcountry")
     public void setBillCountry(String billCountry) {
         this.billCountry = billCountry;
+    }
+
+    public String getCustom3() {
+        return custom3;
+    }
+
+    @JsonProperty("custom3")
+    public void setCustom3(String custom3) {
+        this.custom3 = custom3;
+    }
+
+    public String getCustom4() {
+        return custom4;
+    }
+
+    @JsonProperty("custom4")
+    public void setCustom4(String custom4) {
+        this.custom4 = custom4;
+    }
+
+    public String getCustom5() {
+        return custom5;
+    }
+
+    @JsonProperty("custom5")
+    public void setCustom5(String custom5) {
+        this.custom5 = custom5;
+    }
+
+    public String getCustom6() {
+        return custom6;
+    }
+    @JsonProperty("custom6")
+    public void setCustom6(String custom6) {
+        this.custom6 = custom6;
+    }
+
+    public String getCustom7() {
+        return custom7;
+    }
+    @JsonProperty("custom7")
+    public void setCustom7(String custom7) {
+        this.custom7 = custom7;
+    }
+
+    public String getTrackingId() {
+        return trackingId;
+    }
+    @JsonProperty("trackingId")
+    public void setTrackingId(String trackingId) {
+        this.trackingId = trackingId;
     }
 }

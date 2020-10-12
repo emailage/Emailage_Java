@@ -134,6 +134,10 @@ public class EmailageResult {
     private String shipAddressToLastNameConfidence;
     private String standardizedBillingAddress;
     private String disDescription;
+    private String ipShipCountryMatch;
+    private String ipShipDistanceMil;
+    private String ipShipDistanceKm;
+    private String correlationId;
 
     public String getStandardizedShippingAddress() {
         return standardizedShippingAddress;
@@ -1278,5 +1282,38 @@ public class EmailageResult {
     @JsonProperty("disDescription")
     public void setDisDescription(String disDescription) {
         this.disDescription = disDescription;
+    }
+
+    public String getIpShipCountryMatch() {
+        return ipShipCountryMatch;
+    }
+    @JsonProperty("ipShipCountryMatch")
+    public void setIpShipCountryMatch(String ipShipCountryMatch) {
+        this.ipShipCountryMatch = ipShipCountryMatch;
+    }
+
+    public String getIpShipDistanceMil() {
+        return ipShipDistanceMil;
+    }
+    @JsonProperty("ipShipDistanceMil")
+    public void setIpShipDistanceMil(String ipShipDistanceMil) {
+        this.ipShipDistanceMil = ipShipDistanceMil;
+    }
+
+    public String getIpShipDistanceKm() {
+        return ipShipDistanceKm;
+    }
+    @JsonProperty("ipShipDistanceKm")
+    public void setIpShipDistanceKm(String ipShipDistanceKm) {
+        this.ipShipDistanceKm = ipShipDistanceKm;
+    }
+
+    public String getCorrelationId() {
+        return correlationId;
+    }
+
+    @JsonProperty("correlationId")
+    public void setCorrelationId(String correlationId) {
+        this.correlationId = correlationId;
     }
 }
