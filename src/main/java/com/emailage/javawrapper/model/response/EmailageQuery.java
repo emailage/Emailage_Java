@@ -62,6 +62,9 @@ public class EmailageQuery {
     private String custom6;
     private String custom7;
     private String trackingId;
+    private String pocPreProcessing;
+    private int transactionTypeId;
+    private String transactionTypeDescription;
 
     public String getEmail() {
         return email;
@@ -525,5 +528,30 @@ public class EmailageQuery {
     @JsonProperty("trackingId")
     public void setTrackingId(String trackingId) {
         this.trackingId = trackingId;
+    }
+
+    public String getPocPreProcessing() {
+        return pocPreProcessing;
+    }
+
+    @JsonProperty("pocPreProcessing")
+    public void setPocPreProcessing(String pocPreProcessing) {
+        this.pocPreProcessing = pocPreProcessing;
+    }
+
+    public int getTransactionTypeId() {
+        return transactionTypeId;
+    }
+    @JsonProperty("transactionTypeId")
+    public void setTransactionTypeId(int transactionTypeId) {
+        this.transactionTypeId = transactionTypeId;
+    }
+
+    public String getTransactionTypeDescription() {
+        return transactionTypeDescription;
+    }
+    @JsonProperty("transactionTypeDescription")
+    public void setTransactionTypeDescription(String transactionTypeDescription) {
+        this.transactionTypeDescription = transactionTypeDescription;
     }
 }
