@@ -134,6 +134,19 @@ public class EmailageResult {
     private String shipAddressToLastNameConfidence;
     private String standardizedBillingAddress;
     private String disDescription;
+    private String ipShipCountryMatch;
+    private String ipShipDistanceMil;
+    private String ipShipDistanceKm;
+    private String correlationId;
+    private String custom1;
+    private String custom2;
+    private String custom3;
+    private String custom4;
+    private String custom5;
+    private String custom6;
+    private String custom7;
+    private String transAmount;
+    private String transCurrency;
 
     public String getStandardizedShippingAddress() {
         return standardizedShippingAddress;
@@ -1278,5 +1291,110 @@ public class EmailageResult {
     @JsonProperty("disDescription")
     public void setDisDescription(String disDescription) {
         this.disDescription = disDescription;
+    }
+
+    public String getIpShipCountryMatch() {
+        return ipShipCountryMatch;
+    }
+    @JsonProperty("ipShipCountryMatch")
+    public void setIpShipCountryMatch(String ipShipCountryMatch) {
+        this.ipShipCountryMatch = ipShipCountryMatch;
+    }
+
+    public String getIpShipDistanceMil() {
+        return ipShipDistanceMil;
+    }
+    @JsonProperty("ipShipDistanceMil")
+    public void setIpShipDistanceMil(String ipShipDistanceMil) {
+        this.ipShipDistanceMil = ipShipDistanceMil;
+    }
+
+    public String getIpShipDistanceKm() {
+        return ipShipDistanceKm;
+    }
+    @JsonProperty("ipShipDistanceKm")
+    public void setIpShipDistanceKm(String ipShipDistanceKm) {
+        this.ipShipDistanceKm = ipShipDistanceKm;
+    }
+
+    public String getCorrelationId() {
+        return correlationId;
+    }
+
+    @JsonProperty("correlationId")
+    public void setCorrelationId(String correlationId) {
+        this.correlationId = correlationId;
+    }
+
+    public String getCustom1() {
+        return custom1;
+    }
+    @JsonProperty("custom1")
+    public void setCustom1(String custom1) {
+        this.custom1 = custom1;
+    }
+
+    public String getCustom2() {
+        return custom2;
+    }
+    @JsonProperty("custom2")
+    public void setCustom2(String custom2) {
+        this.custom2 = custom2;
+    }
+
+    public String getCustom3() {
+        return custom3;
+    }
+    @JsonProperty("custom3")
+    public void setCustom3(String custom3) {
+        this.custom3 = custom3;
+    }
+
+    public String getCustom4() {
+        return custom4;
+    }
+    @JsonProperty("custom4")
+    public void setCustom4(String custom4) {
+        this.custom4 = custom4;
+    }
+
+    public String getCustom5() {
+        return custom5;
+    }
+    @JsonProperty("custom5")
+    public void setCustom5(String custom5) {
+        this.custom5 = custom5;
+    }
+
+    public String getCustom6() {
+        return custom6;
+    }
+    @JsonProperty("custom6")
+    public void setCustom6(String custom6) {
+        this.custom6 = custom6;
+    }
+
+    public String getCustom7() {
+        return custom7;
+    }
+    @JsonProperty("custom7")
+    public void setCustom7(String custom7) {
+        this.custom7 = custom7;
+    }
+
+    public String getTransAmount() {
+        return transAmount;
+    }
+    @JsonProperty("transAmount")
+    public void setTransAmount(String transAmount) {
+        this.transAmount = transAmount;
+    }
+
+    public String getTransCurrency() {
+        return transCurrency;
+    }
+    @JsonProperty("transCurrency")
+    public void setTransCurrency(String transCurrency) {
+        this.transCurrency = transCurrency;
     }
 }
