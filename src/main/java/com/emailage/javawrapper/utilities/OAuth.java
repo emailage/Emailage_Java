@@ -22,6 +22,7 @@ public class OAuth {
             _Random = SecureRandom.getInstance("SHA1PRNG");
         } catch (NoSuchAlgorithmException ex){
             System.out.println("Emailage_Java cannot generate sufficiant randomness: " + ex.getMessage());
+            System.exit(1);
         }
     }
 
