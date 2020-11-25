@@ -7,14 +7,25 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 
 public class OAuth {
-    private static final Random _Random = new Random();
+
+    private static SecureRandom _Random = null;
+    static {
+        try {
+            _Random = SecureRandom.getInstance("SHA1PRNG");
+        } catch (NoSuchAlgorithmException ex){
+            System.out.println("Emailage_Java cannot generate sufficiant randomness: " + ex.getMessage());
+            System.exit(1);
+        }
+    }
+
     private static final String _UnreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~";
     private final static String HMACSHA1 = "HMAC-SHA1";
     private final static String HMACSHA256 = "HMAC-SHA256";
