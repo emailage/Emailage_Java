@@ -34,6 +34,9 @@ public class HttpHelper {
 
         int bodySize = body.length;
         conn.setRequestProperty("Content-Length", Integer.toString(bodySize));
+        conn.setRequestProperty("Content-Language", "en-US");
+        conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+        conn.setRequestProperty("Accept-Charset", StandardCharsets.UTF_8.name());
         conn.setDoOutput(true);
 
         StringBuilder answer = new StringBuilder();
