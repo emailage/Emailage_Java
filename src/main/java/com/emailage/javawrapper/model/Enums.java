@@ -88,4 +88,8 @@ public class Enums {
 		}
 	}
 
+	public enum AuthenticationType {
+		OAUTH1, OAUTH2
+	}
+
 }
