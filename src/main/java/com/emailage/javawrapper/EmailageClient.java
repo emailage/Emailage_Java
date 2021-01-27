@@ -13,10 +13,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.*;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -215,43 +215,27 @@ public class EmailageClient {
 			throws MalformedURLException, EmailageApiRequestException {
 
 		/* POST value */
-		byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
-		int postDataLength = postData.length;
 		URL url = new URL(oriUrl);
 
 		/* find token endpoint */
 		String tokenString = String.format("%s://%s/oauth/v2/token", url.getProtocol(), url.getHost());
 		URL tokenUrl = new URL(tokenString);
 
-				// create an object for return
-		StringBuilder answer = new StringBuilder();
+		String answer = null;
 		try {
 
 			HttpsURLConnection conn = HttpHelper.getHttpsURLConnection(url);
 			try(AutoCloseable conc = new AutoCloseableHttpsUrlConnection(conn)) {
 
 				OAuth2Wrapper auth = OAuth2Wrapper.getInstance(parameters.getAcccountToken(), parameters.getAccountSecret(), tokenUrl);
-				try (
-						DataOutputStream wr = new DataOutputStream(auth.getOutputStream(conn, postDataLength, StandardCharsets.UTF_8.name()));
-						BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, StandardCharsets.UTF_8.name()))
-				) {
-					String value = new String(postData, StandardCharsets.UTF_8.name());
-					writer.write(value);
-				}
+				answer = auth.doOAuth2Request(url, urlParameters);
 
-				Charset charset = Charset.forName(StandardCharsets.UTF_8.name());
-				try (BufferedReader input = new BufferedReader(new InputStreamReader(auth.getInputStream(conn), charset))) {
-					String str;
-					while (null != (str = input.readLine())) {
-						answer.append(str);
-					}
-				}
 			}
 		} catch (Exception e1) {
 			throw new EmailageApiRequestException("Could not complete API request",e1);
 		}
 
-		return answer.toString();
+		return answer;
 	}
 
 	private static String PostOAuth1(Enums.FraudType fraudType, String urlParameters, ConfigurationParameters parameters, String oriUrl)
@@ -269,8 +253,6 @@ public class EmailageClient {
 
 		/* POST value */
 		byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
-		int postDataLength = postData.length;
-
 		URL url = new URL(requestUrl);
 
 		// create an object for return
@@ -279,18 +261,13 @@ public class EmailageClient {
 
 			HttpsURLConnection conn = HttpHelper.getHttpsURLConnection(url);
 			try(AutoCloseable conc = new AutoCloseableHttpsUrlConnection(conn)) {
-
-				conn.setRequestProperty("Content-Language", "en-US");
-				conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-				conn.setRequestProperty("Accept-Charset", StandardCharsets.UTF_8.name());
-
 				answer = HttpHelper.PostRequest(postData, conn);
 			}
 		} catch (Exception e1) {
 			throw new EmailageApiRequestException("Could not complete API request",e1);
 		}
 
-		return answer.toString();
+		return answer;
 	}
 
 	private static String getEndpointurl(APIUrl endpoint, ConfigurationParameters parameters) {
@@ -355,7 +332,6 @@ public class EmailageClient {
 
 	private enum APIUrl {
 		Query, MarkAsFraud
-
 	}
 
 }
