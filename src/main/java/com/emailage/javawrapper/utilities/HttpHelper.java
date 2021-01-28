@@ -11,7 +11,9 @@ import java.security.NoSuchAlgorithmException;
 
 public class HttpHelper {
 
-    public static HttpsURLConnection getHttpsURLConnection(URL url) throws NoSuchAlgorithmException, KeyManagementException, IOException {
+    public HttpHelper(){}
+
+    public HttpsURLConnection getHttpsURLConnection(URL url) throws NoSuchAlgorithmException, KeyManagementException, IOException {
         double version = Double.parseDouble(System.getProperty("java.specification.version"));
         SSLContext context;
         HttpsURLConnection conn;
@@ -23,14 +25,14 @@ public class HttpHelper {
             conn = (HttpsURLConnection) url.openConnection();
             conn.setSSLSocketFactory(context.getSocketFactory());
         } else {
-            // if Java version is not 1.7( assuming 1.7 and above actually)
+            // if Java version is not 1.7 (assuming 1.7 and above)
             // use the system default.
             conn = (HttpsURLConnection) url.openConnection();
         }
         return conn;
     }
 
-    public static String PostRequest(byte[] body, HttpsURLConnection conn) throws IOException {
+    public String PostRequest(byte[] body, HttpsURLConnection conn) throws IOException {
 
         int bodySize = body.length;
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
