@@ -44,17 +44,19 @@ public class EmailageClient {
 	private static final String RequestBaseFraudUrlProd = "https://api.emailage.com/emailageValidator/flag/";
 
 	/** Use java.util.logging.  NOTE: this can be captured and redirected to other logging libraries using slf4j. */
-	private static Logger Log = Logger.getLogger(EmailageClient.class.getName());
+	private static final Logger Log = Logger.getLogger(EmailageClient.class.getName());
 
 	/** <p>Regex Pattern is thread-safe, but regex matcher is not.</p>
 	 * <p>"Instances of this class are immutable and are safe for use by multiple concurrent threads. Instances of the Matcher class are not safe for such use.", see Oracle's docs <a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html">here</a>.</p>
 	 */
-	private static Pattern compiledUTF8Pattern = Pattern.compile("\ufeff");
+	private static final Pattern compiledUTF8Pattern = Pattern.compile("\ufeff");
 
 	/**
 	 * <p>Jackson ObjectMapper is fully thread-safe according to the Jackson docs <a href="http://static.javadoc.io/com.fasterxml.jackson.core/jackson-databind/2.9.8/com/fasterxml/jackson/databind/ObjectMapper.html">here.</a></p>
 	 */
-	private static ObjectMapper mapper;
+	private static final ObjectMapper mapper;
+
+	public static HttpHelper httpHelper;
 
 	/** Static block that executes before everything else
 	 */
@@ -65,6 +67,8 @@ public class EmailageClient {
 		mapper.registerModule(new AfterburnerModule());
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+
+		httpHelper = new HttpHelper();
 	}
 
 	/**
@@ -221,16 +225,12 @@ public class EmailageClient {
 		String tokenString = String.format("%s://%s/oauth/v2/token", url.getProtocol(), url.getHost());
 		URL tokenUrl = new URL(tokenString);
 
-		String answer = null;
+		String answer;
 		try {
 
-			HttpsURLConnection conn = HttpHelper.getHttpsURLConnection(url);
-			try(AutoCloseable conc = new AutoCloseableHttpsUrlConnection(conn)) {
+			OAuth2Wrapper auth = OAuth2Wrapper.getInstance(parameters.getAcccountToken(), parameters.getAccountSecret(), tokenUrl, httpHelper);
+			answer = auth.doOAuth2Request(url, urlParameters);
 
-				OAuth2Wrapper auth = OAuth2Wrapper.getInstance(parameters.getAcccountToken(), parameters.getAccountSecret(), tokenUrl);
-				answer = auth.doOAuth2Request(url, urlParameters);
-
-			}
 		} catch (Exception e1) {
 			throw new EmailageApiRequestException("Could not complete API request",e1);
 		}
@@ -256,12 +256,11 @@ public class EmailageClient {
 		URL url = new URL(requestUrl);
 
 		// create an object for return
-		String answer = null;
+		String answer;
 		try {
-
-			HttpsURLConnection conn = HttpHelper.getHttpsURLConnection(url);
+			HttpsURLConnection conn = httpHelper.getHttpsURLConnection(url);
 			try(AutoCloseable conc = new AutoCloseableHttpsUrlConnection(conn)) {
-				answer = HttpHelper.PostRequest(postData, conn);
+				answer = httpHelper.PostRequest(postData, conn);
 			}
 		} catch (Exception e1) {
 			throw new EmailageApiRequestException("Could not complete API request",e1);

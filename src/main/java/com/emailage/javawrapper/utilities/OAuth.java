@@ -6,6 +6,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -135,15 +136,10 @@ public class OAuth {
 
     public static byte[] HmacEncrypt(String encryptText, String encryptKey, String algorithm)
                     throws Exception {
-        byte[] keybytes = encryptKey.getBytes("UTF-8");
+        byte[] keybytes = encryptKey.getBytes(StandardCharsets.UTF_8);
         Mac mac;
         Key key;
         switch(algorithm) {
-            case HMACSHA1:
-                mac = Mac.getInstance("HMACSHA1");
-                key = new SecretKeySpec(keybytes, "HMACSHA1");
-                mac.init(key);
-                break;
             case HMACSHA256:
                 mac = Mac.getInstance("HMACSHA256");
                 key = new SecretKeySpec(keybytes, "HMACSHA256");
@@ -159,14 +155,14 @@ public class OAuth {
                 key = new SecretKeySpec(keybytes, "HMACSHA512");
                 mac.init(key);
                 break;
-            default:
+            default: // HMACSHA1
                 mac = Mac.getInstance("HMACSHA1");
                 key = new SecretKeySpec(keybytes, "HMACSHA1");
                 mac.init(key);
                 break;                
         }
         
-        byte[] text = encryptText.getBytes("UTF-8");
+        byte[] text = encryptText.getBytes(StandardCharsets.UTF_8);
         return mac.doFinal(text);
     }
     
