@@ -45,7 +45,7 @@ public class OAuth2Wrapper {
 
 
     private static final String tokenForm = "grant_type=client_credentials&client_id=%s&client_secret=%s";
-    private static final String refreshForm = "grant_type=token_refresh&client_id=%s&refresh_token=%s";
+    private static final String refreshForm = "grant_type=refresh_token&client_id=%s&refresh_token=%s";
 
     protected OAuth2Wrapper(String accountToken, String accountSecret, URL tokenUrl){
         this.accountSecret = accountSecret;
@@ -53,6 +53,14 @@ public class OAuth2Wrapper {
         this.tokenUrl = tokenUrl;
         this.expiration = LocalDateTime.now().minusMonths(1);
         this.token = new OAuth2Token();
+    }
+
+    public OAuth2Token getToken(){
+        return this.token;
+    }
+
+    public void setExpiration(LocalDateTime time){
+        this.expiration = time;
     }
 
     public String doOAuth2Request(URL url, String form) throws Exception {
@@ -66,6 +74,7 @@ public class OAuth2Wrapper {
         byte[] body = form.getBytes(StandardCharsets.UTF_8);
         HttpsURLConnection conn = HttpHelper.getHttpsURLConnection(url);
         try (AutoCloseable conc = new AutoCloseableHttpsUrlConnection(conn)) {
+            conn.setRequestProperty("Authorization", "Bearer " + token.getAccessToken());
             answer = HttpHelper.PostRequest(body, conn);
         }
 
@@ -80,7 +89,7 @@ public class OAuth2Wrapper {
             try (AutoCloseable conc = new AutoCloseableHttpsUrlConnection(conn)) {
 
                 String form = null;
-                if(token.getAccessToken() != null){
+                if(token.getRefreshToken() != null){
                     form = String.format(refreshForm, accountSecret, token.getRefreshToken());
                 } else {
                     form = String.format(tokenForm, accountSecret, accountToken);
