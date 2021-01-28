@@ -18,7 +18,7 @@ public class OAuth2Wrapper {
     private static class InstanceHolder{
 
         private static final ConcurrentMap<String, OAuth2Wrapper> InstanceCollection = new ConcurrentHashMap<>();
-        private static ObjectMapper mapper;
+        private static final ObjectMapper mapper;
 
         static
         {
@@ -29,28 +29,39 @@ public class OAuth2Wrapper {
             mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
         }
     }
-    public static OAuth2Wrapper getInstance(String accountToken, String accountSecret, URL tokenUrl) {
+
+    private static final Object lock = new Object();
+    public static OAuth2Wrapper getInstance(String accountToken, String accountSecret, URL tokenUrl, HttpHelper httpHelper) {
         if(!InstanceHolder.InstanceCollection.containsKey(accountToken)){
-            InstanceHolder.InstanceCollection.put(accountToken, new OAuth2Wrapper(accountToken, accountSecret, tokenUrl));
+            InstanceHolder.InstanceCollection.put(accountToken, new OAuth2Wrapper(accountToken, accountSecret, tokenUrl, httpHelper));
         }
 
         return InstanceHolder.InstanceCollection.get(accountToken);
     }
 
-    protected String accountToken;
-    protected String accountSecret;
+    public static OAuth2Wrapper getInstance(String accountToken, String accountSecret, URL tokenUrl) {
+        if(!InstanceHolder.InstanceCollection.containsKey(accountToken)){
+            InstanceHolder.InstanceCollection.put(accountToken, new OAuth2Wrapper(accountToken, accountSecret, tokenUrl, new HttpHelper()));
+        }
+
+        return InstanceHolder.InstanceCollection.get(accountToken);
+    }
+
+    protected final String accountToken;
+    protected final String accountSecret;
     protected LocalDateTime expiration;
     protected OAuth2Token token;
-    protected URL tokenUrl;
-
+    protected final URL tokenUrl;
+    protected final HttpHelper httpHelper;
 
     private static final String tokenForm = "grant_type=client_credentials&client_id=%s&client_secret=%s";
     private static final String refreshForm = "grant_type=refresh_token&client_id=%s&refresh_token=%s";
 
-    protected OAuth2Wrapper(String accountToken, String accountSecret, URL tokenUrl){
+    protected OAuth2Wrapper(String accountToken, String accountSecret, URL tokenUrl, HttpHelper httpHelper){
         this.accountSecret = accountSecret;
         this.accountToken = accountToken;
         this.tokenUrl = tokenUrl;
+        this.httpHelper = httpHelper;
         this.expiration = LocalDateTime.now().minusMonths(1);
         this.token = new OAuth2Token();
     }
@@ -65,17 +76,19 @@ public class OAuth2Wrapper {
 
     public String doOAuth2Request(URL url, String form) throws Exception {
 
-        if(expiration.isBefore(LocalDateTime.now())){
-            token = getAccessToken(token, accountToken, accountSecret, this.tokenUrl);
-            expiration = LocalDateTime.now().plusSeconds(token.getAccessExpiration());
+        synchronized (lock) {
+            if (expiration.isBefore(LocalDateTime.now())) {
+                token = getAccessToken(token, accountToken, accountSecret, this.tokenUrl);
+                expiration = LocalDateTime.now().plusSeconds(token.getAccessExpiration());
+            }
         }
 
-        String answer = null;
+        String answer;
         byte[] body = form.getBytes(StandardCharsets.UTF_8);
-        HttpsURLConnection conn = HttpHelper.getHttpsURLConnection(url);
+        HttpsURLConnection conn = httpHelper.getHttpsURLConnection(url);
         try (AutoCloseable conc = new AutoCloseableHttpsUrlConnection(conn)) {
             conn.setRequestProperty("Authorization", "Bearer " + token.getAccessToken());
-            answer = HttpHelper.PostRequest(body, conn);
+            answer = httpHelper.PostRequest(body, conn);
         }
 
         return answer;
@@ -85,10 +98,10 @@ public class OAuth2Wrapper {
 
         String answer = null;
         try {
-            HttpsURLConnection conn = HttpHelper.getHttpsURLConnection(tokenUrl);
+            HttpsURLConnection conn = httpHelper.getHttpsURLConnection(tokenUrl);
             try (AutoCloseable conc = new AutoCloseableHttpsUrlConnection(conn)) {
 
-                String form = null;
+                String form;
                 if(token.getRefreshToken() != null){
                     form = String.format(refreshForm, accountSecret, token.getRefreshToken());
                 } else {
@@ -96,7 +109,7 @@ public class OAuth2Wrapper {
                 }
 
                 byte[] body = form.getBytes(StandardCharsets.UTF_8);
-                answer = HttpHelper.PostRequest(body, conn);
+                answer = httpHelper.PostRequest(body, conn);
             }
         } catch (Exception ex){
             // refresh token has expired so set the refresh token to null and try
