@@ -33,9 +33,9 @@ public class HttpHelper {
     public static String PostRequest(byte[] body, HttpsURLConnection conn) throws IOException {
 
         int bodySize = body.length;
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
         conn.setRequestProperty("Content-Length", Integer.toString(bodySize));
         conn.setRequestProperty("Content-Language", "en-US");
-        conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
         conn.setRequestProperty("Accept-Charset", StandardCharsets.UTF_8.name());
         conn.setDoOutput(true);
 
