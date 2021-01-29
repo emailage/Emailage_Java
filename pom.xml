@@ -22,6 +22,7 @@
         <project.scm.id>github</project.scm.id>
         <maven.compiler.source>8</maven.compiler.source>
         <additionalparam>-Xdoclint:none</additionalparam>
+        <jqf.version>1.6</jqf.version>
     </properties>
 
     <developers>
@@ -120,6 +121,18 @@
             <version>3.26.0-GA</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>edu.berkeley.cs.jqf</groupId>
+            <artifactId>jqf-instrument</artifactId>
+            <version>${jqf.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>edu.berkeley.cs.jqf</groupId>
+            <artifactId>jqf-fuzz</artifactId>
+            <version>${jqf.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <profiles>
         <profile>
@@ -128,6 +141,8 @@
     </profiles>
 
     <build>
+        <testSourceDirectory>src/test/fuzztests</testSourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -245,6 +260,17 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>edu.berkeley.cs.jqf</groupId>
+                <artifactId>jqf-maven-plugin</artifactId>
+                <version>${jqf.version}</version>
+                <configuration>
+                    <testClassName>legacy.LegacyConverterFuzzer</testClassName>
+                    <!-- s:seconds, h: hours, m: minutes, possible to combine to: [Nh][Nm][Ns] -->
+                    <!-- see mvn help:describe -Dplugin=jqf -Ddetail -->
+                    <time>10s</time>
+                </configuration>
             </plugin>
         </plugins>
     </build>
