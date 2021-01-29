@@ -25,7 +25,7 @@ Or you can use the Maven dependency:
 <dependency>
   <groupId>com.emailage</groupId>
   <artifactId>classic-api-client</artifactId>
-  <version>1.1.4</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
