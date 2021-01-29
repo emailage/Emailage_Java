@@ -10,6 +10,11 @@ public class ConfigurationParameters {
     private Enums.SignatureMethod hashAlgorithm;
     private Enums.Format resultFormat;
     private boolean validateBeforeSending = true;
+    private Enums.AuthenticationType authenticationType;
+
+    public ConfigurationParameters(){
+        this.authenticationType = Enums.AuthenticationType.OAUTH1;
+    }
 
     /** @return Account Secret found in the Settings menu - API Key area on the portal. */
     public String getAccountSecret() {
@@ -80,5 +85,14 @@ public class ConfigurationParameters {
 
     public void setValidateBeforeSending(boolean validateBeforeSending) {
         this.validateBeforeSending = validateBeforeSending;
+    }
+
+    /** @return Authentication scheme to use.  Valid values: "OAuth1" (Default), "OAuth2" */
+    public Enums.AuthenticationType getAuthenticationType() {
+        return authenticationType;
+    }
+
+    public void setAuthenticationType(Enums.AuthenticationType authenticationType) {
+        this.authenticationType = authenticationType;
     }
 }

@@ -45,7 +45,7 @@ public class UnitTest {
 	}
 
 	@Test
-	public void testExtraInputParameters() throws Exception {
+	public void testExtraInputParameters() {
 		ExtraInputParameter input = new ExtraInputParameter();
 
 

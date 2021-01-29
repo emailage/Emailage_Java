@@ -20,6 +20,7 @@ public class TestClient {
 		/* Results can be in JSON or XML format */
 		Enums.Format resultFormat = Enums.Format.Json;
 		Enums.SignatureMethod signatureMethod = Enums.SignatureMethod.HMAC_SHA256;
+		Enums.AuthenticationType authType = Enums.AuthenticationType.OAUTH1;
 
 		/*
 		 * OPTIONAL FIELD. Use this field if you want to associate the API call
@@ -28,16 +29,17 @@ public class TestClient {
 		String user_email = null;
 		Enums.Environment environment = Enums.Environment.Production;
 
-		String accountSecret = "replace-me";
+		String accountSid = "replace-me";
 		String authToken = "replace-me";
 
 		ConfigurationParameters parameters = new ConfigurationParameters();
 		parameters.setUserEmail(user_email);
 		parameters.setAcccountToken(authToken);
-		parameters.setAccountSecret(accountSecret);
+		parameters.setAccountSecret(accountSid);
 		parameters.setEnvironment(environment);
 		parameters.setHashAlgorithm(signatureMethod);
 		parameters.setResultFormat(resultFormat);
+		parameters.setAuthenticationType(authType);
 
 		// Configure jackson-afterburner
 		ObjectMapper mapper = new ObjectMapper();
