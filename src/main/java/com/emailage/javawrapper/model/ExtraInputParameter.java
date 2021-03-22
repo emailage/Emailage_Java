@@ -487,6 +487,11 @@ public class ExtraInputParameter {
 					double value = (double) prop.get(this);
 					sb.append(String.format("&%s=%f", prop.getName(), value));
 				}
+				} else if (prop.getType().toString().equals("int")) {
+					prop.setAccessible(true);
+					int value = (int) prop.get(this);
+					sb.append(String.format("&%s=%d", prop.getName(), value));
+				}
 			}
 		} catch(Exception e){
 			throw new EmailageParameterException("Could not parse extra input parameters for the request",e);
