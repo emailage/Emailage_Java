@@ -248,7 +248,7 @@ public class EmailageClient {
 
 		// Only support POST at the moment, but the oauth function has the
 		// capability of supporting get too.
-		String requestUrl = OAuth.getUrl("POST", hashAlgorithmString, oriUrl, parameters.getAccountSecret(), parameters.getAcccountToken());
+		String requestUrl = OAuth.getUrl("POST", hashAlgorithmString, oriUrl, parameters.getAcccountToken(), parameters.getAccountSecret());
 		Log.finer("requestUrl: " + requestUrl);
 
 		/* POST value */
