@@ -54,6 +54,7 @@ public class ExtraInputParameter {
 	private String pocPreProcessing;
 	private int transactionTypeId;
 	private String transactionTypeDescription;
+	private String phoneCountryCode;
 
 	public String getFirstName() {
 		return firstname;
@@ -459,6 +460,10 @@ public class ExtraInputParameter {
 	@JsonProperty("transactionTypeDescription")
 	public void setTransactionTypeDescription(String transactionTypeDescription) {
 		this.transactionTypeDescription = transactionTypeDescription;
+	}
+	@JsonProperty("phoneCountryCode")
+	public void setPhoneCountryCode(String phoneCountryCode) {
+		this.phoneCountryCode = phoneCountryCode;
 	}
 
 	public String buildExtraInputParameterRequest()

@@ -2,6 +2,8 @@ package com.emailage.javawrapper.model.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -65,6 +67,7 @@ public class EmailageQuery {
     private String pocPreProcessing;
     private int transactionTypeId;
     private String transactionTypeDescription;
+    private String phoneCountryCode;
 
     public String getEmail() {
         return email;
@@ -554,4 +557,11 @@ public class EmailageQuery {
     public void setTransactionTypeDescription(String transactionTypeDescription) {
         this.transactionTypeDescription = transactionTypeDescription;
     }
+
+    public String getPhoneCountryCode() throws UnsupportedEncodingException {  return java.net.URLEncoder.encode(phoneCountryCode, StandardCharsets.UTF_8.name()); }
+    @JsonProperty("phoneCountryCode")
+    public void setPhoneCountryCode(String phoneCountryCode) {
+        this.phoneCountryCode = phoneCountryCode;
+    }
+
 }

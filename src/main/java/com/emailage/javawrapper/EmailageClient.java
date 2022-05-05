@@ -16,6 +16,7 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
@@ -116,6 +117,38 @@ public class EmailageClient {
 		String result = PostQuery(APIUrl.Query,null, queryBuffer.toString(), parameters);
 		String decodedString =  java.net.URLDecoder.decode(result, StandardCharsets.UTF_8.name());
 		return deserialize(decodedString);
+	}
+
+	/**
+	 * This method is used to query an Email Address passing extra
+	 * arguments, such as billing zip code, city, country and so on.
+	 *
+	 * @param email
+	 *            Transaction Email Address
+	 * @param extraArgs
+	 *            Hash table containing a list of extra arguments.
+	 * @param parameters
+	 * 			  Security parameter information, see {@link ConfigurationParameters}
+	 * @return Result of the API call.
+	 * @throws IOException If JSON deserialization fails, the target url is incorrect, or UTF-8 is not supported by the JVM.
+	 * @throws EmailageApiRequestException If there is an unexpected issue sending the data to the server or there an issue retrieving a response from the server.
+	 * @throws EmailageParameterException If there is a problem with the parsing of the extraInputParameters.
+	 */
+	public static EmailageResponse QueryEmailPlusExtraArgs(String email, ExtraInputParameter extraArgs, ConfigurationParameters parameters)
+			throws IOException, EmailageParameterException, EmailageApiRequestException {
+
+		validateParams(email, parameters.isValidateBeforeSending());
+		String queryElement = constructQueryField(email, null);
+
+		StringBuffer queryBuffer = new StringBuffer("query=");
+		queryBuffer.append(queryElement);
+		queryBuffer.append(extraArgs.buildExtraInputParameterRequest());
+
+		return  deserialize(PostQuery(
+				APIUrl.Query,
+				null,
+				queryBuffer.toString(),
+				parameters));
 	}
 
 	/**
