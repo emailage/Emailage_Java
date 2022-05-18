@@ -4,7 +4,7 @@
     <groupId>com.emailage</groupId>
     <artifactId>classic-api-client</artifactId>
     <packaging>jar</packaging>
-    <version>1.2.2</version>
+    <version>1.2.2-SNAPSHOT</version>
 
     <name>Classic API Client</name>
     <description>Emailage Classic API Java Client</description>
