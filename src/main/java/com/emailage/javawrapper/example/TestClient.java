@@ -8,7 +8,7 @@ import com.emailage.javawrapper.model.response.EmailageResponse;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
+import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
 
 public class TestClient {
 
@@ -25,12 +25,13 @@ public class TestClient {
 		/*
 		 * OPTIONAL FIELD. Use this field if you want to associate the API call
 		 * to a specific Emailage user.
+		 *
 		 */
 		String user_email = null;
-		Enums.Environment environment = Enums.Environment.Production;
+		Enums.Environment environment = Enums.Environment.Sandbox;
 
-		String accountSid = "replace-me";
-		String authToken = "replace-me";
+		String accountSid = "E4D2778DD32D41248347E2EEC4448685";
+		String authToken = "2AB132BFF70B4D9B83350239C70771AC";
 
 		ConfigurationParameters parameters = new ConfigurationParameters();
 		parameters.setUserEmail(user_email);
@@ -41,14 +42,14 @@ public class TestClient {
 		parameters.setResultFormat(resultFormat);
 		parameters.setAuthenticationType(authType);
 
-		// Configure jackson-afterburner
+		// Configure jackson-blackbird
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new AfterburnerModule());
+		mapper.registerModule(new BlackbirdModule());
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 
 		// Email validation
-		try {
+/*		try {
 			System.out.println("Querying Email");
 			EmailageResponse validResult = EmailageClient.QueryEmail("test@test.com", parameters);
 			String result = mapper.writeValueAsString(validResult);
@@ -67,7 +68,7 @@ public class TestClient {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		/*
 		 * Querying Email + IP and passing additional arguments, in this case,
@@ -88,6 +89,8 @@ public class TestClient {
 			extraArgs.setExistingCustomer(false);
 			extraArgs.setFirstName("Bob");
 			extraArgs.setLastName("Smith");
+			extraArgs.setPhoneCountryCode("US");
+			extraArgs.setCcBinNumber(123456);
 
 			EmailageResponse validResult = EmailageClient.QueryEmailAndIPPlusExtraArgs("test@test.com", "147.12.12.13", extraArgs, parameters);
 			String result = mapper.writeValueAsString(validResult);
@@ -102,7 +105,7 @@ public class TestClient {
 		 * "confirmed good" email is found at the customer site.
 		 */
 		// Email + IP validation
-		try {
+	/*	try {
 			System.out.println("Marking an Email as Fraud");
 			EmailageResponse validResult = EmailageClient.MarkEmailAsFraud("test@test.com", Enums.FraudType.Fraud, Enums.FraudCode.CARD_NOT_PRESENT, parameters);
 			String result = mapper.writeValueAsString(validResult);
@@ -110,7 +113,7 @@ public class TestClient {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }

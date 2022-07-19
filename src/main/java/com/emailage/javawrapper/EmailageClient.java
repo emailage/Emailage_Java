@@ -10,7 +10,8 @@ import com.emailage.javawrapper.utilities.*;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
+import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
+
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class EmailageClient {
 	/* Email Query Endpoint */
 
 	/* SANDBOX Environment */
-	private static final String RequestBaseUrlSand = "https://sandbox.emailage.com/emailagevalidator/";
+	private static final String RequestBaseUrlSand = "https://api.dev.eaorg.us/EmailAgeValidator/";
 
 
 	/* PRODUCTION Environment */
@@ -63,9 +64,9 @@ public class EmailageClient {
 	 */
 	static
 	{
-		// Configure jackson-afterburner
+		// Configure jackson-blackbird
 		mapper = new ObjectMapper();
-		mapper.registerModule(new AfterburnerModule());
+		mapper.registerModule(new BlackbirdModule());
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 
