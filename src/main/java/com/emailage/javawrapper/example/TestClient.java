@@ -30,8 +30,8 @@ public class TestClient {
 		String user_email = null;
 		Enums.Environment environment = Enums.Environment.Sandbox;
 
-		String accountSid = "E4D2778DD32D41248347E2EEC4448685";
-		String authToken = "2AB132BFF70B4D9B83350239C70771AC";
+		String accountSid = "replace-me";
+		String authToken = "replace-me";
 
 		ConfigurationParameters parameters = new ConfigurationParameters();
 		parameters.setUserEmail(user_email);
