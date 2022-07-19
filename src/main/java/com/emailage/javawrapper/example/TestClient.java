@@ -49,7 +49,7 @@ public class TestClient {
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 
 		// Email validation
-/*		try {
+		try {
 			System.out.println("Querying Email");
 			EmailageResponse validResult = EmailageClient.QueryEmail("test@test.com", parameters);
 			String result = mapper.writeValueAsString(validResult);
@@ -68,7 +68,7 @@ public class TestClient {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 
 		/*
 		 * Querying Email + IP and passing additional arguments, in this case,
@@ -105,7 +105,7 @@ public class TestClient {
 		 * "confirmed good" email is found at the customer site.
 		 */
 		// Email + IP validation
-	/*	try {
+		try {
 			System.out.println("Marking an Email as Fraud");
 			EmailageResponse validResult = EmailageClient.MarkEmailAsFraud("test@test.com", Enums.FraudType.Fraud, Enums.FraudCode.CARD_NOT_PRESENT, parameters);
 			String result = mapper.writeValueAsString(validResult);
@@ -113,7 +113,7 @@ public class TestClient {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 
 }
