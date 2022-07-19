@@ -55,6 +55,7 @@ public class ExtraInputParameter {
 	private int transactionTypeId;
 	private String transactionTypeDescription;
 	private String phoneCountryCode;
+	private int ccBinNumber;
 
 	public String getFirstName() {
 		return firstname;
@@ -461,11 +462,22 @@ public class ExtraInputParameter {
 	public void setTransactionTypeDescription(String transactionTypeDescription) {
 		this.transactionTypeDescription = transactionTypeDescription;
 	}
+
+	public String getPhoneCountryCode() {
+		return phoneCountryCode;
+	}
 	@JsonProperty("phoneCountryCode")
 	public void setPhoneCountryCode(String phoneCountryCode) {
 		this.phoneCountryCode = phoneCountryCode;
 	}
 
+	public String getCcBinNumber() {
+		return String.valueOf(ccBinNumber);
+	}
+	@JsonProperty("ccBinNumber")
+	public void setCcBinNumber(int ccBinNumber) {
+		this.ccBinNumber = ccBinNumber;
+	}
 	public String buildExtraInputParameterRequest()
 			throws EmailageParameterException {
 		StringBuilder sb = new StringBuilder();
@@ -491,6 +503,10 @@ public class ExtraInputParameter {
 					prop.setAccessible(true);
 					double value = (double) prop.get(this);
 					sb.append(String.format("&%s=%f", prop.getName(), value));
+				}  else if (prop.getType().toString().equals("int")) {
+					prop.setAccessible(true);
+					int value = (int) prop.get(this);
+					sb.append(String.format("&%s=%d", prop.getName(), value));
 				}
 			}
 		} catch(Exception e){

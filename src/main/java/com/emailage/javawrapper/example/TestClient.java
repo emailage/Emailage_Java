@@ -8,7 +8,7 @@ import com.emailage.javawrapper.model.response.EmailageResponse;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
+import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
 
 public class TestClient {
 
@@ -25,6 +25,7 @@ public class TestClient {
 		/*
 		 * OPTIONAL FIELD. Use this field if you want to associate the API call
 		 * to a specific Emailage user.
+		 *
 		 */
 		String user_email = null;
 		Enums.Environment environment = Enums.Environment.Production;
@@ -41,9 +42,9 @@ public class TestClient {
 		parameters.setResultFormat(resultFormat);
 		parameters.setAuthenticationType(authType);
 
-		// Configure jackson-afterburner
+		// Configure jackson-blackbird
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new AfterburnerModule());
+		mapper.registerModule(new BlackbirdModule());
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 
@@ -88,6 +89,8 @@ public class TestClient {
 			extraArgs.setExistingCustomer(false);
 			extraArgs.setFirstName("Bob");
 			extraArgs.setLastName("Smith");
+			extraArgs.setPhoneCountryCode("US");
+			extraArgs.setCcBinNumber(123456);
 
 			EmailageResponse validResult = EmailageClient.QueryEmailAndIPPlusExtraArgs("test@test.com", "147.12.12.13", extraArgs, parameters);
 			String result = mapper.writeValueAsString(validResult);
