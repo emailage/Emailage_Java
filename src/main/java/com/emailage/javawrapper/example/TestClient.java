@@ -8,7 +8,7 @@ import com.emailage.javawrapper.model.response.EmailageResponse;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
+import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
 
 public class TestClient {
 
@@ -42,9 +42,9 @@ public class TestClient {
 		parameters.setResultFormat(resultFormat);
 		parameters.setAuthenticationType(authType);
 
-		// Configure jackson-afterburner
+		// Configure jackson-blackbird
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new AfterburnerModule());
+		mapper.registerModule(new BlackbirdModule());
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 
