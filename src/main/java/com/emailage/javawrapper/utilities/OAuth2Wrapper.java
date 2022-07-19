@@ -4,7 +4,7 @@ import com.emailage.javawrapper.model.OAuth2Token;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
+import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
@@ -22,9 +22,9 @@ public class OAuth2Wrapper {
 
         static
         {
-            // Configure jackson-blackbird
+            // Configure jackson-afterburner
             mapper = new ObjectMapper();
-            mapper.registerModule(new BlackbirdModule());
+            mapper.registerModule(new AfterburnerModule());
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
         }

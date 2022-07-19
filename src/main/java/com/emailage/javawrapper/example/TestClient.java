@@ -8,7 +8,7 @@ import com.emailage.javawrapper.model.response.EmailageResponse;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
+import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 
 public class TestClient {
 
@@ -28,7 +28,7 @@ public class TestClient {
 		 *
 		 */
 		String user_email = null;
-		Enums.Environment environment = Enums.Environment.Sandbox;
+		Enums.Environment environment = Enums.Environment.Production;
 
 		String accountSid = "replace-me";
 		String authToken = "replace-me";
@@ -42,9 +42,9 @@ public class TestClient {
 		parameters.setResultFormat(resultFormat);
 		parameters.setAuthenticationType(authType);
 
-		// Configure jackson-blackbird
+		// Configure jackson-afterburner
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new BlackbirdModule());
+		mapper.registerModule(new AfterburnerModule());
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 
