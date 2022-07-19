@@ -20,7 +20,7 @@
 
     <properties>
         <project.scm.id>github</project.scm.id>
-        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.source>1.8</maven.compiler.source>
         <additionalparam>-Xdoclint:none</additionalparam>
         <jqf.version>1.6</jqf.version>
     </properties>
