@@ -1,7 +1,10 @@
 package com.emailage.javawrapper.model.response;
 
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -65,6 +68,8 @@ public class EmailageQuery {
     private String pocPreProcessing;
     private int transactionTypeId;
     private String transactionTypeDescription;
+    private String phoneCountryCode;
+    private int ccBinNumber;
 
     public String getEmail() {
         return email;
@@ -554,4 +559,18 @@ public class EmailageQuery {
     public void setTransactionTypeDescription(String transactionTypeDescription) {
         this.transactionTypeDescription = transactionTypeDescription;
     }
+
+    public String getPhoneCountryCode()  {  return phoneCountryCode; }
+    @JsonProperty("phoneCountryCode")
+    public void setPhoneCountryCode(String phoneCountryCode) {
+        this.phoneCountryCode = phoneCountryCode;
+    }
+
+    public int getCcBinNumber() {  return ccBinNumber; }
+    @JsonProperty("ccBinNumber")
+    public void setCcBinNumber(int ccBinNumber ) {
+        this.ccBinNumber = ccBinNumber;
+    }
+
+
 }

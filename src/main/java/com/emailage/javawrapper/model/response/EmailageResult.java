@@ -39,7 +39,6 @@ public class EmailageResult {
     private String smFriends;
     private String totalHits;
     private String uniqueHits;
-    private String imageURL;
     private String emailExists;
     private String domainExists;
     private String company;
@@ -431,15 +430,6 @@ public class EmailageResult {
     @JsonProperty("uniquehits")
     public void setUniqueHits(String uniqueHits) {
         this.uniqueHits = uniqueHits;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    @JsonProperty("imageurl")
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
     }
 
     public String getEmailExists() {
