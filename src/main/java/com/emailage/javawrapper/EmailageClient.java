@@ -115,8 +115,7 @@ public class EmailageClient {
 		StringBuffer queryBuffer = new StringBuffer("query=");
 		queryBuffer.append(queryElement);
 		String result = PostQuery(APIUrl.Query,null, queryBuffer.toString(), parameters);
-		String decodedString =  java.net.URLDecoder.decode(result, StandardCharsets.UTF_8.name());
-		return deserialize(decodedString);
+		return deserialize(result);
 	}
 
 	/**
@@ -214,8 +213,7 @@ public class EmailageClient {
 				// Specify Fraud Type: Fraud or Good
 				+ "&flag=" + fraudType;
 		String result = PostQuery(APIUrl.MarkAsFraud, fraudType, query, parameters);
-		String decodedString =  java.net.URLDecoder.decode(result, StandardCharsets.UTF_8.name());
-		EmailageResponse response =  deserialize(decodedString);
+		EmailageResponse response =  deserialize(result);
 		response.getQuery().setEmail(java.net.URLDecoder.decode(response.getQuery().getEmail(), StandardCharsets.UTF_8.name()));
 
 		return response;
