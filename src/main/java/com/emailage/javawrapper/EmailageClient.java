@@ -90,8 +90,7 @@ public class EmailageClient {
 		validateParams(email, parameters.isValidateBeforeSending());
 		String query = "query=" + java.net.URLEncoder.encode(email, StandardCharsets.UTF_8.name());
 		String result = PostQuery(APIUrl.Query, null, query, parameters);
-		String decodedString =  java.net.URLDecoder.decode(result, StandardCharsets.UTF_8.name());
-		return deserialize(decodedString);
+		return deserialize(result);
 	}
 
 	/**
