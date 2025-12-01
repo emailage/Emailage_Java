@@ -375,4 +375,78 @@ public class EmailageClientTest {
     final String expectedResult = "{    \"query\": {        \"email\": \"rajesh@yahoo.com\",        \"queryType\": \"EmailAgeVerification\",        \"count\": 1,        \"created\": \"2019-02-12T18:51:31Z\",        \"lang\": \"en-US\",        \"responseCount\": 1,        \"response_language\": \"json\",        \"results\": [            {                \"userdefinedrecordid\": \"\",                \"email\": \"rajesh@yahoo.com\",                \"eName\": \"\",                \"emailAge\": \"\",                \"email_creation_days\": \"\",                \"domainAge\": \"1995-01-18T05:00:00Z\",                \"domain_creation_days\": \"8790\",                \"firstVerificationDate\": \"2019-01-23T23:41:58Z\",                \"first_seen_days\": \"19\",                \"lastVerificationDate\": \"2019-01-29T18:22:38Z\",                \"status\": \"ValidDomain\",                \"country\": \"US\",                \"fraudRisk\": \"995 Very High\",                \"EAScore\": \"995\",                \"EAReason\": \"Fraud Level 2\",                \"EAStatusID\": \"4\",                \"EAReasonID\": \"1\",                \"EAAdviceID\": \"1\",                \"EAAdvice\": \"Fraud Review\",                \"EARiskBandID\": \"7\",                \"EARiskBand\": \"test2\",                \"source_industry\": \"Other\",                \"fraud_type\": \"Card Not Present Fraud\",                \"lastflaggedon\": \"2019-02-08T22:58:20Z\",                \"dob\": \"1986\",                \"gender\": \"male\",                \"location\": \"Dubai, United Arab Emirates\",                \"smfriends\": \"515\",                \"totalhits\": \"154\",                \"uniquehits\": \"3\",                \"emailExists\": \"Not Sure\",                \"domainExists\": \"Yes\",                \"company\": \"\",                \"title\": \"\",                \"domainname\": \"yahoo.com\",                \"domaincompany\": \"YahooInc\",                \"domaincountryname\": \"United States\",                \"domaincategory\": \"Webmail\",                \"domaincorporate\": \"No\",                \"domainrisklevel\": \"Low\",                \"domainrelevantinfo\": \"Low Risk Domain\",                \"domainrisklevelID\": \"4\",                \"domainrelevantinfoID\": \"510\",                \"domainriskcountry\": \"No\",                \"smlinks\": [                    {                        \"source\": \"Facebook\",                        \"link\": \"https://www.facebook.com/pmdrajesh\"                    },                    {                        \"source\": \"Flickr\",                        \"link\": \"https://www.flickr.com/people/44791251@N06/\"                    },                    {                        \"source\": \"Gravatar\",                        \"link\": \"https://gravatar.com/openideas123345\"                    },                    {                        \"source\": \"Vimeo\",                        \"link\": \"http://vimeo.com/user7725693\"                    }                ],                \"phone_status\": \"\",                \"shipforward\": \"\"            }        ]    },    \"responseStatus\": {        \"status\": \"success\",        \"errorCode\": \"0\",        \"description\": \"\"    }}";
     final String tokenResult = "{\"client_id\":\"65D7CA94989A4CBE9D7311B933DB2A82\",\"access_token\":\"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NUQ3Q0E5NDk4OUE0Q0JFOUQ3MzExQjkzM0RCMkE4MiIsIm5iZiI6MTYxMTg0OTczOSwiZXhwIjoxNjExODUwNjM5LCJpYXQiOjE2MTE4NDk3MzksImlzcyI6Imh0dHBzOi8vYXBpLmVtYWlsYWdlLmNvbSIsImF1ZCI6Imh0dHBzOi8vYXBpLmVtYWlsYWdlLmNvbSJ9.fwfujqOLcjnupGC74FDrTH03h0iqVH_QXW9rXSuD1g4Nsr8k9BYdTYRtT1DYGc3YxB3_u3h1324O6teJ5IxH6g\",\"token_type\":\"bearer\",\"expires_in\":900,\"refresh_token\":\"TsTnQJBEQPAvWeP9RGiZDjOGHyu2PYgjrK75bqIORiYU9PiAjVX6a2jAlJDTN9vVyAxMRi6dMlXZtTUP6uo9iDZKki0dK3n7sH3snlTuClKlVnxfj0SW300trq29bMtR\",\"scope\":null}";
     final String tokenRequest = "grant_type=client_credentials&client_id=test&client_secret=test";
+
+    @Test()
+    public void queryEmailWithTimeoutConfiguration() throws Exception {
+
+        when(helpMock.getHttpsURLConnection(any(), eq(5000), eq(10000))).thenReturn(urlMock);
+        when(helpMock.PostRequest(any(),any())).thenReturn(rajeshResponse);
+        EmailageClient.httpHelper = helpMock;
+
+        ConfigurationParameters parameters = new ConfigurationParameters();
+        parameters.setUserEmail("me@dne.com");
+        parameters.setAcccountToken(authToken);
+        parameters.setAccountSecret(accountSecret);
+        parameters.setEnvironment(Enums.Environment.Sandbox);
+        parameters.setHashAlgorithm(Enums.SignatureMethod.HMAC_SHA256);
+        parameters.setResultFormat(Enums.Format.Json);
+        parameters.setConnectTimeout(5000);
+        parameters.setReadTimeout(10000);
+
+        EmailageResponse result = EmailageClient.QueryEmail("tmp@dne.com", parameters);
+
+        verify(urlMock).disconnect();
+        verify(helpMock, times(1)).getHttpsURLConnection(any(), eq(5000), eq(10000));
+        verify(helpMock,times(1)).PostRequest(any(),any());
+        assertNotNull(result);
+    }
+
+    @Test()
+    public void queryEmailWithNullTimeoutsUsesDefaults() throws Exception {
+
+        when(helpMock.getHttpsURLConnection(any(), isNull(), isNull())).thenReturn(urlMock);
+        when(helpMock.PostRequest(any(),any())).thenReturn(rajeshResponse);
+        EmailageClient.httpHelper = helpMock;
+
+        ConfigurationParameters parameters = new ConfigurationParameters();
+        parameters.setUserEmail("me@dne.com");
+        parameters.setAcccountToken(authToken);
+        parameters.setAccountSecret(accountSecret);
+        parameters.setEnvironment(Enums.Environment.Sandbox);
+        parameters.setHashAlgorithm(Enums.SignatureMethod.HMAC_SHA256);
+        parameters.setResultFormat(Enums.Format.Json);
+        // Not setting connectTimeout and readTimeout - they should remain null
+
+        EmailageResponse result = EmailageClient.QueryEmail("tmp@dne.com", parameters);
+
+        verify(urlMock).disconnect();
+        verify(helpMock, times(1)).getHttpsURLConnection(any(), isNull(), isNull());
+        verify(helpMock,times(1)).PostRequest(any(),any());
+        assertNotNull(result);
+    }
+
+    @Test()
+    public void queryEmailOAuth2WithTimeoutConfiguration() throws Exception {
+
+        when(helpMock.getHttpsURLConnection(any(), eq(3000), eq(6000))).thenReturn(urlMock);
+        when(helpMock.PostRequest(any(),any())).thenReturn(tokenResult).thenReturn(rajeshResponse);
+        EmailageClient.httpHelper = helpMock;
+
+        ConfigurationParameters parameters = new ConfigurationParameters();
+        parameters.setUserEmail("me@dne.com");
+        parameters.setAcccountToken(authToken + System.currentTimeMillis()); // unique token to avoid cached OAuth2Wrapper
+        parameters.setAccountSecret(accountSecret);
+        parameters.setEnvironment(Enums.Environment.Sandbox);
+        parameters.setAuthenticationType(Enums.AuthenticationType.OAUTH2);
+        parameters.setResultFormat(Enums.Format.Json);
+        parameters.setConnectTimeout(3000);
+        parameters.setReadTimeout(6000);
+
+        EmailageResponse result = EmailageClient.QueryEmail("tmp@dne.com", parameters);
+
+        verify(urlMock, times(2)).disconnect();
+        verify(helpMock, times(2)).getHttpsURLConnection(any(), eq(3000), eq(6000));
+        verify(helpMock,times(2)).PostRequest(any(),any());
+        assertNotNull(result);
+    }
 }
