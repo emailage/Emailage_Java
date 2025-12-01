@@ -75,17 +75,21 @@ public class OAuth2Wrapper {
     }
 
     public String doOAuth2Request(URL url, String form) throws Exception {
+        return doOAuth2Request(url, form, null, null);
+    }
+
+    public String doOAuth2Request(URL url, String form, Integer connectTimeout, Integer readTimeout) throws Exception {
 
         synchronized (lock) {
             if (expiration.isBefore(LocalDateTime.now())) {
-                token = getAccessToken(token, accountToken, accountSecret, this.tokenUrl);
+                token = getAccessToken(token, accountToken, accountSecret, this.tokenUrl, connectTimeout, readTimeout);
                 expiration = LocalDateTime.now().plusSeconds(token.getAccessExpiration());
             }
         }
 
         String answer;
         byte[] body = form.getBytes(StandardCharsets.UTF_8);
-        HttpsURLConnection conn = httpHelper.getHttpsURLConnection(url);
+        HttpsURLConnection conn = httpHelper.getHttpsURLConnection(url, connectTimeout, readTimeout);
         try (AutoCloseable conc = new AutoCloseableHttpsUrlConnection(conn)) {
             conn.setRequestProperty("Authorization", "Bearer " + token.getAccessToken());
             answer = httpHelper.PostRequest(body, conn);
@@ -95,10 +99,14 @@ public class OAuth2Wrapper {
     }
 
     private OAuth2Token getAccessToken(OAuth2Token token, String accountToken, String accountSecret, URL tokenUrl) throws Exception {
+        return getAccessToken(token, accountToken, accountSecret, tokenUrl, null, null);
+    }
+
+    private OAuth2Token getAccessToken(OAuth2Token token, String accountToken, String accountSecret, URL tokenUrl, Integer connectTimeout, Integer readTimeout) throws Exception {
 
         String answer = null;
         try {
-            HttpsURLConnection conn = httpHelper.getHttpsURLConnection(tokenUrl);
+            HttpsURLConnection conn = httpHelper.getHttpsURLConnection(tokenUrl, connectTimeout, readTimeout);
             try (AutoCloseable conc = new AutoCloseableHttpsUrlConnection(conn)) {
 
                 String form;
@@ -116,7 +124,7 @@ public class OAuth2Wrapper {
             // using the full credentials.
             if(token.getRefreshToken() != null) {
                 token.setRefreshToken(null);
-                getAccessToken(token, accountToken, accountSecret, tokenUrl);
+                getAccessToken(token, accountToken, accountSecret, tokenUrl, connectTimeout, readTimeout);
             } else {
                 throw ex;
             }

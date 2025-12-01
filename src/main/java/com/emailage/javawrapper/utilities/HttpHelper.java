@@ -14,6 +14,10 @@ public class HttpHelper {
     public HttpHelper(){}
 
     public HttpsURLConnection getHttpsURLConnection(URL url) throws NoSuchAlgorithmException, KeyManagementException, IOException {
+        return getHttpsURLConnection(url, null, null);
+    }
+
+    public HttpsURLConnection getHttpsURLConnection(URL url, Integer connectTimeout, Integer readTimeout) throws NoSuchAlgorithmException, KeyManagementException, IOException {
         double version = Double.parseDouble(System.getProperty("java.specification.version"));
         SSLContext context;
         HttpsURLConnection conn;
@@ -29,6 +33,14 @@ public class HttpHelper {
             // use the system default.
             conn = (HttpsURLConnection) url.openConnection();
         }
+
+        if (connectTimeout != null) {
+            conn.setConnectTimeout(connectTimeout);
+        }
+        if (readTimeout != null) {
+            conn.setReadTimeout(readTimeout);
+        }
+
         return conn;
     }
 

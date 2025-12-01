@@ -11,6 +11,8 @@ public class ConfigurationParameters {
     private Enums.Format resultFormat;
     private boolean validateBeforeSending = true;
     private Enums.AuthenticationType authenticationType;
+    private Integer connectTimeout;
+    private Integer readTimeout;
 
     public ConfigurationParameters(){
         this.authenticationType = Enums.AuthenticationType.OAUTH1;
@@ -94,5 +96,35 @@ public class ConfigurationParameters {
 
     public void setAuthenticationType(Enums.AuthenticationType authenticationType) {
         this.authenticationType = authenticationType;
+    }
+
+    /**
+     * @return Connection timeout in milliseconds. If null, no timeout is explicitly set (system default behavior).
+     */
+    public Integer getConnectTimeout() {
+        return connectTimeout;
+    }
+
+    /**
+     * Sets the connection timeout in milliseconds.
+     * @param connectTimeout connection timeout in milliseconds, or null to use system default
+     */
+    public void setConnectTimeout(Integer connectTimeout) {
+        this.connectTimeout = connectTimeout;
+    }
+
+    /**
+     * @return Read timeout in milliseconds. If null, no timeout is explicitly set (system default behavior).
+     */
+    public Integer getReadTimeout() {
+        return readTimeout;
+    }
+
+    /**
+     * Sets the read timeout in milliseconds.
+     * @param readTimeout read timeout in milliseconds, or null to use system default
+     */
+    public void setReadTimeout(Integer readTimeout) {
+        this.readTimeout = readTimeout;
     }
 }

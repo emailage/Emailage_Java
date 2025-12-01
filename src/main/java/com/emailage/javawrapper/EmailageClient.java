@@ -260,7 +260,7 @@ public class EmailageClient {
 		try {
 
 			OAuth2Wrapper auth = OAuth2Wrapper.getInstance(parameters.getAcccountToken(), parameters.getAccountSecret(), tokenUrl, httpHelper);
-			answer = auth.doOAuth2Request(url, urlParameters);
+			answer = auth.doOAuth2Request(url, urlParameters, parameters.getConnectTimeout(), parameters.getReadTimeout());
 
 		} catch (Exception e1) {
 			throw new EmailageApiRequestException("Could not complete API request",e1);
@@ -289,7 +289,7 @@ public class EmailageClient {
 		// create an object for return
 		String answer;
 		try {
-			HttpsURLConnection conn = httpHelper.getHttpsURLConnection(url);
+			HttpsURLConnection conn = httpHelper.getHttpsURLConnection(url, parameters.getConnectTimeout(), parameters.getReadTimeout());
 			try(AutoCloseable conc = new AutoCloseableHttpsUrlConnection(conn)) {
 				answer = httpHelper.PostRequest(postData, conn);
 			}
