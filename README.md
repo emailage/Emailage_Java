@@ -1,4 +1,12 @@
-
+> [!WARNING]
+> **This repository will no longer be accessible after 30th September 2026.**
+>
+> This project has been migrated to a consolidated monorepo. Please update your bookmarks, forks,
+> and any CI/CD pipelines to point to the new location:
+>
+> **➡ [https://github.com/lexisnexis-risk-solutions/emailage-public-clients/tree/main/Emailage_Java](https://github.com/lexisnexis-risk-solutions/emailage-public-clients/tree/main/Emailage_Java)**
+>
+> No further updates will be made to this repository.
 The [Emailage](https://risk.lexisnexis.co.uk/products/lexisnexis-emailage)&#8482; API is organized around REST (Representational State Transfer). The API was built to help companies integrate with our highly efficient fraud risk and scoring system. By calling our API endpoints and simply passing us an email and/or IP Address, companies will be provided with real-time risk scoring assessments based around machine learning and proprietary algorithms that evolve with new fraud trends.
 
 
